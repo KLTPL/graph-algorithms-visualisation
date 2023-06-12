@@ -10,14 +10,14 @@ export interface SearchExecutionDataMatrixGraph {
   pathToEndNode: FieldMatrixGraph[]|null;
   pathCost: number,
 }
-export interface SearchExecutionDataEdgeGraph {
+export interface SearchExecutionDataDirectedWeightedGraph {
   listOfSteps: NodeEdgeGraph[];
   isEndNodeReached: boolean;
   pathToEndNode: NodeEdgeGraph[]|null;
   pathCost: number,
 }
 
-export type AnySearchExecutionData = SearchExecutionDataMatrixGraph | SearchExecutionDataEdgeGraph;
+export type AnySearchExecutionData = SearchExecutionDataMatrixGraph | SearchExecutionDataDirectedWeightedGraph;
 
 export type VisitedNodesStartNode = true;
 // true - startNode null - not visited or startNode; FieldMatrixGraph - field was visited from
@@ -27,5 +27,5 @@ export type VisitedNodesEdgeDirectedWieghtedGraph = Map<NodeEdgeGraph, VisitedNo
 export type AnyVisitedNodes = VisitedNodesMatrixGraph | VisitedNodesEdgeDirectedWieghtedGraph;
 
 export type SearchAlgorithmFunMatrixGraph = (graphData: MatrixGraphData, data: SearchExecutionDataMatrixGraph) => void;
-export type SearchAlgorithmFunDirectedWeightedGraph = (graphData: DirectedWeightedGraphData, data: SearchExecutionDataEdgeGraph) => void;
+export type SearchAlgorithmFunDirectedWeightedGraph = (graphData: DirectedWeightedGraphData, data: SearchExecutionDataDirectedWeightedGraph) => void;
 export type AnySearchAlgorithmFun = SearchAlgorithmFunMatrixGraph | SearchAlgorithmFunDirectedWeightedGraph;

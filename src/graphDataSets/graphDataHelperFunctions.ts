@@ -1,8 +1,9 @@
-import { AnySearchExecutionData, SearchAlgorithmsTypes, SearchExecutionDataEdgeGraph, SearchExecutionDataMatrixGraph } from "../searchAlgorithms/allAlgorithmData";
+import { AnySearchExecutionData, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph, SearchExecutionDataMatrixGraph } from "../searchAlgorithms/allAlgorithmData";
 import directedGraphData from "./DirectedGraphData";
 import directedWeightedGraphData from "./DirectedWeightedGraphData";
 import matrixGraphData from "./MatrixGraphData";
 import undirectedGraphData from "./UndirectedGraphData";
+import undirectedWeightedGraphData from "./UndirectedWeightedGraphData";
 import { AnyGraphData, DirectedWeightedGraphData, UserGraphTypes, MatrixGraphData, NodeEdgeGraph, ToNodeDirectedWeightedGraph } from "./allGraphData";
 
 
@@ -16,12 +17,11 @@ export function getProperGraphData(graphType: UserGraphTypes): AnyGraphData {
     case UserGraphTypes.directed: return directedGraphData;
     case UserGraphTypes.directedWeighted: return directedWeightedGraphData;
     case UserGraphTypes.undirected: return undirectedGraphData;
-    case UserGraphTypes.undirectedWeighted: return undirectedGraphData;
+    case UserGraphTypes.undirectedWeighted: return undirectedWeightedGraphData;
   }
 }
 
 export function executeProperGraphAlgorithm(graphData: AnyGraphData, data: AnySearchExecutionData, algorithmType: SearchAlgorithmsTypes): void {
-  console.log("graphData:", graphData);
   if (graphData.type === UserGraphTypes.matrix) {
     const graphDataTmp = graphData as MatrixGraphData;
     const fun = (algorithmType === SearchAlgorithmsTypes.dfs) ? graphDataTmp.dfs : graphDataTmp.bfs;
@@ -29,6 +29,6 @@ export function executeProperGraphAlgorithm(graphData: AnyGraphData, data: AnySe
   } else {
     const graphDataTmp = graphData as DirectedWeightedGraphData;
     const fun = (algorithmType === SearchAlgorithmsTypes.dfs) ? graphDataTmp.dfs : graphDataTmp.bfs;
-    fun(graphDataTmp, data as SearchExecutionDataEdgeGraph);
+    fun(graphDataTmp, data as SearchExecutionDataDirectedWeightedGraph);
   }
 }

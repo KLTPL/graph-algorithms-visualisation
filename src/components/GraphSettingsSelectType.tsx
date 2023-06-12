@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useGraphType } from "../SettingsContext";
 import { UserGraphTypes } from "../graphDataSets/allGraphData";
 

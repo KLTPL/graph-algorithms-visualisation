@@ -73,7 +73,6 @@ function dfsOrBfs(graphData: GraphDataHere, data: SearchExecutionDataHere, isDfs
     backtrackToStartNode(graphData, data, visitedNodes);
   }
 
-  console.log("visitedNodes", visitedNodes);
 }
 
 function backtrackToStartNode(graphData: GraphDataHere, data: SearchExecutionDataHere, visitedNodes: VisitedNodesHere): void { // fills data.pathToEndNode and data.pathCost

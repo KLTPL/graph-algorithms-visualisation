@@ -10,7 +10,7 @@ import { SearchAlgorithmFunMatrixGraph } from "../searchAlgorithms/allAlgorithmD
 // edge undirected weighted graph -> edge directed weighted graph
 
 export enum UserGraphTypes {
-  matrix, directed, undirected, undirectedWeighted, directedWeighted
+  matrix, directed, directedWeighted, undirected, undirectedWeighted
 }
 
 export enum FieldTypesMatrixGraph {

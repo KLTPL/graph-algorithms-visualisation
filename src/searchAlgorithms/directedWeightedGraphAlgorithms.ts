@@ -1,5 +1,5 @@
 import { DirectedWeightedGraphData as GraphDataHere, DirectedWeightedGraph, NodeEdgeGraph, ToNodeDirectedWeightedGraph } from "../graphDataSets/allGraphData";
-import { SearchAlgorithmFunDirectedWeightedGraph as SearchAlgorithmFunHere, SearchExecutionDataEdgeGraph as SearchExecutionDataHere, VisitedNodesEdgeDirectedWieghtedGraph as VisitedNodesHere, VisitedNodesStartNode } from "./allAlgorithmData";
+import { SearchAlgorithmFunDirectedWeightedGraph as SearchAlgorithmFunHere, SearchExecutionDataDirectedWeightedGraph as SearchExecutionDataHere, VisitedNodesEdgeDirectedWieghtedGraph as VisitedNodesHere, VisitedNodesStartNode } from "./allAlgorithmData";
 
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 
@@ -67,7 +67,6 @@ function dfsOrBfs(graphData: GraphDataHere, data: SearchExecutionDataHere, isDfs
   if (data.isEndNodeReached) {
     backtrackToStartNode(graphData, data, visitedNodes);
   }
-  console.log(`visitedNodes`, visitedNodes);
 }
 
 function backtrackToStartNode(graphData: GraphDataHere, data: SearchExecutionDataHere, visitedNodes: VisitedNodesHere): void { // fills data.pathToEndNode and data.pathCost

@@ -1,5 +1,6 @@
-import { FieldMatrixGraph, FieldTypesMatrixGraph, MatrixGraph, MatrixGraphData as GraphDataHere } from "../graphDataSets/allGraphData";
-import { VisitedNodesMatrixGraph as VisitedNodesHere, SearchAlgorithmFunMatrixGraph as SearchAlgorithmFunHere, SearchExecutionDataMatrixGraph as SearchExecutionDataHere, VisitedNodesStartNode } from "./allAlgorithmData";
+import { getEmptySearchData } from "../getProperDataFunctions";
+import { FieldMatrixGraph, FieldTypesMatrixGraph, MatrixGraph, GraphDataMatrix as GraphDataHere } from "../graphDataSets/allGraphData";
+import { VisitedNodesMatrixGraph as VisitedNodesHere, SearchAlgorithmFunMatrix as SearchAlgorithmFunHere, SearchExecutionDataMatrixGraph as SearchExecutionDataHere, VisitedNodesStartNode, SearchAlgorithmsFunsMatrix, SearchAlgorithmsTypes } from "./allAlgorithmData";
 
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 
@@ -37,26 +38,21 @@ function isFieldEmpty(field: FieldMatrixGraph, graph: MatrixGraph) {
   return graph[field.y][field.x] === FieldTypesMatrixGraph.empty;
 }
 
-export const dfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere, data: SearchExecutionDataHere): void {
-  dfsOrBfs(graphData, data, true);
-}
-
-export const bfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere, data: SearchExecutionDataHere): void {
-  dfsOrBfs(graphData, data, false);
-}
-
-function dfsOrBfs(graphData: GraphDataHere, data: SearchExecutionDataHere, isDfs: boolean) {
+function dfsOrBfs(graphData: GraphDataHere, isDfs: boolean): SearchExecutionDataHere {
+  const algorithmData = getEmptySearchData(
+    (isDfs) ? SearchAlgorithmsTypes.dfs : SearchAlgorithmsTypes.dfs
+  ) as SearchExecutionDataHere;
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
   const stack = [ graphData.startNode ];
   const visitedNodes = getEmptyVisitedNodes(graphData.graph, graphData.startNode);
 
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes 
-  while (stack.length > 0 && !data.isEndNodeReached) {
+  while (stack.length > 0 && !algorithmData.isEndNodeReached) {
     const currNode = ((isDfs) ? stack.pop() : stack.shift()) as FieldMatrixGraph;
-    data.listOfSteps.push(currNode);
+    algorithmData.listOfSteps.push(currNode);
     for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
       if (isNodeEndNode(neighborNode, graphData.endNode)) {
-        data.isEndNodeReached = true;
+        algorithmData.isEndNodeReached = true;
         markNodeAsVisited(neighborNode, currNode, visitedNodes);
         break;
       }
@@ -66,13 +62,13 @@ function dfsOrBfs(graphData: GraphDataHere, data: SearchExecutionDataHere, isDfs
       }
     }
   }
-  data.listOfSteps.shift();
+  algorithmData.listOfSteps.shift();
 
   // Use visitedNodes to backtrack to the starNode and reverse the order to get data.pathToEndNode. Also cout data.pathCost (data.pathToEndNode.length).
-  if (data.isEndNodeReached) {
-    backtrackToStartNode(graphData, data, visitedNodes);
+  if (algorithmData.isEndNodeReached) {
+    backtrackToStartNode(graphData, algorithmData, visitedNodes);
   }
-
+  return algorithmData;
 }
 
 function backtrackToStartNode(graphData: GraphDataHere, data: SearchExecutionDataHere, visitedNodes: VisitedNodesHere): void { // fills data.pathToEndNode and data.pathCost
@@ -88,3 +84,15 @@ function backtrackToStartNode(graphData: GraphDataHere, data: SearchExecutionDat
   data.pathToEndNode.pop();
   data.pathToEndNode.reverse();
 }
+
+const dfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere): SearchExecutionDataHere {
+  return dfsOrBfs(graphData, true);
+}
+
+const bfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere): SearchExecutionDataHere {
+  return dfsOrBfs(graphData, false);
+}
+
+const searchAlgorithmsFunsDW: SearchAlgorithmsFunsMatrix = { dfs, bfs };
+
+export default searchAlgorithmsFunsDW;

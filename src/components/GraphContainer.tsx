@@ -1,63 +1,52 @@
 import { useEffect, useState } from "react";
-import { useGraphType, useListOfStepsIdx, useSearchAlgorithmType } from "../SettingsContext";
-import { DirectedWeightedGraphData, MatrixGraphData, UserGraphTypes } from "../graphDataSets/allGraphData";
-import { AnySearchExecutionData, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph, SearchExecutionDataMatrixGraph } from "../searchAlgorithms/allAlgorithmData";
-import { executeProperGraphAlgorithm, getProperGraphData } from "../graphDataSets/graphDataHelperFunctions";
+import { UserGraphTypes } from "../visualisationData/graphDataSets/allGraphData";
+import { SearchAlgorithmsTypes } from "../visualisationData/searchAlgorithms/allAlgorithmData";
 import Matrix from "./graphs/Matrix";
 import Directed from "./graphs/Directed";
 import DirectedWeighted from "./graphs/DirectedWeighted";
 import Undirected from "./graphs/Undirected";
 import UndirectedWeighted from "./graphs/UndirectedWeighted";
+import { VisualisationDataDirectedWeighted, VisualisationDataMatrix } from "../visualisationData/allVisualisationData";
+import { getProperVisualisationData } from "../visualisationData/getProperDataFunctions";
+import { useVisualisationData } from "../SettingsContext";
 
-export type GraphComponentMatrixProps = { graphData: MatrixGraphData, data: SearchExecutionDataMatrixGraph };
-export type GraphComponentDirectedWeightedProps = { graphData: DirectedWeightedGraphData, data: SearchExecutionDataDirectedWeightedGraph };
+export type GraphComponentMatrixProps = { visualisationData: VisualisationDataMatrix };
+export type GraphComponentDirectedWeightedProps = { visualisationData: VisualisationDataDirectedWeighted };
 
 function getProperGraphElement(graphType: UserGraphTypes, searchAlgorithmType: SearchAlgorithmsTypes): JSX.Element {
-  const graphData = getProperGraphData(graphType);
-  const data = getEmptySearchData();
-  executeProperGraphAlgorithm(graphData, data, searchAlgorithmType);
+  const visualisationData = getProperVisualisationData(graphType, searchAlgorithmType);
 
-  const graphDataM = graphData as MatrixGraphData;
-  const dataM = data as SearchExecutionDataMatrixGraph;
-  const graphDataDW = graphData as DirectedWeightedGraphData;
-  const dataDW = data as SearchExecutionDataDirectedWeightedGraph;
+  const visualisationDataM = visualisationData as VisualisationDataMatrix;
+  const visualisationDataDW = visualisationData as VisualisationDataDirectedWeighted;
 
-  switch (graphData.type) {
+  switch (graphType) {
     case UserGraphTypes.matrix: 
-      return <Matrix graphData={graphDataM} data={dataM} />;
+      return <Matrix visualisationData={visualisationDataM} />;
     case UserGraphTypes.directed: 
-      return <Directed graphData={graphDataDW} data={dataDW} />;
+      return <Directed visualisationData={visualisationDataDW} />;
     case UserGraphTypes.directedWeighted: 
-      return <DirectedWeighted graphData={graphDataDW} data={dataDW} />;
+      return <DirectedWeighted visualisationData={visualisationDataDW} />;
     case UserGraphTypes.undirected: 
-      return <Undirected graphData={graphDataDW} data={dataDW} />;
+      return <Undirected visualisationData={visualisationDataDW} />;
     case UserGraphTypes.undirectedWeighted: 
-      return <UndirectedWeighted graphData={graphDataDW} data={dataDW} />;
+      return <UndirectedWeighted visualisationData={visualisationDataDW} />;
   }
 }
 
-const getEmptySearchData = (): AnySearchExecutionData => {
-  return {
-    listOfSteps: [],
-    pathCost: Infinity,
-    pathToEndNode: null,
-    isEndNodeReached: false,
-  };
-}
-
 export default function GraphContainer() {
-  const graphTypeObj = useGraphType();
-  const searchTypeObj = useSearchAlgorithmType();
-  const listOfSteps = useListOfStepsIdx();
+  const visualisationDataContext = useVisualisationData();
   const [ graphElement, setGraphElement ] = useState<JSX.Element>(getProperGraphElement(UserGraphTypes.matrix, SearchAlgorithmsTypes.dfs));
 
   useEffect(() => {
-    if (graphTypeObj !== null && searchTypeObj !== null) {
+    console.log("tak");
+    if (visualisationDataContext !== null) {
+      const graphType = visualisationDataContext.visualisationData.graphData.type;
+      const algorithmType = visualisationDataContext.visualisationData.algorithmData.type;
       setGraphElement(
-        getProperGraphElement(graphTypeObj?.type, searchTypeObj?.type)
+        getProperGraphElement(graphType, algorithmType)
       );
     }
-  }, [ graphTypeObj?.type, searchTypeObj?.type ]);
+  }, [ visualisationDataContext ]);
 
   return (
     <div>

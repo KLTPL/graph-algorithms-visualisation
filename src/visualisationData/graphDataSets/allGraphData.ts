@@ -1,6 +1,6 @@
-import { SearchAlgorithmFunDirectedWeightedGraph } from "../searchAlgorithms/allAlgorithmData";
+import { SearchAlgorithmFunDirectedWeighted } from "../searchAlgorithms/allAlgorithmData";
 import { AnySearchAlgorithmFun } from "../searchAlgorithms/allAlgorithmData";
-import { SearchAlgorithmFunMatrixGraph } from "../searchAlgorithms/allAlgorithmData";
+import { SearchAlgorithmFunMatrix } from "../searchAlgorithms/allAlgorithmData";
 
 // Conversion of graphs from user to developer:
 // matrix graph -> matrix graph
@@ -31,24 +31,18 @@ interface GraphDataParent {
   startNode: AnyNode,
   endNode: AnyNode,
   type: UserGraphTypes,
-  dfs: AnySearchAlgorithmFun,
-  bfs: AnySearchAlgorithmFun,
 };
-export interface MatrixGraphData extends GraphDataParent {
+export interface GraphDataMatrix extends GraphDataParent {
   graph: MatrixGraph;
   startNode: FieldMatrixGraph;
   endNode: FieldMatrixGraph;
   type: UserGraphTypes;
-  dfs: SearchAlgorithmFunMatrixGraph,
-  bfs: SearchAlgorithmFunMatrixGraph,
 };
-export interface DirectedWeightedGraphData extends GraphDataParent {
+export interface GraphDataDirectedWeighted extends GraphDataParent {
   graph: DirectedWeightedGraph;
   startNode: NodeEdgeGraph;
   endNode: NodeEdgeGraph;
   type: UserGraphTypes;
-  dfs: SearchAlgorithmFunDirectedWeightedGraph,
-  bfs: SearchAlgorithmFunDirectedWeightedGraph,
 };
 
-export type AnyGraphData = MatrixGraphData|DirectedWeightedGraphData;
+export type AnyGraphData = GraphDataMatrix|GraphDataDirectedWeighted;

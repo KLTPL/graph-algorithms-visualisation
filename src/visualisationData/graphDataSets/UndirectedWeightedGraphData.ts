@@ -1,7 +1,6 @@
-import {  DirectedWeightedGraphData, UserGraphTypes } from "./allGraphData";
-import { dfs, bfs } from "../searchAlgorithms/directedWeightedGraphAlgorithms";
+import {  GraphDataDirectedWeighted, UserGraphTypes } from "./allGraphData";
 
-const undirectedWeightedGraphData: DirectedWeightedGraphData = {
+const undirectedWeightedGraphData: GraphDataDirectedWeighted = {
   graph: new Map([
     ["a", [{node: "b", cost: 1}, {node: "c", cost: 6}, {node: "d", cost: 5}]],
     ["b", [{node: "a", cost: 1}, {node: "c", cost: 6}]],
@@ -16,8 +15,6 @@ const undirectedWeightedGraphData: DirectedWeightedGraphData = {
   startNode: "b",
   endNode: "i",
   type: UserGraphTypes.undirected,
-  dfs: dfs,
-  bfs: bfs,
 }
 
 export default undirectedWeightedGraphData;

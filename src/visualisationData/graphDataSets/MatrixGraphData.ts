@@ -1,13 +1,10 @@
-import { bfs, dfs } from "../searchAlgorithms/matrixGraphAlgorithms";
-import { FieldTypesMatrixGraph, UserGraphTypes, MatrixGraph, MatrixGraphData } from "./allGraphData";
+import { FieldTypesMatrixGraph, UserGraphTypes, MatrixGraph, GraphDataMatrix } from "./allGraphData";
 
-const matrixGraphData: MatrixGraphData = {
+export const matrixGraphData: GraphDataMatrix = {
   graph: getDefaultGraph(),
   startNode: { x: 2, y: 2 },
   endNode: { x: 0, y: 0 },
   type: UserGraphTypes.matrix,
-  dfs: dfs,
-  bfs: bfs,
 };
 
 function getDefaultGraph(): MatrixGraph {

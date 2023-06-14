@@ -1,8 +1,7 @@
-import {  DirectedWeightedGraphData, UserGraphTypes } from "./allGraphData";
-import { getConverted } from "./graphDataHelperFunctions";
-import { dfs, bfs } from "../searchAlgorithms/directedWeightedGraphAlgorithms";
+import { getConverted } from "../getProperDataFunctions";
+import {  GraphDataDirectedWeighted, UserGraphTypes } from "./allGraphData";
 
-const undirectedGraphData: DirectedWeightedGraphData = {
+const undirectedGraphData: GraphDataDirectedWeighted = {
   graph: new Map([
     ["a", getConverted(["h", "j", "l"])],
     ["b", getConverted(["i", "k"])],
@@ -21,8 +20,6 @@ const undirectedGraphData: DirectedWeightedGraphData = {
   startNode: "k",
   endNode: "e",
   type: UserGraphTypes.undirected,
-  dfs: dfs,
-  bfs: bfs,
 }
 
 export default undirectedGraphData;

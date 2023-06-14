@@ -1,20 +1,22 @@
-import { DirectedWeightedGraphData, FieldMatrixGraph, MatrixGraphData, NodeEdgeGraph } from "../graphDataSets/allGraphData";
+import { GraphDataDirectedWeighted, FieldMatrixGraph, GraphDataMatrix, NodeEdgeGraph } from "../graphDataSets/allGraphData";
 
 export enum SearchAlgorithmsTypes {
   dfs, bfs
 }
 
 export interface SearchExecutionDataMatrixGraph {
+  type: SearchAlgorithmsTypes,
   listOfSteps: FieldMatrixGraph[];
   isEndNodeReached: boolean;
   pathToEndNode: FieldMatrixGraph[]|null;
-  pathCost: number,
+  pathCost: number;
 }
 export interface SearchExecutionDataDirectedWeightedGraph {
+  type: SearchAlgorithmsTypes,
   listOfSteps: NodeEdgeGraph[];
   isEndNodeReached: boolean;
   pathToEndNode: NodeEdgeGraph[]|null;
-  pathCost: number,
+  pathCost: number;
 }
 
 export type AnySearchExecutionData = SearchExecutionDataMatrixGraph | SearchExecutionDataDirectedWeightedGraph;
@@ -26,6 +28,15 @@ export type VisitedNodesMatrixGraph = (VisitedNodesStartNode|null|FieldMatrixGra
 export type VisitedNodesEdgeDirectedWieghtedGraph = Map<NodeEdgeGraph, VisitedNodesStartNode|null|NodeEdgeGraph>;
 export type AnyVisitedNodes = VisitedNodesMatrixGraph | VisitedNodesEdgeDirectedWieghtedGraph;
 
-export type SearchAlgorithmFunMatrixGraph = (graphData: MatrixGraphData, data: SearchExecutionDataMatrixGraph) => void;
-export type SearchAlgorithmFunDirectedWeightedGraph = (graphData: DirectedWeightedGraphData, data: SearchExecutionDataDirectedWeightedGraph) => void;
-export type AnySearchAlgorithmFun = SearchAlgorithmFunMatrixGraph | SearchAlgorithmFunDirectedWeightedGraph;
+export type SearchAlgorithmFunMatrix = (graphData: GraphDataMatrix) => SearchExecutionDataMatrixGraph;
+export type SearchAlgorithmFunDirectedWeighted = (graphData: GraphDataDirectedWeighted) => SearchExecutionDataDirectedWeightedGraph;
+export type AnySearchAlgorithmFun = SearchAlgorithmFunMatrix | SearchAlgorithmFunDirectedWeighted;
+
+export interface SearchAlgorithmsFunsMatrix {
+  dfs: SearchAlgorithmFunMatrix,
+  bfs: SearchAlgorithmFunMatrix,
+}
+export interface SearchAlgorithmsFunsDirectedWeighted {
+  dfs: SearchAlgorithmFunDirectedWeighted,
+  bfs: SearchAlgorithmFunDirectedWeighted,
+}

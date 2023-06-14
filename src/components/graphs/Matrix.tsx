@@ -1,14 +1,13 @@
-import { useState } from "react";
-import { FieldTypesMatrixGraph, MatrixGraphData } from "../../graphDataSets/allGraphData";
-import { SearchExecutionDataMatrixGraph } from "../../searchAlgorithms/allAlgorithmData";
+import { FieldTypesMatrixGraph, GraphDataMatrix } from "../../visualisationData/graphDataSets/allGraphData";
 import { GraphComponentMatrixProps } from "../GraphContainer";
 
-export default function Matrix({ graphData, data }: GraphComponentMatrixProps) {
+export default function Matrix({ visualisationData }: GraphComponentMatrixProps) {
+  const { graphData } = visualisationData;
   function getField(r: number, c: number): JSX.Element {
     return (
       <Field 
         key={`${r};${c}`} 
-        className={getColorClassNamesForField(graphData, data, r, c)} 
+        className={getColorClassNamesForField(graphData, r, c)} 
       />
     );
   }
@@ -25,7 +24,7 @@ export default function Matrix({ graphData, data }: GraphComponentMatrixProps) {
 
 type FieldProps = { className: string };
 
-function getColorClassNamesForField(graphData: MatrixGraphData, data: SearchExecutionDataMatrixGraph, r: number, c: number) {
+function getColorClassNamesForField(graphData: GraphDataMatrix, r: number, c: number) {
   const fieldType = graphData.graph[r][c];
   const isStartOrEnd = (r === graphData.startNode.y && c === graphData.startNode.x) || (r === graphData.endNode.y && c === graphData.endNode.x);
   const isEmpty = (fieldType === FieldTypesMatrixGraph.empty);

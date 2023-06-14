@@ -1,5 +1,6 @@
-import { DirectedWeightedGraphData as GraphDataHere, DirectedWeightedGraph, NodeEdgeGraph, ToNodeDirectedWeightedGraph } from "../graphDataSets/allGraphData";
-import { SearchAlgorithmFunDirectedWeightedGraph as SearchAlgorithmFunHere, SearchExecutionDataDirectedWeightedGraph as SearchExecutionDataHere, VisitedNodesEdgeDirectedWieghtedGraph as VisitedNodesHere, VisitedNodesStartNode } from "./allAlgorithmData";
+import { getEmptySearchData } from "../getProperDataFunctions";
+import { GraphDataDirectedWeighted as GraphDataHere, DirectedWeightedGraph, NodeEdgeGraph, ToNodeDirectedWeightedGraph } from "../graphDataSets/allGraphData";
+import { SearchAlgorithmFunDirectedWeighted as SearchAlgorithmFunHere, SearchAlgorithmsFunsDirectedWeighted, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph as SearchExecutionDataHere, VisitedNodesEdgeDirectedWieghtedGraph as VisitedNodesHere, VisitedNodesStartNode } from "./allAlgorithmData";
 
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 
@@ -32,26 +33,20 @@ function getAdjacentNodes(currNode: NodeEdgeGraph, graph: DirectedWeightedGraph)
   return neighborNodes.map(toNode => toNode.node);
 }
 
-export const dfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere, data: SearchExecutionDataHere): void {
-  dfsOrBfs(graphData, data, true);
-}
-
-export const bfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere, data: SearchExecutionDataHere): void {
-  dfsOrBfs(graphData, data, false);
-  
-}
-
-function dfsOrBfs(graphData: GraphDataHere, data: SearchExecutionDataHere, isDfs: boolean): void {
+function dfsOrBfs(graphData: GraphDataHere, isDfs: boolean): SearchExecutionDataHere {
+  const algorithmData = getEmptySearchData(
+    (isDfs) ? SearchAlgorithmsTypes.dfs : SearchAlgorithmsTypes.dfs
+  ) as SearchExecutionDataHere;
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
   const stack = [ graphData.startNode ];
   const visitedNodes = getEmptyVisitedNodes(graphData.graph, graphData.startNode);
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes 
-  while (stack.length > 0 && !data.isEndNodeReached) {
+  while (stack.length > 0 && !algorithmData.isEndNodeReached) {
     const currNode = ((isDfs) ? stack.pop() : stack.shift()) as NodeEdgeGraph;
-    data.listOfSteps.push(currNode);
+    algorithmData.listOfSteps.push(currNode);
     for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
       if (isNodeEndNode(neighborNode, graphData.endNode)) {
-        data.isEndNodeReached = true;
+        algorithmData.isEndNodeReached = true;
         markNodeAsVisited(neighborNode, currNode, visitedNodes);
         break;
       }
@@ -61,12 +56,13 @@ function dfsOrBfs(graphData: GraphDataHere, data: SearchExecutionDataHere, isDfs
       }
     }
   }
-  data.listOfSteps.shift();
+  algorithmData.listOfSteps.shift();
 
   // Use visitedNodes to backtrack to the startNode and reverse the order to get data.pathToEndNode. Also count data.pathCost.
-  if (data.isEndNodeReached) {
-    backtrackToStartNode(graphData, data, visitedNodes);
+  if (algorithmData.isEndNodeReached) {
+    backtrackToStartNode(graphData, algorithmData, visitedNodes);
   }
+  return algorithmData;
 }
 
 function backtrackToStartNode(graphData: GraphDataHere, data: SearchExecutionDataHere, visitedNodes: VisitedNodesHere): void { // fills data.pathToEndNode and data.pathCost
@@ -88,3 +84,15 @@ function backtrackToStartNode(graphData: GraphDataHere, data: SearchExecutionDat
 function getPathCost(graph: DirectedWeightedGraph, currNode: NodeEdgeGraph, beforeNode: NodeEdgeGraph): number {
   return (graph.get(currNode) as ToNodeDirectedWeightedGraph[]).filter(ToNode => ToNode.node === beforeNode)[0].cost;
 }
+
+const dfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere): SearchExecutionDataHere {
+  return dfsOrBfs(graphData, true);
+}
+
+const bfs: SearchAlgorithmFunHere = function(graphData: GraphDataHere): SearchExecutionDataHere {
+  return dfsOrBfs(graphData, false);
+}
+
+const searchAlgorithmsFunsDW: SearchAlgorithmsFunsDirectedWeighted = { dfs, bfs };
+
+export default searchAlgorithmsFunsDW;

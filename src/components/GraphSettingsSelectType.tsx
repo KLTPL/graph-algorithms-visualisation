@@ -1,28 +1,37 @@
-import { useGraphType } from "../SettingsContext";
-import { UserGraphTypes } from "../graphDataSets/allGraphData";
+import { useVisualisationData } from "../SettingsContext";
+import { UserGraphTypes } from "../visualisationData/graphDataSets/allGraphData";
 
 export default function GraphSettingsSelectType() {
-  const graphTypeContext = useGraphType();
+  const visualisationDataContext = useVisualisationData();
+
+  function selectGraphType(graphType: UserGraphTypes): () => void {
+    return () => {
+      if (visualisationDataContext !== null) {
+        const { visualisationData, updateVisualisationData } = visualisationDataContext;
+        updateVisualisationData(graphType, visualisationData.algorithmData.type);
+      }
+    };
+  }
 
   return (
     <div className="flex flex-col">
       <h3>Graph type:</h3>
-      <button onClick={() => graphTypeContext?.updateType(UserGraphTypes.matrix)}>
+      <button onClick={selectGraphType(UserGraphTypes.matrix)}>
         matrix graph
       </button>
-      <button onClick={() => graphTypeContext?.updateType(UserGraphTypes.directed)}>
+      <button onClick={selectGraphType(UserGraphTypes.directed)}>
         directed graph
       </button>
-      <button onClick={() => graphTypeContext?.updateType(UserGraphTypes.directedWeighted)}>
+      <button onClick={selectGraphType(UserGraphTypes.directedWeighted)}>
         directed weighted graph
       </button>
-      <button onClick={() => graphTypeContext?.updateType(UserGraphTypes.undirected)}>
+      <button onClick={selectGraphType(UserGraphTypes.undirected)}>
         undirected graph
       </button>
-      <button onClick={() => graphTypeContext?.updateType(UserGraphTypes.undirectedWeighted)}>
+      <button onClick={selectGraphType(UserGraphTypes.undirectedWeighted)}>
         undirected weighted graph
       </button>
-      { graphTypeContext?.type }
+      { visualisationDataContext?.visualisationData.graphData.type }
     </div>
   );
 }

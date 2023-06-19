@@ -4,7 +4,7 @@ import { getDefaultVisualisationData, getProperVisualisationData } from "./visua
 import { UserGraphTypes } from "./visualisationData/graphDataSets/allGraphData";
 import { SearchAlgorithmsTypes } from "./visualisationData/searchAlgorithms/allAlgorithmData";
 
-interface VisualisationDataContextProps {
+export interface VisualisationDataContextProps {
   graphAndAlgorithm: AnyGraphAndAlgorithmData,
   currStepIdx: number,
   updateGraphAndAlgorithm: (graphType: UserGraphTypes, algorithmType: SearchAlgorithmsTypes) => void;

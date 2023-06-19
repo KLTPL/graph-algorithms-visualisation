@@ -6,9 +6,12 @@ export default function GraphSettingsSelectType() {
 
   function selectGraphType(graphType: UserGraphTypes): () => void {
     return () => {
-      if (visualisationDataContext !== null) {
-        const { visualisationData, updateVisualisationData } = visualisationDataContext;
-        updateVisualisationData(graphType, visualisationData.algorithmData.type);
+      if (
+        visualisationDataContext !== null &&
+        visualisationDataContext.graphAndAlgorithm.graphData.type !== graphType
+      ) {
+        const { graphAndAlgorithm, updateGraphAndAlgorithm } = visualisationDataContext;
+        updateGraphAndAlgorithm(graphType, graphAndAlgorithm.algorithmData.type);
       }
     };
   }
@@ -31,7 +34,7 @@ export default function GraphSettingsSelectType() {
       <button onClick={selectGraphType(UserGraphTypes.undirectedWeighted)}>
         undirected weighted graph
       </button>
-      { visualisationDataContext?.visualisationData.graphData.type }
+      { visualisationDataContext?.graphAndAlgorithm.graphData.type }
     </div>
   );
 }

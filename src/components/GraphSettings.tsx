@@ -5,8 +5,8 @@ export default function GraphSettings() {
 
   return (
     <div className="">
-        <GraphSettingsSelectType />
-        <GraphSettingsSelectSearchType />
+      <GraphSettingsSelectType />
+      <GraphSettingsSelectSearchType />
     </div>
   );
 }

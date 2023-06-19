@@ -1,13 +1,14 @@
-import { FieldTypesMatrixGraph, GraphDataMatrix } from "../../visualisationData/graphDataSets/allGraphData";
+import { VisualisationDataMatrix } from "../../visualisationData/allVisualisationData";
+import { FieldMatrixGraph, FieldTypesMatrixGraph } from "../../visualisationData/graphDataSets/allGraphData";
 import { GraphComponentMatrixProps } from "../GraphContainer";
 
 export default function Matrix({ visualisationData }: GraphComponentMatrixProps) {
-  const { graphData } = visualisationData;
+  const graphData = visualisationData.graphAndAlgorithm.graphData;
   function getField(r: number, c: number): JSX.Element {
     return (
       <Field 
         key={`${r};${c}`} 
-        className={getColorClassNamesForField(graphData, r, c)} 
+        className={getColorClassNamesForField(visualisationData, r, c)} 
       />
     );
   }
@@ -24,12 +25,28 @@ export default function Matrix({ visualisationData }: GraphComponentMatrixProps)
 
 type FieldProps = { className: string };
 
-function getColorClassNamesForField(graphData: GraphDataMatrix, r: number, c: number) {
+function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, r: number, c: number): string {
+  const { graphAndAlgorithm, currStepIdx } = visualisationData;
+  const { algorithmData, graphData } = graphAndAlgorithm;
+  const listOfSteps = algorithmData.listOfSteps;
   const fieldType = graphData.graph[r][c];
   const isStartOrEnd = (r === graphData.startNode.y && c === graphData.startNode.x) || (r === graphData.endNode.y && c === graphData.endNode.x);
   const isEmpty = (fieldType === FieldTypesMatrixGraph.empty);
   const isRock = (fieldType === FieldTypesMatrixGraph.rock);
-  return `${(isEmpty && !isStartOrEnd) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-marixGraphFieldRock": ""}`;
+  const isFieldVisited = isStepAlreadyMade(currStepIdx, listOfSteps, r, c);
+  return (
+    `${(isEmpty && !isStartOrEnd) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-marixGraphFieldRock": ""} ${(isFieldVisited) ? "bg-primary" : ""}`
+  );
+}
+
+function isStepAlreadyMade(currStepIdx: number, listOfSteps: FieldMatrixGraph[], r: number, c: number): boolean {
+  for (let i=0 ; i<=currStepIdx ; i++) {
+    const { x, y } = listOfSteps[i];
+    if (x === c && y === r) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function Field({ className }: FieldProps) {

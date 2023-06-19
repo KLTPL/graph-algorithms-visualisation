@@ -12,6 +12,7 @@ export default {
       marixGraphFieldRock: "#e9f3f8",
       gray: "#50565a", 
       startAndEndNode: "#FFCC19",
+      visitedNode: ""
     },
     extend: {},
   },

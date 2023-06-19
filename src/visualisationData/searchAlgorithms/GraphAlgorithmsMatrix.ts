@@ -40,7 +40,7 @@ function isFieldEmpty(field: FieldMatrixGraph, graph: MatrixGraph) {
 
 function dfsOrBfs(graphData: GraphDataHere, isDfs: boolean): SearchExecutionDataHere {
   const algorithmData = getEmptySearchData(
-    (isDfs) ? SearchAlgorithmsTypes.dfs : SearchAlgorithmsTypes.dfs
+    (isDfs) ? SearchAlgorithmsTypes.dfs : SearchAlgorithmsTypes.bfs
   ) as SearchExecutionDataHere;
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
   const stack = [ graphData.startNode ];

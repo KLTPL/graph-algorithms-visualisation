@@ -6,9 +6,7 @@ export default function GraphSettingsSelectType() {
   const { visualisationData, switchVisualisationData } = visualisationDataContext;
   function selectGraphType(graphType: UserGraphTypes): () => void {
     return () => {
-      if (visualisationData.graphType !== graphType) {
-        switchVisualisationData(graphType, visualisationData.algorithmType);
-      }
+      switchVisualisationData(graphType, visualisationData.algorithmType);
     };
   }
 

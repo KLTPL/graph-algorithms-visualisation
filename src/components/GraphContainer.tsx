@@ -5,7 +5,7 @@ import Directed from "./graphs/Directed";
 import DirectedWeighted from "./graphs/DirectedWeighted";
 import Undirected from "./graphs/Undirected";
 import UndirectedWeighted from "./graphs/UndirectedWeighted";
-import { useVisualisationData } from "../SettingsContext";
+import { VisualisationDataContextProps, useVisualisationData } from "../SettingsContext";
 import { VisualisationDataDirectedWeighted, VisualisationDataMatrix } from "../visualisationData/allVisualisationData";
 import { AnyGraphAndAlgorithmData } from "../visualisationData/allGraphAndAlgorithmData";
 
@@ -33,10 +33,7 @@ function getProperGraphElement(graphAndAlgorithm: AnyGraphAndAlgorithmData, curr
 }
 
 export default function GraphContainer() {
-  const visualisationDataContext = useVisualisationData();
-  if (visualisationDataContext === null) {
-    throw new Error("visualisationDataContext is null");
-  }
+  const visualisationDataContext = useVisualisationData() as VisualisationDataContextProps;
   const { graphAndAlgorithm, currStepIdx } = visualisationDataContext;
   const [ graphElement, setGraphElement ] = useState<JSX.Element>(getProperGraphElement(graphAndAlgorithm, currStepIdx));
 

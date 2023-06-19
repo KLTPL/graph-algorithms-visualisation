@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { UserGraphTypes } from "../visualisationData/graphDataSets/allGraphData";
+import { UserGraphTypes } from "../visualisationData/typesGraphData";
 import Matrix from "./graphs/Matrix";
 import Directed from "./graphs/Directed";
 import DirectedWeighted from "./graphs/DirectedWeighted";
 import Undirected from "./graphs/Undirected";
 import UndirectedWeighted from "./graphs/UndirectedWeighted";
 import { UserInputDataContextProps, VisualisationDataContextProps, useUserInputData, useVisualisationData } from "../SettingsContext";
-import { AnyVisualisationData } from "../visualisationData/allVisualisationData";
+import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
 import { getDefaultVisualisationData } from "../visualisationData/getProperDataFunctions";
 
 function getDefaultGraphElemet(): JSX.Element {

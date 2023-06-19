@@ -1,5 +1,5 @@
 import { getConverted } from "../getProperDataFunctions";
-import { GraphDataDirectedWeighted, UserGraphTypes } from "./allGraphData";
+import { GraphDataDirectedWeighted, UserGraphTypes } from "../typesGraphData";
 
 const undirectedGraphData: GraphDataDirectedWeighted = {
   graph: new Map([

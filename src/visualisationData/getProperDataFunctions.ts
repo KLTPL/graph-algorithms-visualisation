@@ -3,11 +3,11 @@ import directedWeightedGraphData from "./graphDataSets/DirectedWeightedGraphData
 import matrixGraphData from "./graphDataSets/MatrixGraphData";
 import undirectedGraphData from "./graphDataSets/UndirectedGraphData";
 import undirectedWeightedGraphData from "./graphDataSets/UndirectedWeightedGraphData";
-import { AnyGraphData, GraphDataDirectedWeighted, GraphDataMatrix, NodeEdgeGraph, ToNodeDirectedWeightedGraph, UserGraphTypes } from "./graphDataSets/allGraphData";
-import { AnySearchExecutionData, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph, SearchExecutionDataMatrixGraph } from "./searchAlgorithms/allAlgorithmData";
+import { AnyGraphData, GraphDataDirectedWeighted, GraphDataMatrix, NodeEdgeGraph, ToNodeDirectedWeightedGraph, UserGraphTypes } from "./typesGraphData";
+import { AnySearchExecutionData, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph, SearchExecutionDataMatrixGraph } from "./typesAlgorithmData";
 import GraphAlgorithmsMatrix from "./searchAlgorithms/GraphAlgorithmsMatrix";
 import GraphAlgorithmsDirectedWeighted from "./searchAlgorithms/GraphAlgorithmsDirectedWeighted";
-import { AnyVisualisationData, VisualisationDataMatrix } from "./allVisualisationData";
+import { AnyVisualisationData, VisualisationDataMatrix } from "./typesVisualisationData";
 
 export function getConverted(arr: NodeEdgeGraph[]): ToNodeDirectedWeightedGraph[] {
   return arr.map(node => {return { node , cost: 1 }});

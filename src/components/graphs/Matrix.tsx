@@ -39,7 +39,7 @@ function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, 
   const isReachedEndNode = isStartEndNode && isFieldVisited;
 
   return (
-    `${(isEmpty && !isStartOrEnd) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd && !isReachedEndNode) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-marixGraphFieldRock": ""} ${(isFieldVisited && !isReachedEndNode) ? "bg-primary" : ""} ${(isReachedEndNode) ? "bg-green" : ""}`
+    `${(isEmpty && !isStartOrEnd) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd && !isReachedEndNode) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-rock": ""} ${(isFieldVisited && !isReachedEndNode) ? "bg-primary" : ""} ${(isReachedEndNode) ? "bg-green" : ""}`
   );
 }
 

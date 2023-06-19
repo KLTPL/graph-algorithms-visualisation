@@ -30,12 +30,16 @@ type FieldProps = { className: string };
 function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, currStepIdx: number, r: number, c: number): string {
   const listOfSteps = visualisationData.listOfSteps;
   const fieldType = visualisationData.graph[r][c];
-  const isStartOrEnd = (r === visualisationData.startNode.y && c === visualisationData.startNode.x) || (r === visualisationData.endNode.y && c === visualisationData.endNode.x);
+  const isStartNode = (r === visualisationData.startNode.y && c === visualisationData.startNode.x);
+  const isStartEndNode = (r === visualisationData.endNode.y && c === visualisationData.endNode.x);
+  const isStartOrEnd = isStartNode || isStartEndNode;
   const isEmpty = (fieldType === FieldTypesMatrixGraph.empty);
   const isRock = (fieldType === FieldTypesMatrixGraph.rock);
   const isFieldVisited = isStepAlreadyMade(currStepIdx, listOfSteps, r, c);
+  const isReachedEndNode = isStartEndNode && isFieldVisited;
+
   return (
-    `${(isEmpty && !isStartOrEnd) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-marixGraphFieldRock": ""} ${(isFieldVisited) ? "bg-primary" : ""}`
+    `${(isEmpty && !isStartOrEnd) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd && !isReachedEndNode) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-marixGraphFieldRock": ""} ${(isFieldVisited && !isReachedEndNode) ? "bg-primary" : ""} ${(isReachedEndNode) ? "bg-green" : ""}`
   );
 }
 

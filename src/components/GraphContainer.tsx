@@ -5,11 +5,15 @@ import Directed from "./graphs/Directed";
 import DirectedWeighted from "./graphs/DirectedWeighted";
 import Undirected from "./graphs/Undirected";
 import UndirectedWeighted from "./graphs/UndirectedWeighted";
-import { DEFAULT_CURR_STEP_IDX, UserInputDataContextProps, VisualisationDataContextProps, useUserInputData, useVisualisationData } from "../SettingsContext";
-import { AnyVisualisationData, VisualisationDataDirectedWeighted, VisualisationDataMatrix } from "../visualisationData/allVisualisationData";
+import { UserInputDataContextProps, VisualisationDataContextProps, useUserInputData, useVisualisationData } from "../SettingsContext";
+import { AnyVisualisationData } from "../visualisationData/allVisualisationData";
 import { getDefaultVisualisationData } from "../visualisationData/getProperDataFunctions";
 
-function getProperGraphElement(visualisationData: AnyVisualisationData, currStepIdx: number): JSX.Element {
+function getDefaultGraphElemet(): JSX.Element {
+  return getProperGraphElement(getDefaultVisualisationData());
+}
+
+function getProperGraphElement(visualisationData: AnyVisualisationData): JSX.Element {
   switch (visualisationData.graphType) {
     case UserGraphTypes.matrix: 
       return <Matrix />;
@@ -29,19 +33,10 @@ export default function GraphContainer() {
   const UserInputDataContext = useUserInputData() as UserInputDataContextProps;
   const { visualisationData } = visualisationDataContext;
   const { currStepIdx, updateCurrStepIdx } = UserInputDataContext;
-  const [ graphElement, setGraphElement ] = useState<JSX.Element>(getProperGraphElement(getDefaultVisualisationData(), DEFAULT_CURR_STEP_IDX));
-
-  useEffect(() => {
-    setGraphElement(
-      getProperGraphElement(visualisationData, currStepIdx)
-    );
-  }, [ visualisationData, currStepIdx ]);
-
 
   function incrementCurrStepIdx() {
-    const listOfSteps = visualisationData.listOfSteps;
-
-    if (currStepIdx < listOfSteps.length - 1) {
+    const listOfStepsLen = visualisationData.listOfSteps.length;
+    if (currStepIdx < listOfStepsLen - 1) {
       updateCurrStepIdx(currStepIdx + 1);
     }
   }
@@ -54,7 +49,7 @@ export default function GraphContainer() {
 
   return (
     <div>
-      { graphElement }
+      { getProperGraphElement(visualisationData) }
       <div>
         <button onClick={decrementCurrStepIdx}>
           <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" className="bi bi-arrow-left-short" viewBox="0 0 16 16">

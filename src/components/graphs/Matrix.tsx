@@ -18,7 +18,7 @@ export default function Matrix() {
   return (
     <div 
       style={{ gridTemplateColumns: `repeat(${visualisationData.graph[0].length}, 1fr)`, gridTemplateRows: `repeat(${visualisationData.graph.length}, 1fr)` }}
-      className={`w-full grid max-w-[70%] gap-[1px] bg-gray border-solid border-2 border-gray`}
+      className={`w-[90%] grid max-w-[500px] gap-[1px] bg-gray border-solid border-2 border-gray`}
     >
       { visualisationData.graph.map((row, r) => row.map((fieldType, c) => getField(r, c))) }
     </div>

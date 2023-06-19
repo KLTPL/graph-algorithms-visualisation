@@ -8,17 +8,17 @@ For visualisation of how it all works see the theory.png file in images director
 - **Main Framework**: React
 - **Css Library**: Tailwind Css with postcss
 
-### Run the project
+## Run the project
 
 ```bash
   npm run dev
 ```
 
-### Build the project
+## Build the project
 
 ```bash
   npm run build
 ```
 
-### Hosting
+## Hosting
 hosting with firebase: https://graph-algorithms-visualisation.web.app/

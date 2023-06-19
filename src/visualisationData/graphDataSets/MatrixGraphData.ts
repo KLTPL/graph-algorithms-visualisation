@@ -1,4 +1,4 @@
-import { FieldTypesMatrixGraph, UserGraphTypes, MatrixGraph, GraphDataMatrix } from "./allGraphData";
+import { FieldTypesMatrixGraph, UserGraphTypes, MatrixGraph, GraphDataMatrix } from "../typesGraphData";
 
 export const matrixGraphData: GraphDataMatrix = {
   graph: getDefaultGraph(),

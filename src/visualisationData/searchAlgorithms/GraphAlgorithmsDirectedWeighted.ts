@@ -1,6 +1,6 @@
 import { getEmptySearchData } from "../getProperDataFunctions";
-import { GraphDataDirectedWeighted as GraphDataHere, DirectedWeightedGraph, NodeEdgeGraph, ToNodeDirectedWeightedGraph } from "../graphDataSets/allGraphData";
-import { SearchAlgorithmFunDirectedWeighted as SearchAlgorithmFunHere, SearchAlgorithmsFunsDirectedWeighted, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph as SearchExecutionDataHere, VisitedNodesEdgeDirectedWieghtedGraph as VisitedNodesHere, VisitedNodesStartNode } from "./allAlgorithmData";
+import { GraphDataDirectedWeighted as GraphDataHere, DirectedWeightedGraph, NodeEdgeGraph, ToNodeDirectedWeightedGraph } from "../typesGraphData";
+import { SearchAlgorithmFunDirectedWeighted as SearchAlgorithmFunHere, SearchAlgorithmsFunsDirectedWeighted, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph as SearchExecutionDataHere, VisitedNodesEdgeDirectedWieghtedGraph as VisitedNodesHere, VisitedNodesStartNode } from "../typesAlgorithmData";
 
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 

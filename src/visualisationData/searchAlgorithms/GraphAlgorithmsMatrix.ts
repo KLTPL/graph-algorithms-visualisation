@@ -1,6 +1,6 @@
 import { getEmptySearchData } from "../getProperDataFunctions";
-import { FieldMatrixGraph, FieldTypesMatrixGraph, MatrixGraph, GraphDataMatrix as GraphDataHere } from "../graphDataSets/allGraphData";
-import { VisitedNodesMatrixGraph as VisitedNodesHere, SearchAlgorithmFunMatrix as SearchAlgorithmFunHere, SearchExecutionDataMatrixGraph as SearchExecutionDataHere, VisitedNodesStartNode, SearchAlgorithmsFunsMatrix, SearchAlgorithmsTypes } from "./allAlgorithmData";
+import { FieldMatrixGraph, FieldTypesMatrixGraph, MatrixGraph, GraphDataMatrix as GraphDataHere } from "../typesGraphData";
+import { VisitedNodesMatrixGraph as VisitedNodesHere, SearchAlgorithmFunMatrix as SearchAlgorithmFunHere, SearchExecutionDataMatrixGraph as SearchExecutionDataHere, VisitedNodesStartNode, SearchAlgorithmsFunsMatrix, SearchAlgorithmsTypes } from "../typesAlgorithmData";
 
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 

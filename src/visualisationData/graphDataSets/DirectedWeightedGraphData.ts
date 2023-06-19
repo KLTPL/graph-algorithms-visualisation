@@ -1,4 +1,4 @@
-import { GraphDataDirectedWeighted, UserGraphTypes } from "./allGraphData";
+import { GraphDataDirectedWeighted, UserGraphTypes } from "../typesGraphData";
 
 const directedWeightedGraphData: GraphDataDirectedWeighted = {
   graph: new Map([

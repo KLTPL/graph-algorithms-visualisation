@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { getDefaultVisualisationData, getProperVisualisationData } from "./visualisationData/getProperDataFunctions";
-import { UserGraphTypes } from "./visualisationData/graphDataSets/allGraphData";
-import { SearchAlgorithmsTypes } from "./visualisationData/searchAlgorithms/allAlgorithmData";
-import { AnyVisualisationData } from "./visualisationData/allVisualisationData";
+import { UserGraphTypes } from "./visualisationData/typesGraphData";
+import { SearchAlgorithmsTypes } from "./visualisationData/typesAlgorithmData";
+import { AnyVisualisationData } from "./visualisationData/typesVisualisationData";
 
 const DEFAULT_CURR_STEP_IDX = -1;
 

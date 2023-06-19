@@ -13,7 +13,7 @@ export function getConverted(arr: NodeEdgeGraph[]): ToNodeDirectedWeightedGraph[
   return arr.map(node => {return { node , cost: 1 }});
 }
 
-export function getProperGraphData(graphType: UserGraphTypes): AnyGraphData {
+function getProperGraphData(graphType: UserGraphTypes): AnyGraphData {
   switch (graphType) {
     case UserGraphTypes.matrix: return matrixGraphData;
     case UserGraphTypes.directed: return directedGraphData;
@@ -33,7 +33,7 @@ export const getEmptySearchData = (type: SearchAlgorithmsTypes): AnySearchExecut
   };
 }
 
-export function getProperAlgorithmData(graphData: AnyGraphData, algorithmType: SearchAlgorithmsTypes): AnySearchExecutionData {
+function getProperAlgorithmData(graphData: AnyGraphData, algorithmType: SearchAlgorithmsTypes): AnySearchExecutionData {
   if (graphData.type === UserGraphTypes.matrix) {
     const graphDataTmp = graphData as GraphDataMatrix;
     const { dfs, bfs } = GraphAlgorithmsMatrix;
@@ -57,12 +57,18 @@ export function getProperVisualisationData(graphType: UserGraphTypes, algorithmT
   const graphData = getProperGraphData(graphType);
   if (graphType === UserGraphTypes.matrix) {
     return {
-      graphData: graphData as GraphDataMatrix,
-      algorithmData: getProperAlgorithmData(graphData, algorithmType) as SearchExecutionDataMatrixGraph,
+      graphAndAlgorithm: {
+        graphData: graphData as GraphDataMatrix,
+        algorithmData: getProperAlgorithmData(graphData, algorithmType) as SearchExecutionDataMatrixGraph,
+      },
+      currStepIdx: -1,
     };
   }
   return {
-    graphData: graphData as GraphDataDirectedWeighted,
-    algorithmData: getProperAlgorithmData(graphData, algorithmType) as SearchExecutionDataDirectedWeightedGraph,
+    graphAndAlgorithm: {
+      graphData: graphData as GraphDataDirectedWeighted,
+      algorithmData: getProperAlgorithmData(graphData, algorithmType) as SearchExecutionDataDirectedWeightedGraph,
+    },
+    currStepIdx: -1,
   };
 }

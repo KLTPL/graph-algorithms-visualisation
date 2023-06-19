@@ -6,9 +6,12 @@ export default function GraphSettingsSelectSearchType() {
 
   function selectAlgorithmType(algorithmType: SearchAlgorithmsTypes): () => void {
     return () => {
-      if (visualisationDataContext !== null) {
-        const { visualisationData, updateVisualisationData } = visualisationDataContext;
-        updateVisualisationData(visualisationData.graphData.type, algorithmType);
+      if (
+        visualisationDataContext !== null && 
+        visualisationDataContext.graphAndAlgorithm.algorithmData.type !== algorithmType
+      ) {
+        const { graphAndAlgorithm, updateGraphAndAlgorithm } = visualisationDataContext;
+        updateGraphAndAlgorithm(graphAndAlgorithm.graphData.type, algorithmType);
       }
     };
   }
@@ -22,7 +25,7 @@ export default function GraphSettingsSelectSearchType() {
       <button onClick={selectAlgorithmType(SearchAlgorithmsTypes.bfs)}>
         bfs
       </button>
-      { visualisationDataContext?.visualisationData.algorithmData.type }
+      { visualisationDataContext?.graphAndAlgorithm.algorithmData.type }
     </div>
   );
 }

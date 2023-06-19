@@ -19,3 +19,6 @@ For visualisation of how it all works see the theory.png file in images director
 ```bash
   npm run build
 ```
+
+### Hosting
+hosting with firebase: https://graph-algorithms-visualisation.web.app/

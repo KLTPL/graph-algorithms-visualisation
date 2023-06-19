@@ -1,6 +1,6 @@
-import GraphSettings from "./components/GraphSettings";
-import GraphContainer from "./components/GraphContainer";
-import GraphTools from "./components/GraphTools";
+import GraphSettings from "./components/VisualisationSettings";
+import GraphContainer from "./components/VisualisationContainer";
+import GraphTools from "./components/VisualisationTools";
 import { SettingsProvider } from "./SettingsContext";
 
 export default function App() {

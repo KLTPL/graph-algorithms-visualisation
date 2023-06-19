@@ -47,6 +47,7 @@ function dfsOrBfs(graphData: GraphDataHere, isDfs: boolean): SearchExecutionData
     for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
       if (isNodeEndNode(neighborNode, graphData.endNode)) {
         algorithmData.isEndNodeReached = true;
+        algorithmData.listOfSteps.push(neighborNode);
         markNodeAsVisited(neighborNode, currNode, visitedNodes);
         break;
       }

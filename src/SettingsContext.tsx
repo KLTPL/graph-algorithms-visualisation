@@ -33,7 +33,6 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   function switchVisualisationData(graphType: UserGraphTypes, algorithmType: SearchAlgorithmsTypes): void {
     const newVisualisationData = getProperVisualisationData(graphType, algorithmType);
-    console.log(`newVisualisationData`, newVisualisationData);
     setVisualisationData(newVisualisationData);
     updateCurrStepIdx(DEFAULT_CURR_STEP_IDX);
   }

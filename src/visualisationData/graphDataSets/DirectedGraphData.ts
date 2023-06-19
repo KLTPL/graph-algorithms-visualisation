@@ -19,7 +19,7 @@ const directedGraphData: GraphDataDirectedWeighted = {
   ]),
   startNode: "a",
   endNode: "m",
-  type: UserGraphTypes.directed,
+  graphType: UserGraphTypes.directed,
 }
 
 export default directedGraphData;

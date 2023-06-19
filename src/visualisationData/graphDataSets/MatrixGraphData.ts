@@ -4,7 +4,7 @@ export const matrixGraphData: GraphDataMatrix = {
   graph: getDefaultGraph(),
   startNode: { x: 2, y: 2 },
   endNode: { x: 0, y: 0 },
-  type: UserGraphTypes.matrix,
+  graphType: UserGraphTypes.matrix,
 };
 
 function getDefaultGraph(): MatrixGraph {

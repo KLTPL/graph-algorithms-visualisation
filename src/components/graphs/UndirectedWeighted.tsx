@@ -1,6 +1,4 @@
-import { GraphComponentDirectedWeightedProps } from "../GraphContainer";
-
-export default function UndirectedWeighted({ visualisationData }: GraphComponentDirectedWeightedProps) {
+export default function UndirectedWeighted() {
   return (
     <div>
       undirected weighted component

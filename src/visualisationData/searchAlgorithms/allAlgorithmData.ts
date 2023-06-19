@@ -5,14 +5,14 @@ export enum SearchAlgorithmsTypes {
 }
 
 export interface SearchExecutionDataMatrixGraph {
-  type: SearchAlgorithmsTypes,
+  algorithmType: SearchAlgorithmsTypes,
   listOfSteps: FieldMatrixGraph[];
   isEndNodeReached: boolean;
   pathToEndNode: FieldMatrixGraph[]|null;
   pathCost: number;
 }
 export interface SearchExecutionDataDirectedWeightedGraph {
-  type: SearchAlgorithmsTypes,
+  algorithmType: SearchAlgorithmsTypes,
   listOfSteps: NodeEdgeGraph[];
   isEndNodeReached: boolean;
   pathToEndNode: NodeEdgeGraph[]|null;

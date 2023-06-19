@@ -4,14 +4,14 @@ import { SearchAlgorithmsTypes } from "../visualisationData/searchAlgorithms/all
 export default function GraphSettingsSelectSearchType() {
   const visualisationDataContext = useVisualisationData();
 
-  function selectAlgorithmType(algorithmType: SearchAlgorithmsTypes): () => void {
+  function getSelectAlgorithmTypeFun(algorithmType: SearchAlgorithmsTypes): () => void {
     return () => {
       if (
         visualisationDataContext !== null && 
-        visualisationDataContext.graphAndAlgorithm.algorithmData.type !== algorithmType
+        visualisationDataContext.visualisationData.algorithmType !== algorithmType
       ) {
-        const { graphAndAlgorithm, updateGraphAndAlgorithm } = visualisationDataContext;
-        updateGraphAndAlgorithm(graphAndAlgorithm.graphData.type, algorithmType);
+        const { visualisationData, switchVisualisationData } = visualisationDataContext;
+        switchVisualisationData(visualisationData.graphType, algorithmType);
       }
     };
   }
@@ -19,13 +19,13 @@ export default function GraphSettingsSelectSearchType() {
   return (
     <div className="flex flex-col">
       <h3>Search algorithm type:</h3>
-      <button onClick={selectAlgorithmType(SearchAlgorithmsTypes.dfs)}>
+      <button onClick={getSelectAlgorithmTypeFun(SearchAlgorithmsTypes.dfs)}>
         dfs
       </button>
-      <button onClick={selectAlgorithmType(SearchAlgorithmsTypes.bfs)}>
+      <button onClick={getSelectAlgorithmTypeFun(SearchAlgorithmsTypes.bfs)}>
         bfs
       </button>
-      { visualisationDataContext?.graphAndAlgorithm.algorithmData.type }
+      { visualisationDataContext?.visualisationData.algorithmType }
     </div>
   );
 }

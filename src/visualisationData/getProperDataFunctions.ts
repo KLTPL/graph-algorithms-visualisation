@@ -25,7 +25,7 @@ function getProperGraphData(graphType: UserGraphTypes): AnyGraphData {
 
 export const getEmptySearchData = (type: SearchAlgorithmsTypes): AnySearchExecutionData => {
   return {
-    type,
+    algorithmType: type,
     listOfSteps: [],
     pathCost: Infinity,
     pathToEndNode: null,
@@ -34,7 +34,7 @@ export const getEmptySearchData = (type: SearchAlgorithmsTypes): AnySearchExecut
 }
 
 function getProperAlgorithmData(graphData: AnyGraphData, algorithmType: SearchAlgorithmsTypes): AnySearchExecutionData {
-  if (graphData.type === UserGraphTypes.matrix) {
+  if (graphData.graphType === UserGraphTypes.matrix) {
     const graphDataTmp = graphData as GraphDataMatrix;
     const { dfs, bfs } = GraphAlgorithmsMatrix;
     const fun = (algorithmType === SearchAlgorithmsTypes.dfs) ? dfs : bfs;
@@ -55,20 +55,15 @@ export function getDefaultVisualisationData(): VisualisationDataMatrix {
 
 export function getProperVisualisationData(graphType: UserGraphTypes, algorithmType: SearchAlgorithmsTypes): AnyVisualisationData {
   const graphData = getProperGraphData(graphType);
+  const algorithmData = getProperAlgorithmData(graphData, algorithmType)
   if (graphType === UserGraphTypes.matrix) {
     return {
-      graphAndAlgorithm: {
-        graphData: graphData as GraphDataMatrix,
-        algorithmData: getProperAlgorithmData(graphData, algorithmType) as SearchExecutionDataMatrixGraph,
-      },
-      currStepIdx: -1,
+      ...graphData as GraphDataMatrix,
+      ...algorithmData as SearchExecutionDataMatrixGraph,
     };
   }
   return {
-    graphAndAlgorithm: {
-      graphData: graphData as GraphDataDirectedWeighted,
-      algorithmData: getProperAlgorithmData(graphData, algorithmType) as SearchExecutionDataDirectedWeightedGraph,
-    },
-    currStepIdx: -1,
+    ...graphData as GraphDataDirectedWeighted,
+    ...algorithmData as SearchExecutionDataDirectedWeightedGraph,
   };
 }

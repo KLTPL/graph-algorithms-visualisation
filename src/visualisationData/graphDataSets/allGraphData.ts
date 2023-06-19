@@ -22,23 +22,17 @@ export type MatrixGraph = FieldTypesMatrixGraph[][];
 export type DirectedWeightedGraph = Map<NodeEdgeGraph, ToNodeDirectedWeightedGraph[]>;
 export type AnyGraph = MatrixGraph | DirectedWeightedGraph;
 
-interface GraphDataParent {
-  graph: AnyGraph,
-  startNode: AnyNode,
-  endNode: AnyNode,
-  type: UserGraphTypes,
-};
-export interface GraphDataMatrix extends GraphDataParent {
+export interface GraphDataMatrix {
   graph: MatrixGraph;
   startNode: FieldMatrixGraph;
   endNode: FieldMatrixGraph;
-  type: UserGraphTypes;
+  graphType: UserGraphTypes;
 };
-export interface GraphDataDirectedWeighted extends GraphDataParent {
+export interface GraphDataDirectedWeighted {
   graph: DirectedWeightedGraph;
   startNode: NodeEdgeGraph;
   endNode: NodeEdgeGraph;
-  type: UserGraphTypes;
+  graphType: UserGraphTypes;
 };
 
 export type AnyGraphData = GraphDataMatrix|GraphDataDirectedWeighted;

@@ -32,7 +32,6 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [ currStepIdx, setCurrStepIdx ] = useState<number>(DEFAULT_CURR_STEP_IDX);
 
   function switchVisualisationData(graphType: UserGraphTypes, algorithmType: SearchAlgorithmsTypes): void {
-    console.log(`switching visualisation data graphType = ${graphType}, algorithmType = ${algorithmType}`);
     const newVisualisationData = getProperVisualisationData(graphType, algorithmType);
     setVisualisationData(newVisualisationData);
     updateCurrStepIdx(DEFAULT_CURR_STEP_IDX);

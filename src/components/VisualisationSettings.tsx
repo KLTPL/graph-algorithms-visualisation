@@ -1,5 +1,5 @@
-import GraphSettingsSelectSearchType from "./GraphSettingsSelectSortType";
-import GraphSettingsSelectType from "./GraphSettingsSelectType";
+import GraphSettingsSelectSearchType from "./VisualisationSettingsAlgorithmType";
+import GraphSettingsSelectType from "./VisualisationSettingsGraphType";
 
 export default function GraphSettings() {
 

@@ -1,17 +1,13 @@
-import { useVisualisationData } from "../SettingsContext";
+import { VisualisationDataContextProps, useVisualisationData } from "../SettingsContext";
 import { UserGraphTypes } from "../visualisationData/graphDataSets/allGraphData";
 
 export default function GraphSettingsSelectType() {
-  const visualisationDataContext = useVisualisationData();
-
+  const visualisationDataContext = useVisualisationData() as VisualisationDataContextProps;
+  const { visualisationData, switchVisualisationData } = visualisationDataContext;
   function selectGraphType(graphType: UserGraphTypes): () => void {
     return () => {
-      if (
-        visualisationDataContext !== null &&
-        visualisationDataContext.graphAndAlgorithm.graphData.type !== graphType
-      ) {
-        const { graphAndAlgorithm, updateGraphAndAlgorithm } = visualisationDataContext;
-        updateGraphAndAlgorithm(graphType, graphAndAlgorithm.algorithmData.type);
+      if (visualisationData.graphType !== graphType) {
+        switchVisualisationData(graphType, visualisationData.algorithmType);
       }
     };
   }
@@ -34,7 +30,7 @@ export default function GraphSettingsSelectType() {
       <button onClick={selectGraphType(UserGraphTypes.undirectedWeighted)}>
         undirected weighted graph
       </button>
-      { visualisationDataContext?.graphAndAlgorithm.graphData.type }
+      { visualisationData.graphType }
     </div>
   );
 }

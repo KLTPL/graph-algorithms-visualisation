@@ -1,13 +1,10 @@
-import { GraphAndAlgorithmDataDirectedWeighted, GraphAndAlgorithmDataMatrix } from "./allGraphAndAlgorithmData";
+import { GraphDataDirectedWeighted, GraphDataMatrix } from "./graphDataSets/allGraphData";
+import { SearchExecutionDataDirectedWeightedGraph, SearchExecutionDataMatrixGraph } from "./searchAlgorithms/allAlgorithmData";
 
-export interface VisualisationDataMatrix {
-  graphAndAlgorithm: GraphAndAlgorithmDataMatrix;
-  currStepIdx: number;
+export interface VisualisationDataMatrix extends GraphDataMatrix, SearchExecutionDataMatrixGraph {
 }
 
-export interface VisualisationDataDirectedWeighted {
-  graphAndAlgorithm: GraphAndAlgorithmDataDirectedWeighted;
-  currStepIdx: number;
+export interface VisualisationDataDirectedWeighted extends GraphDataDirectedWeighted, SearchExecutionDataDirectedWeightedGraph {
 }
 
 export type AnyVisualisationData = VisualisationDataMatrix | VisualisationDataDirectedWeighted;

@@ -1,36 +1,36 @@
+import { UserInputDataContextProps, VisualisationDataContextProps, useUserInputData, useVisualisationData } from "../../SettingsContext";
 import { VisualisationDataMatrix } from "../../visualisationData/allVisualisationData";
 import { FieldMatrixGraph, FieldTypesMatrixGraph } from "../../visualisationData/graphDataSets/allGraphData";
-import { GraphComponentMatrixProps } from "../GraphContainer";
 
-export default function Matrix({ visualisationData }: GraphComponentMatrixProps) {
-  const graphData = visualisationData.graphAndAlgorithm.graphData;
+export default function Matrix() {
+  const visualisationData = (useVisualisationData() as VisualisationDataContextProps).visualisationData as VisualisationDataMatrix;
+  const { currStepIdx } = useUserInputData() as UserInputDataContextProps;
+  
   function getField(r: number, c: number): JSX.Element {
     return (
       <Field 
         key={`${r};${c}`} 
-        className={getColorClassNamesForField(visualisationData, r, c)} 
+        className={getColorClassNamesForField(visualisationData, currStepIdx, r, c)} 
       />
     );
   }
 
   return (
     <div 
-      style={{ gridTemplateColumns: `repeat(${graphData.graph[0].length}, 1fr)`, gridTemplateRows: `repeat(${graphData.graph.length}, 1fr)` }}
+      style={{ gridTemplateColumns: `repeat(${visualisationData.graph[0].length}, 1fr)`, gridTemplateRows: `repeat(${visualisationData.graph.length}, 1fr)` }}
       className={`w-full grid max-w-[70%] gap-[1px] bg-gray border-solid border-2 border-gray`}
     >
-      { graphData.graph.map((row, r) => row.map((fieldType, c) => getField(r, c))) }
+      { visualisationData.graph.map((row, r) => row.map((fieldType, c) => getField(r, c))) }
     </div>
   );
 }
 
 type FieldProps = { className: string };
 
-function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, r: number, c: number): string {
-  const { graphAndAlgorithm, currStepIdx } = visualisationData;
-  const { algorithmData, graphData } = graphAndAlgorithm;
-  const listOfSteps = algorithmData.listOfSteps;
-  const fieldType = graphData.graph[r][c];
-  const isStartOrEnd = (r === graphData.startNode.y && c === graphData.startNode.x) || (r === graphData.endNode.y && c === graphData.endNode.x);
+function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, currStepIdx: number, r: number, c: number): string {
+  const listOfSteps = visualisationData.listOfSteps;
+  const fieldType = visualisationData.graph[r][c];
+  const isStartOrEnd = (r === visualisationData.startNode.y && c === visualisationData.startNode.x) || (r === visualisationData.endNode.y && c === visualisationData.endNode.x);
   const isEmpty = (fieldType === FieldTypesMatrixGraph.empty);
   const isRock = (fieldType === FieldTypesMatrixGraph.rock);
   const isFieldVisited = isStepAlreadyMade(currStepIdx, listOfSteps, r, c);

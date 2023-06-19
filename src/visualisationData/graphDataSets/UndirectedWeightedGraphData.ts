@@ -14,7 +14,7 @@ const undirectedWeightedGraphData: GraphDataDirectedWeighted = {
   ]),
   startNode: "b",
   endNode: "i",
-  type: UserGraphTypes.undirected,
+  graphType: UserGraphTypes.undirected,
 }
 
 export default undirectedWeightedGraphData;

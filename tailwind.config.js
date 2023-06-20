@@ -13,6 +13,7 @@ export default {
       startAndEndNode: "#FFCC19",
       green: "#5eff00",
       orange: "#ff6200",
+      black: "#0a0a0a",
     },
     extend: {},
   },

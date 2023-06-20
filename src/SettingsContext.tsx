@@ -16,8 +16,8 @@ export interface UserInputDataContextProps {
   updateCurrStepIdx: (newIdx: number) => void;
 }
 
-const VisualisationDataContext = React.createContext<VisualisationDataContextProps|null>(null);
-const UserInputDataContext = React.createContext<UserInputDataContextProps|null>(null);
+const VisualisationDataContext = React.createContext<VisualisationDataContextProps>((null as unknown) as VisualisationDataContextProps);
+const UserInputDataContext = React.createContext<UserInputDataContextProps>((null as unknown) as UserInputDataContextProps);
 
 export function useVisualisationData() {
   return useContext(VisualisationDataContext);

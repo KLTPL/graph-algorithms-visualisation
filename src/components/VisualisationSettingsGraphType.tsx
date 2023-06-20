@@ -1,8 +1,8 @@
-import { VisualisationDataContextProps, useVisualisationData } from "../SettingsContext";
+import { useVisualisationData } from "../SettingsContext";
 import { UserGraphTypes } from "../visualisationData/typesGraphData";
 
 export default function GraphSettingsSelectType() {
-  const visualisationDataContext = useVisualisationData() as VisualisationDataContextProps;
+  const visualisationDataContext = useVisualisationData();
   const { visualisationData, switchVisualisationData } = visualisationDataContext;
   function selectGraphType(graphType: UserGraphTypes): () => void {
     return () => {

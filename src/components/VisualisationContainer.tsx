@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
 import { UserGraphTypes } from "../visualisationData/typesGraphData";
 import Matrix from "./graphs/Matrix";
 import Directed from "./graphs/Directed";
 import DirectedWeighted from "./graphs/DirectedWeighted";
 import Undirected from "./graphs/Undirected";
 import UndirectedWeighted from "./graphs/UndirectedWeighted";
-import { UserInputDataContextProps, VisualisationDataContextProps, useUserInputData, useVisualisationData } from "../SettingsContext";
+import { UserInputDataContextProps, useUserInputData, useVisualisationData } from "../SettingsContext";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
-import { getDefaultVisualisationData } from "../visualisationData/getProperDataFunctions";
-
-function getDefaultGraphElemet(): JSX.Element {
-  return getProperGraphElement(getDefaultVisualisationData());
-}
+import { useState } from "react";
 
 function getProperGraphElement(visualisationData: AnyVisualisationData): JSX.Element {
   switch (visualisationData.graphType) {
@@ -29,8 +24,8 @@ function getProperGraphElement(visualisationData: AnyVisualisationData): JSX.Ele
 }
 
 export default function GraphContainer() {
-  const visualisationDataContext = useVisualisationData() as VisualisationDataContextProps;
-  const UserInputDataContext = useUserInputData() as UserInputDataContextProps;
+  const visualisationDataContext = useVisualisationData();
+  const UserInputDataContext = useUserInputData();
   const { visualisationData } = visualisationDataContext;
   const { currStepIdx, updateCurrStepIdx } = UserInputDataContext;
 
@@ -40,7 +35,6 @@ export default function GraphContainer() {
       updateCurrStepIdx(currStepIdx + 1);
     }
   }
-
   function decrementCurrStepIdx() {
     if (currStepIdx >= 0) {
       updateCurrStepIdx(currStepIdx - 1);

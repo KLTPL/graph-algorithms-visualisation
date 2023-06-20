@@ -6,10 +6,7 @@ export default function GraphSettingsSelectSearchType() {
 
   function getSelectAlgorithmTypeFun(algorithmType: SearchAlgorithmsTypes): () => void {
     return () => {
-      if (
-        visualisationDataContext !== null && 
-        visualisationDataContext.visualisationData.algorithmType !== algorithmType
-      ) {
+      if (visualisationDataContext.visualisationData.algorithmType !== algorithmType) {
         const { visualisationData, switchVisualisationData } = visualisationDataContext;
         switchVisualisationData(visualisationData.graphType, algorithmType);
       }
@@ -25,7 +22,7 @@ export default function GraphSettingsSelectSearchType() {
       <button onClick={getSelectAlgorithmTypeFun(SearchAlgorithmsTypes.bfs)}>
         bfs
       </button>
-      { visualisationDataContext?.visualisationData.algorithmType }
+      { visualisationDataContext.visualisationData.algorithmType }
     </div>
   );
 }

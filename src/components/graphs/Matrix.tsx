@@ -1,10 +1,10 @@
-import { UserInputDataContextProps, VisualisationDataContextProps, useUserInputData, useVisualisationData } from "../../SettingsContext";
+import { useUserInputData, useVisualisationData } from "../../SettingsContext";
 import { VisualisationDataMatrix } from "../../visualisationData/typesVisualisationData";
 import { FieldMatrixGraph, FieldTypesMatrixGraph } from "../../visualisationData/typesGraphData";
 
 export default function Matrix() {
-  const visualisationData = (useVisualisationData() as VisualisationDataContextProps).visualisationData as VisualisationDataMatrix;
-  const { currStepIdx } = useUserInputData() as UserInputDataContextProps;
+  const visualisationData = useVisualisationData().visualisationData as VisualisationDataMatrix;
+  const { currStepIdx } = useUserInputData();
   
   function getField(r: number, c: number): JSX.Element {
     return (

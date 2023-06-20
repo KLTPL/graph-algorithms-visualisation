@@ -22,3 +22,8 @@ For visualisation of how it all works see the theory.png file in images director
 
 ## Hosting
 hosting with firebase: https://graph-algorithms-visualisation.web.app/
+
+### Deploy:
+```bash
+  firebase deploy
+```

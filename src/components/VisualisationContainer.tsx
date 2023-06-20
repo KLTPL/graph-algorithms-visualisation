@@ -4,9 +4,8 @@ import Directed from "./graphs/Directed";
 import DirectedWeighted from "./graphs/DirectedWeighted";
 import Undirected from "./graphs/Undirected";
 import UndirectedWeighted from "./graphs/UndirectedWeighted";
-import { UserInputDataContextProps, useUserInputData, useVisualisationData } from "../SettingsContext";
+import { useUserInputData, useVisualisationData } from "../SettingsContext";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
-import { useState } from "react";
 
 function getProperGraphElement(visualisationData: AnyVisualisationData): JSX.Element {
   switch (visualisationData.graphType) {

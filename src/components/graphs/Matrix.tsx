@@ -1,16 +1,49 @@
 import { useUserInputData, useVisualisationData } from "../../SettingsContext";
 import { VisualisationDataMatrix } from "../../visualisationData/typesVisualisationData";
 import { FieldMatrixGraph, FieldTypesMatrixGraph } from "../../visualisationData/typesGraphData";
+import { useEffect, useRef, useState } from "react";
 
 export default function Matrix() {
   const visualisationData = useVisualisationData().visualisationData as VisualisationDataMatrix;
   const { currStepIdx } = useUserInputData();
-  
+  const isBacktracking = useRef<boolean>(false);
+  const [ backtrackCount, setBacktrackCount ] = useState<number>(0);
+  // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
+  // backtrackCount is the count of how many nodes did the visualisation go back
+
+  useEffect(() => {
+    isBacktracking.current = false;
+    setBacktrackCount(0);
+  }, [ visualisationData.algorithmType, visualisationData.graphType, currStepIdx ]);
+
+  useEffect(() => {
+    if (
+      !isBacktracking.current &&
+      currStepIdx === visualisationData.listOfSteps.length - 1
+    ) {
+      backtrackToFirstNode();
+    }
+  });
+
+  function backtrackToFirstNode() {
+    const pathLen = visualisationData.pathToEndNode?.length as number;
+    // setTimeout so the useEffect above activates first
+    setTimeout(async () => {
+      isBacktracking.current = true;
+      let count = 0;
+      do {
+        count++;
+        setBacktrackCount(count);
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      } while (isBacktracking.current && count < pathLen);
+    })
+  }
+
   function getField(r: number, c: number): JSX.Element {
     return (
       <Field 
         key={`${r};${c}`} 
-        className={getColorClassNamesForField(visualisationData, currStepIdx, r, c)} 
+        className={getColorClassNamesForField(visualisationData, currStepIdx, backtrackCount, r, c)} 
       />
     );
   }
@@ -27,7 +60,7 @@ export default function Matrix() {
 
 type FieldProps = { className: string };
 
-function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, currStepIdx: number, r: number, c: number): string {
+function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, currStepIdx: number, backtrackCount: number, r: number, c: number): string {
   const listOfSteps = visualisationData.listOfSteps;
   const fieldType = visualisationData.graph[r][c];
   const isStartNode = (r === visualisationData.startNode.y && c === visualisationData.startNode.x);
@@ -37,9 +70,10 @@ function getColorClassNamesForField(visualisationData: VisualisationDataMatrix, 
   const isRock = (fieldType === FieldTypesMatrixGraph.rock);
   const isFieldVisited = isStepAlreadyMade(currStepIdx, listOfSteps, r, c);
   const isReachedEndNode = isStartEndNode && isFieldVisited;
+  const isOnBacktrack = isNodeOnBacktrack(visualisationData, backtrackCount, r, c);
 
   return (
-    `${(isEmpty && !isStartOrEnd) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd && !isReachedEndNode) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-rock": ""} ${(isFieldVisited && !isReachedEndNode) ? "bg-primary" : ""} ${(isReachedEndNode) ? "bg-green" : ""}`
+    `${(isEmpty && !isStartOrEnd && !isOnBacktrack) ? "bg-marixGraphFieldEmpty" : ""} ${(isStartOrEnd && !isReachedEndNode) ? "bg-startAndEndNode" : ""} ${(isRock) ? "bg-rock": ""} ${(isFieldVisited && !isReachedEndNode && !isOnBacktrack) ? "bg-primary" : ""} ${(isReachedEndNode) ? "bg-green" : ""} ${(isOnBacktrack) ? "bg-orange" : ""}`
   );
 }
 
@@ -47,6 +81,19 @@ function isStepAlreadyMade(currStepIdx: number, listOfSteps: FieldMatrixGraph[],
   for (let i=0 ; i<=currStepIdx ; i++) {
     const { x, y } = listOfSteps[i];
     if (x === c && y === r) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isNodeOnBacktrack(visualisationData: VisualisationDataMatrix, backtrackCount: number, r: number, c: number): boolean {
+  // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
+  // backtrackCount is the count of how many nodes did the visualisation go back
+  const path = visualisationData.pathToEndNode as FieldMatrixGraph[];
+  for (let i=1 ; i<backtrackCount ; i++) {
+    const newNode = path.at(-(i + 1));
+    if (newNode !== undefined && r === newNode.y && c === newNode.x) {
       return true;
     }
   }

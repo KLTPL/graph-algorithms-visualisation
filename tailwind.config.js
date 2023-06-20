@@ -12,6 +12,7 @@ export default {
       gray: "#50565a", 
       startAndEndNode: "#FFCC19",
       green: "#5eff00",
+      orange: "#ff6200",
     },
     extend: {},
   },

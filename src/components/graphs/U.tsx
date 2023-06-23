@@ -72,7 +72,8 @@ export default function Undirected() {
             key={key}
             nodePos1={nodesPositons[node1Idx]}
             nodePos2={nodesPositons[node2Idx]}
-            isCurrentEdge={isCurrentEdge}
+            edge={edge}
+            backtrackCount={backtrackCount}
           />
         );
       })}

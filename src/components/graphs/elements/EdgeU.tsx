@@ -1,19 +1,27 @@
+import {
+  useUserInputData,
+  useVisualisationData,
+} from "../../../SettingsContext";
+import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
+import { getClassNamesForEdgeU } from "../scripts/getClassNamesForEdges";
 import { NodePosition } from "../scripts/getDefaultNodesPostions";
+import { Edge } from "../scripts/getEdges";
 import { NODE_SIZE_PX } from "./NodeE";
 
 interface EdgeUndirectedProps {
   nodePos1: NodePosition;
   nodePos2: NodePosition;
-  isCurrentEdge: boolean;
+  edge: Edge;
+  backtrackCount: number;
 }
 
 const EDGE_HEIGHT_PX = 4;
 
-function EdgeUndirected({
-  nodePos1,
-  nodePos2,
-  isCurrentEdge,
-}: EdgeUndirectedProps) {
+function EdgeUndirected({ nodePos1, nodePos2, edge, backtrackCount }: EdgeUndirectedProps) {
+  const visualisationData = useVisualisationData()
+    .visualisationData as VisualisationDataDW;
+  const { currStepIdx } = useUserInputData();
+
   const distX = nodePos1.left - nodePos2.left;
   const distY = nodePos1.top - nodePos2.top;
   const angle = Math.atan(distY / distX) * (180 / Math.PI);
@@ -31,7 +39,12 @@ function EdgeUndirected({
           NODE_SIZE_PX / 2 - EDGE_HEIGHT_PX / 2
         }px) rotate(${angle}deg)`,
       }}
-      className={`h-1 bg-black absolute ${isCurrentEdge ? "bg-primary" : ""}`}
+      className={`h-1 absolute ${getClassNamesForEdgeU(
+        edge,
+        visualisationData,
+        currStepIdx,
+        backtrackCount
+      )}`}
     ></div>
   );
 }

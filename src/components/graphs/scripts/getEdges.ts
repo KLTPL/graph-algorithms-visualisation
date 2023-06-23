@@ -4,7 +4,7 @@ import {
   ToNodeDW,
 } from "../../../visualisationData/typesGraphData";
 
-type Edge = NodeE[]; // of length 2
+export type Edge = NodeE[]; // of length 2
 
 function getEdges(graph: GraphDW): Edge[] {
   const edges: Edge[] = [];

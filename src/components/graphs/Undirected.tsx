@@ -8,9 +8,11 @@ import {
 } from "./scripts/backtrackMechanick";
 import { NodeEdgeGraph } from "../../visualisationData/typesGraphData";
 import getRandomNodesPositions, {
-  NodePostion,
-  NodesPostions,
+  NodePosition,
+  NodesPositions,
 } from "./scripts/getRandomNodesPostions";
+import EdgeUndirected from "./elements/EdgeUndirected";
+import getEdges from "./scripts/getEdges";
 
 export default function Undirected() {
   const visualisationData = useVisualisationData()
@@ -21,7 +23,7 @@ export default function Undirected() {
   const nodes = [...visualisationData.graph.keys()];
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
-  const [nodesPositons, setNodesPostions] = useState<NodesPostions>(
+  const [nodesPositons, setNodesPostions] = useState<NodesPositions>(
     getRandomNodesPositions(nodes.length)
   );
   useEffect(
@@ -38,7 +40,7 @@ export default function Undirected() {
     );
   });
 
-  function getNode(node: NodeEdgeGraph, nodePos: NodePostion): JSX.Element {
+  function getNode(node: NodeEdgeGraph, nodePos: NodePosition): JSX.Element {
     return (
       <NodeEdge
         key={node}
@@ -53,9 +55,17 @@ export default function Undirected() {
 
   return (
     <div className="w-[60%] aspect-square relative">
-      {[...visualisationData.graph.keys()].map((node, i) =>
-        getNode(node, nodesPositons[i])
-      )}
+      {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
+      {getEdges(visualisationData.graph).map((edge, key) => {
+        console.log(`${edge[0]} - ${edge[1]}`);
+        return (
+          <EdgeUndirected
+            key={key}
+            nodePos1={nodesPositons[nodes.indexOf(edge[0])]}
+            nodePos2={nodesPositons[nodes.indexOf(edge[1])]}
+          />
+        );
+      })}
     </div>
   );
 }

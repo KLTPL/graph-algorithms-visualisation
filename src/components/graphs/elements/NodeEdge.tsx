@@ -1,14 +1,17 @@
 import { NodeEdgeGraph } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDirectedWeighted } from "../../../visualisationData/typesVisualisationData";
 import { getClassNamesForNodeEdge } from "../scripts/getClassNamesForNodes";
-import { NodePostion } from "../scripts/getRandomNodesPostions";
+import { NodePosition } from "../scripts/getRandomNodesPostions";
+
+export const NODE_SIZE_PX =
+  window.innerWidth < 500 ? window.innerWidth / 12 : 40;
 
 interface NodeEdgeProps {
   visualisationData: VisualisationDataDirectedWeighted;
   currStepIdx: number;
   backtrackCount: number;
   node: NodeEdgeGraph;
-  pos: NodePostion;
+  pos: NodePosition;
 }
 
 function NodeEdge({
@@ -21,11 +24,18 @@ function NodeEdge({
   const { left, top } = pos;
   return (
     <div
-      style={{ left: `${left}%`, top: `${top}%` }}
-      className={`absolute  w-12 h-12 rounded-[100%] grid place-content-center -translate-x-1/2 -translate-y-1/2 border-solid border-2 border-gray ${getClassNamesForNodeEdge(
+      style={{
+        left: `${left}%`,
+        top: `${top}%`,
+        width: `${NODE_SIZE_PX}px`,
+        height: `${NODE_SIZE_PX}px`,
+      }}
+      className={`absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-gray ${getClassNamesForNodeEdge(
         { visualisationData, currStepIdx, backtrackCount, node }
       )}`}
-    ></div>
+    >
+      {node}
+    </div>
   );
 }
 

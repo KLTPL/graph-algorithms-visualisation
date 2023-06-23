@@ -30,7 +30,7 @@ function NodeEdge({
         width: `${NODE_SIZE_PX}px`,
         height: `${NODE_SIZE_PX}px`,
       }}
-      className={`absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-gray ${getClassNamesForNodeEdge(
+      className={`absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeDefault ${getClassNamesForNodeEdge(
         { visualisationData, currStepIdx, backtrackCount, node }
       )}`}
     >

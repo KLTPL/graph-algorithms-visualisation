@@ -49,7 +49,7 @@ export default function Matrix() {
         gridTemplateColumns: `repeat(${visualisationData.graph[0].length}, 1fr)`,
         gridTemplateRows: `repeat(${visualisationData.graph.length}, 1fr)`,
       }}
-      className="w-[90%] grid max-w-[500px] gap-[1px] bg-gray border-solid border-2 border-gray"
+      className="w-[90%] grid max-w-[500px] gap-[1px] bg-nodeDefault border-solid border-2 border-nodeDefault"
     >
       {visualisationData.graph.map((row, r) =>
         row.map((fieldType, c) => getField(r, c))

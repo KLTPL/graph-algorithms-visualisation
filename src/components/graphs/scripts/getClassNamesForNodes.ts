@@ -51,15 +51,15 @@ export function getClassNamesForNodeMatrix({
 
   const conditionAndValuePairs = [
     [isEmpty && !isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
-    [isStartOrEnd && !isReachedEndNode, "bg-startAndEndNode"],
+    [isStartOrEnd && !isReachedEndNode, "bg-nodeStartOrEnd"],
     [isRock, "bg-rock"],
     [isNodeVisited && !isReachedEndNode && !isOnBacktrack, "bg-primary"],
     [
       isCurrNode,
       "after:content-[''] after:rounded-[50%] after:bg-black after:w-[7px] after:h-[7px]",
     ],
-    [isReachedEndNode, "bg-green"],
-    [isOnBacktrack, "bg-orange"],
+    [isReachedEndNode, "bg-nodeEndReached"],
+    [isOnBacktrack, "bg-nodeBacktrack"],
   ];
 
   return conditionAndValuePairs
@@ -89,14 +89,14 @@ export function getClassNamesForNodeEdge({
 
   const conditionAndValuePairs = [
     [!isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
-    [isStartOrEnd && !isReachedEndNode, "bg-startAndEndNode"],
+    [isStartOrEnd && !isReachedEndNode, "bg-nodeStartOrEnd"],
     [isNodeVisited && !isReachedEndNode && !isOnBacktrack, "bg-primary"],
     [
       isCurrNode,
       "after:content-[''] after:rounded-[50%] after:bg-black after:w-[7px] after:h-[7px]",
     ],
-    [isReachedEndNode, "bg-green"],
-    [isOnBacktrack, "bg-orange"],
+    [isReachedEndNode, "bg-nodeEndReached"],
+    [isOnBacktrack, "bg-nodeBacktrack"],
   ];
 
   return conditionAndValuePairs

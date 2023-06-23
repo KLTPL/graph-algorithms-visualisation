@@ -1,4 +1,9 @@
-import { FieldTypesMatrixGraph, UserGraphTypes, MatrixGraph, GraphDataMatrix } from "../typesGraphData";
+import {
+  NodeTypesMatrixGraph,
+  UserGraphTypes,
+  MatrixGraph,
+  GraphDataMatrix,
+} from "../typesGraphData";
 
 export const matrixGraphData: GraphDataMatrix = {
   graph: getDefaultGraph(),
@@ -8,9 +13,11 @@ export const matrixGraphData: GraphDataMatrix = {
 };
 
 function getDefaultGraph(): MatrixGraph {
-  const graph: MatrixGraph = new Array(5).fill(null).map(() => Array(5).fill(FieldTypesMatrixGraph.empty));
-  graph[0][1] = FieldTypesMatrixGraph.rock;
-  graph[3][4] = FieldTypesMatrixGraph.rock;
+  const graph: MatrixGraph = new Array(5)
+    .fill(null)
+    .map(() => Array(5).fill(NodeTypesMatrixGraph.empty));
+  graph[0][1] = NodeTypesMatrixGraph.rock;
+  graph[3][4] = NodeTypesMatrixGraph.rock;
   return graph;
 }
 

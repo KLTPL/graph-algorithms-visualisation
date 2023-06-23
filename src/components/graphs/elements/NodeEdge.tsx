@@ -1,7 +1,7 @@
 import { NodeEdgeGraph } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDirectedWeighted } from "../../../visualisationData/typesVisualisationData";
 import { getClassNamesForNodeEdge } from "../scripts/getClassNamesForNodes";
-import { NodePosition } from "../scripts/getRandomNodesPostions";
+import { NodePosition } from "../scripts/getDefaultNodesPostions";
 
 export const NODE_SIZE_PX =
   window.innerWidth < 500 ? window.innerWidth / 12 : 40;

@@ -7,10 +7,11 @@ import {
   resetBacktracking,
 } from "./scripts/backtrackMechanick";
 import { NodeEdgeGraph } from "../../visualisationData/typesGraphData";
-import getRandomNodesPositions, {
+import {
+  getDefaultNodesPositionsUndirected,
   NodePosition,
   NodesPositions,
-} from "./scripts/getRandomNodesPostions";
+} from "./scripts/getDefaultNodesPostions";
 import EdgeUndirected from "./elements/EdgeUndirected";
 import getEdges from "./scripts/getEdges";
 
@@ -24,7 +25,7 @@ export default function Undirected() {
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
   const [nodesPositons, setNodesPostions] = useState<NodesPositions>(
-    getRandomNodesPositions(nodes.length)
+    getDefaultNodesPositionsUndirected()
   );
   useEffect(
     () => resetBacktracking(isBacktracking, setBacktrackCount),

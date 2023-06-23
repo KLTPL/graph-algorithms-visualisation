@@ -1,16 +1,16 @@
 import {
-  DirectedWeightedGraph,
-  NodeEdgeGraph,
-  ToNodeDirectedWeightedGraph,
+  GraphDW,
+  NodeE,
+  ToNodeDW,
 } from "../../../visualisationData/typesGraphData";
 
-type Edge = NodeEdgeGraph[]; // of length 2
+type Edge = NodeE[]; // of length 2
 
-function getEdges(graph: DirectedWeightedGraph): Edge[] {
+function getEdges(graph: GraphDW): Edge[] {
   const edges: Edge[] = [];
   const edgesCodes = new Set<string>();
   for (const node of graph.keys()) {
-    const neighbours = graph.get(node) as ToNodeDirectedWeightedGraph[];
+    const neighbours = graph.get(node) as ToNodeDW[];
     for (const { node: neighbour } of neighbours) {
       const strCode =
         node.charCodeAt(0) < neighbour.charCodeAt(0)

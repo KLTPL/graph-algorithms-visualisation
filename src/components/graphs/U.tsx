@@ -1,23 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { useUserInputData, useVisualisationData } from "../../SettingsContext";
-import { VisualisationDataDirectedWeighted } from "../../visualisationData/typesVisualisationData";
-import NodeEdge from "./elements/NodeEdge";
+import { VisualisationDataDW } from "../../visualisationData/typesVisualisationData";
+import NodeEdge from "./elements/NodeE";
 import {
   backtrackIfShould,
   resetBacktracking,
 } from "./scripts/backtrackMechanick";
-import { NodeEdgeGraph } from "../../visualisationData/typesGraphData";
+import { NodeE } from "../../visualisationData/typesGraphData";
 import {
-  getDefaultNodesPositionsUndirected,
+  getDefaultNodesPositionsU,
   NodePosition,
   NodesPositions,
 } from "./scripts/getDefaultNodesPostions";
-import EdgeUndirected from "./elements/EdgeUndirected";
+import EdgeUndirected from "./elements/EdgeU";
 import getEdges from "./scripts/getEdges";
 
 export default function Undirected() {
   const visualisationData = useVisualisationData()
-    .visualisationData as VisualisationDataDirectedWeighted;
+    .visualisationData as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
@@ -25,7 +25,7 @@ export default function Undirected() {
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
   const [nodesPositons, setNodesPostions] = useState<NodesPositions>(
-    getDefaultNodesPositionsUndirected()
+    getDefaultNodesPositionsU()
   );
   useEffect(
     () => resetBacktracking(isBacktracking, setBacktrackCount),
@@ -41,7 +41,7 @@ export default function Undirected() {
     );
   });
 
-  function getNode(node: NodeEdgeGraph, nodePos: NodePosition): JSX.Element {
+  function getNode(node: NodeE, nodePos: NodePosition): JSX.Element {
     return (
       <NodeEdge
         key={node}
@@ -62,9 +62,11 @@ export default function Undirected() {
         const node2Idx = nodes.indexOf(edge[1]);
         const isCurrentEdge =
           (visualisationData.listOfSteps[currStepIdx] === edge[0] &&
-            (visualisationData.startNode === edge[1] || visualisationData.listOfSteps[currStepIdx - 1] === edge[1])) ||
+            (visualisationData.startNode === edge[1] ||
+              visualisationData.listOfSteps[currStepIdx - 1] === edge[1])) ||
           (visualisationData.listOfSteps[currStepIdx] === edge[1] &&
-            (edge[0] === visualisationData.startNode || visualisationData.listOfSteps[currStepIdx - 1] === edge[0]));
+            (edge[0] === visualisationData.startNode ||
+              visualisationData.listOfSteps[currStepIdx - 1] === edge[0]));
         return (
           <EdgeUndirected
             key={key}

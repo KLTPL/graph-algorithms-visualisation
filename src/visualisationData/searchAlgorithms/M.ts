@@ -1,43 +1,40 @@
 import { getEmptySearchData } from "../getProperDataFunctions";
 import {
-  FieldMatrixGraph,
-  NodeTypesMatrixGraph,
-  MatrixGraph,
-  GraphDataMatrix as GraphDataHere,
+  FieldM,
+  NodeTypesM,
+  GraphM,
+  GraphDataM as GraphDataHere,
 } from "../typesGraphData";
 import {
-  VisitedNodesMatrixGraph as VisitedNodesHere,
-  SearchAlgorithmFunMatrix as SearchAlgorithmFunHere,
-  SearchExecutionDataMatrixGraph as SearchExecutionDataHere,
+  VisitedNodesM as VisitedNodesHere,
+  SearchAlgorithmFunM as SearchAlgorithmFunHere,
+  SearchExecutionDataM as SearchExecutionDataHere,
   VisitedNodesStartNode,
-  SearchAlgorithmsFunsMatrix,
+  SearchAlgorithmsFunsM,
   SearchAlgorithmsTypes,
 } from "../typesAlgorithmData";
 
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 
-function isNodeVisited(
-  node: FieldMatrixGraph,
-  visitedNodes: VisitedNodesHere
-): boolean {
+function isNodeVisited(node: FieldM, visitedNodes: VisitedNodesHere): boolean {
   return !(visitedNodes[node.y][node.x] === null);
 }
 
 function markNodeAsVisited(
-  node: FieldMatrixGraph,
-  nodeVisitedFrom: FieldMatrixGraph,
+  node: FieldM,
+  nodeVisitedFrom: FieldM,
   visitedNodes: VisitedNodesHere
 ): void {
   visitedNodes[node.y][node.x] = nodeVisitedFrom;
 }
 
-function isNodeEndNode(node: FieldMatrixGraph, endNode: FieldMatrixGraph) {
+function isNodeEndNode(node: FieldM, endNode: FieldM) {
   return node.x === endNode.x && node.y === endNode.y;
 }
 
 function getEmptyVisitedNodes(
-  graph: MatrixGraph,
-  startNode: FieldMatrixGraph
+  graph: GraphM,
+  startNode: FieldM
 ): VisitedNodesHere {
   const visitedNodes = new Array(graph.length)
     .fill(null)
@@ -46,7 +43,7 @@ function getEmptyVisitedNodes(
   return visitedNodes;
 }
 
-function getAdjacentNodes(currNode: FieldMatrixGraph, graph: MatrixGraph) {
+function getAdjacentNodes(currNode: FieldM, graph: GraphM) {
   const directions = [
     { x: 0, y: -1 },
     { x: -1, y: 0 },
@@ -60,7 +57,7 @@ function getAdjacentNodes(currNode: FieldMatrixGraph, graph: MatrixGraph) {
     .filter(node => isNodeInBounds(node, graph));
 }
 
-function isNodeInBounds(node: FieldMatrixGraph, graph: MatrixGraph): boolean {
+function isNodeInBounds(node: FieldM, graph: GraphM): boolean {
   return (
     node.x >= 0 &&
     node.x < graph.length &&
@@ -69,8 +66,8 @@ function isNodeInBounds(node: FieldMatrixGraph, graph: MatrixGraph): boolean {
   );
 }
 
-function isFieldEmpty(field: FieldMatrixGraph, graph: MatrixGraph) {
-  return graph[field.y][field.x] === NodeTypesMatrixGraph.empty;
+function isFieldEmpty(field: FieldM, graph: GraphM) {
+  return graph[field.y][field.x] === NodeTypesM.empty;
 }
 
 function dfsOrBfs(
@@ -78,7 +75,7 @@ function dfsOrBfs(
   isDfs: boolean
 ): SearchExecutionDataHere {
   const algorithmData = getEmptySearchData(
-    isDfs ? SearchAlgorithmsTypes.dfs : SearchAlgorithmsTypes.bfs
+    isDfs ? SearchAlgorithmsTypes.Dfs : SearchAlgorithmsTypes.Bfs
   ) as SearchExecutionDataHere;
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
   const stack = [graphData.startNode];
@@ -89,7 +86,7 @@ function dfsOrBfs(
 
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes
   while (stack.length > 0 && !algorithmData.isEndNodeReached) {
-    const currNode = (isDfs ? stack.pop() : stack.shift()) as FieldMatrixGraph;
+    const currNode = (isDfs ? stack.pop() : stack.shift()) as FieldM;
     algorithmData.listOfSteps.push(currNode);
     for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
       if (isNodeEndNode(neighborNode, graphData.endNode)) {
@@ -128,7 +125,7 @@ function backtrackToStartNode(
   let at = visitedNodes[eNode.y][eNode.x];
   while (at !== START_NODE_SIGN && at !== null) {
     // at!==null just for type safety
-    data.pathToEndNode.push(at as FieldMatrixGraph);
+    data.pathToEndNode.push(at as FieldM);
     data.pathCost++;
     at = visitedNodes[at.y][at.x];
   }
@@ -148,6 +145,6 @@ const bfs: SearchAlgorithmFunHere = function (
   return dfsOrBfs(graphData, false);
 };
 
-const searchAlgorithmsFunsDW: SearchAlgorithmsFunsMatrix = { dfs, bfs };
+const searchAlgorithmsFunsM: SearchAlgorithmsFunsM = { dfs, bfs };
 
-export default searchAlgorithmsFunsDW;
+export default searchAlgorithmsFunsM;

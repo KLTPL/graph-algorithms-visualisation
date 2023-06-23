@@ -1,10 +1,13 @@
-import { GraphDataDirectedWeighted, GraphDataMatrix } from "./typesGraphData";
-import { SearchExecutionDataDirectedWeightedGraph, SearchExecutionDataMatrixGraph } from "./typesAlgorithmData";
+import { GraphDataDW, GraphDataM } from "./typesGraphData";
+import {
+  SearchExecutionDataDW,
+  SearchExecutionDataM,
+} from "./typesAlgorithmData";
 
-export interface VisualisationDataMatrix extends GraphDataMatrix, SearchExecutionDataMatrixGraph {
-}
+export interface VisualisationDataM extends GraphDataM, SearchExecutionDataM {}
 
-export interface VisualisationDataDirectedWeighted extends GraphDataDirectedWeighted, SearchExecutionDataDirectedWeightedGraph {
-}
+export interface VisualisationDataDW
+  extends GraphDataDW,
+    SearchExecutionDataDW {}
 
-export type AnyVisualisationData = VisualisationDataMatrix | VisualisationDataDirectedWeighted;
+export type AnyVisualisationData = VisualisationDataM | VisualisationDataDW;

@@ -1,35 +1,35 @@
 import {
-  FieldMatrixGraph,
-  NodeEdgeGraph,
-  NodeTypesMatrixGraph,
+  FieldM,
+  NodeE,
+  NodeTypesM,
 } from "../../../visualisationData/typesGraphData";
 import {
-  VisualisationDataDirectedWeighted,
-  VisualisationDataMatrix,
+  VisualisationDataDW,
+  VisualisationDataM,
 } from "../../../visualisationData/typesVisualisationData";
 
-interface NodeDataMatrix {
-  visualisationData: VisualisationDataMatrix;
+interface NodeDataM {
+  visualisationData: VisualisationDataM;
   currStepIdx: number;
   backtrackCount: number;
   r: number;
   c: number;
 }
 
-interface NodeDataEdge {
-  visualisationData: VisualisationDataDirectedWeighted;
+interface NodeDataE {
+  visualisationData: VisualisationDataDW;
   currStepIdx: number;
   backtrackCount: number;
-  node: NodeEdgeGraph;
+  node: NodeE;
 }
 
-export function getClassNamesForNodeMatrix({
+export function getClassNamesForNodeM({
   visualisationData,
   currStepIdx,
   backtrackCount,
   r,
   c,
-}: NodeDataMatrix): string {
+}: NodeDataM): string {
   const listOfSteps = visualisationData.listOfSteps;
   const fieldType = visualisationData.graph[r][c];
   const isStartNode =
@@ -37,12 +37,12 @@ export function getClassNamesForNodeMatrix({
   const isEndNode =
     r === visualisationData.endNode.y && c === visualisationData.endNode.x;
   const isStartOrEnd = isStartNode || isEndNode;
-  const isEmpty = fieldType === NodeTypesMatrixGraph.empty;
-  const isRock = fieldType === NodeTypesMatrixGraph.rock;
-  const isNodeVisited = isStepAlreadyMadeMatrix(currStepIdx, listOfSteps, r, c);
-  const isCurrNode = isNodeCurrNodeMatrix(visualisationData, currStepIdx, r, c);
+  const isEmpty = fieldType === NodeTypesM.empty;
+  const isRock = fieldType === NodeTypesM.rock;
+  const isNodeVisited = isStepAlreadyMadeM(currStepIdx, listOfSteps, r, c);
+  const isCurrNode = isNodeCurrNodeM(visualisationData, currStepIdx, r, c);
   const isReachedEndNode = isEndNode && isNodeVisited;
-  const isOnBacktrack = isNodeOnBacktrackMatrix(
+  const isOnBacktrack = isNodeOnBacktrackM(
     visualisationData,
     backtrackCount,
     r,
@@ -68,20 +68,20 @@ export function getClassNamesForNodeMatrix({
     .join(" ");
 }
 
-export function getClassNamesForNodeEdge({
+export function getClassNamesForNodeE({
   visualisationData,
   currStepIdx,
   backtrackCount,
   node,
-}: NodeDataEdge): string {
+}: NodeDataE): string {
   const listOfSteps = visualisationData.listOfSteps;
   const isStartNode = node === visualisationData.startNode;
   const isEndNode = node === visualisationData.endNode;
   const isStartOrEnd = isStartNode || isEndNode;
-  const isNodeVisited = isStepAlreadyMadeEdge(currStepIdx, listOfSteps, node);
-  const isCurrNode = isNodeCurrNodeEdge(visualisationData, currStepIdx, node);
+  const isNodeVisited = isStepAlreadyMadeE(currStepIdx, listOfSteps, node);
+  const isCurrNode = isNodeCurrNodeE(visualisationData, currStepIdx, node);
   const isReachedEndNode = isEndNode && isNodeVisited;
-  const isOnBacktrack = isNodeOnBacktrackEdge(
+  const isOnBacktrack = isNodeOnBacktrackE(
     visualisationData,
     backtrackCount,
     node
@@ -105,9 +105,9 @@ export function getClassNamesForNodeEdge({
     .join(" ");
 }
 
-function isStepAlreadyMadeMatrix(
+function isStepAlreadyMadeM(
   currStepIdx: number,
-  listOfSteps: FieldMatrixGraph[],
+  listOfSteps: FieldM[],
   r: number,
   c: number
 ): boolean {
@@ -120,10 +120,10 @@ function isStepAlreadyMadeMatrix(
   return false;
 }
 
-function isStepAlreadyMadeEdge(
+function isStepAlreadyMadeE(
   currStepIdx: number,
-  listOfSteps: NodeEdgeGraph[],
-  node: NodeEdgeGraph
+  listOfSteps: NodeE[],
+  node: NodeE
 ): boolean {
   for (let i = 0; i <= currStepIdx; i++) {
     if (node === listOfSteps[i]) {
@@ -133,15 +133,15 @@ function isStepAlreadyMadeEdge(
   return false;
 }
 
-function isNodeOnBacktrackMatrix(
-  visualisationData: VisualisationDataMatrix,
+function isNodeOnBacktrackM(
+  visualisationData: VisualisationDataM,
   backtrackCount: number,
   r: number,
   c: number
 ): boolean {
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
-  const path = visualisationData.pathToEndNode as FieldMatrixGraph[];
+  const path = visualisationData.pathToEndNode as FieldM[];
   for (let i = 1; i < backtrackCount; i++) {
     const newNode = path.at(-(i + 1));
     if (newNode !== undefined && r === newNode.y && c === newNode.x) {
@@ -151,14 +151,14 @@ function isNodeOnBacktrackMatrix(
   return false;
 }
 
-function isNodeOnBacktrackEdge(
-  visualisationData: VisualisationDataDirectedWeighted,
+function isNodeOnBacktrackE(
+  visualisationData: VisualisationDataDW,
   backtrackCount: number,
-  node: NodeEdgeGraph
+  node: NodeE
 ): boolean {
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
-  const path = visualisationData.pathToEndNode as NodeEdgeGraph[];
+  const path = visualisationData.pathToEndNode as NodeE[];
   for (let i = 1; i < backtrackCount; i++) {
     const newNode = path.at(-(i + 1));
     if (newNode !== undefined && node === newNode) {
@@ -168,8 +168,8 @@ function isNodeOnBacktrackEdge(
   return false;
 }
 
-function isNodeCurrNodeMatrix(
-  visualisationData: VisualisationDataMatrix,
+function isNodeCurrNodeM(
+  visualisationData: VisualisationDataM,
   currStepIdx: number,
   r: number,
   c: number
@@ -178,10 +178,10 @@ function isNodeCurrNodeMatrix(
   return field !== undefined && field.x === c && field.y === r;
 }
 
-function isNodeCurrNodeEdge(
-  visualisationData: VisualisationDataDirectedWeighted,
+function isNodeCurrNodeE(
+  visualisationData: VisualisationDataDW,
   currStepIdx: number,
-  node: NodeEdgeGraph
+  node: NodeE
 ): boolean {
   const currNode = visualisationData.listOfSteps[currStepIdx];
   return currNode !== undefined && currNode === node;

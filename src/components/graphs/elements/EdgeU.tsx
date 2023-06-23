@@ -1,5 +1,5 @@
 import { NodePosition } from "../scripts/getDefaultNodesPostions";
-import { NODE_SIZE_PX } from "./NodeEdge";
+import { NODE_SIZE_PX } from "./NodeE";
 
 interface EdgeUndirectedProps {
   nodePos1: NodePosition;
@@ -9,7 +9,11 @@ interface EdgeUndirectedProps {
 
 const EDGE_HEIGHT_PX = 4;
 
-function EdgeUndirected({ nodePos1, nodePos2, isCurrentEdge }: EdgeUndirectedProps) {
+function EdgeUndirected({
+  nodePos1,
+  nodePos2,
+  isCurrentEdge,
+}: EdgeUndirectedProps) {
   const distX = nodePos1.left - nodePos2.left;
   const distY = nodePos1.top - nodePos2.top;
   const angle = Math.atan(distY / distX) * (180 / Math.PI);

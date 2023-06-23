@@ -1,8 +1,8 @@
-import { VisualisationDataMatrix } from "../../../visualisationData/typesVisualisationData";
-import { getClassNamesForNodeMatrix } from "../scripts/getClassNamesForNodes";
+import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
+import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodes";
 
 type NodeMatrixProps = {
-  visualisationData: VisualisationDataMatrix;
+  visualisationData: VisualisationDataM;
   currStepIdx: number;
   backtrackCount: number;
   r: number;
@@ -10,7 +10,7 @@ type NodeMatrixProps = {
 };
 
 function NodeMatrix(props: NodeMatrixProps) {
-  const className = getClassNamesForNodeMatrix(props);
+  const className = getClassNamesForNodeM(props);
   return (
     <div className={`aspect-square grid place-content-center ${className}`} />
   );

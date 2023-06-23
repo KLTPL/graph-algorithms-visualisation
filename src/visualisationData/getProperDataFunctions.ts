@@ -1,29 +1,53 @@
-import directedGraphData from "./graphDataSets/DirectedGraphData";
-import directedWeightedGraphData from "./graphDataSets/DirectedWeightedGraphData";
-import matrixGraphData from "./graphDataSets/MatrixGraphData";
-import undirectedGraphData from "./graphDataSets/UndirectedGraphData";
-import undirectedWeightedGraphData from "./graphDataSets/UndirectedWeightedGraphData";
-import { AnyGraphData, GraphDataDirectedWeighted, GraphDataMatrix, NodeEdgeGraph, ToNodeDirectedWeightedGraph, UserGraphTypes } from "./typesGraphData";
-import { AnySearchExecutionData, SearchAlgorithmsTypes, SearchExecutionDataDirectedWeightedGraph, SearchExecutionDataMatrixGraph } from "./typesAlgorithmData";
-import GraphAlgorithmsMatrix from "./searchAlgorithms/GraphAlgorithmsMatrix";
-import GraphAlgorithmsDirectedWeighted from "./searchAlgorithms/GraphAlgorithmsDirectedWeighted";
-import { AnyVisualisationData, VisualisationDataMatrix } from "./typesVisualisationData";
+import graphDataD from "./graphDataSets/D";
+import graphDataDW from "./graphDataSets/DW";
+import graphDataM from "./graphDataSets/M";
+import graphDataU from "./graphDataSets/U";
+import graphDataUW from "./graphDataSets/UW";
+import {
+  AnyGraphData,
+  GraphDataDW,
+  GraphDataM,
+  NodeE,
+  ToNodeDW,
+  UserGraphTypes,
+} from "./typesGraphData";
+import {
+  AnySearchExecutionData,
+  SearchAlgorithmsTypes,
+  SearchExecutionDataDW,
+  SearchExecutionDataM,
+} from "./typesAlgorithmData";
+import GraphAlgorithmsMatrix from "./searchAlgorithms/M";
+import GraphAlgorithmsDirectedWeighted from "./searchAlgorithms/DW";
+import {
+  AnyVisualisationData,
+  VisualisationDataM,
+} from "./typesVisualisationData";
 
-export function getConverted(arr: NodeEdgeGraph[]): ToNodeDirectedWeightedGraph[] {
-  return arr.map(node => {return { node , cost: 1 }});
+export function getConverted(arr: NodeE[]): ToNodeDW[] {
+  return arr.map(node => {
+    return { node, cost: 1 };
+  });
 }
 
 function getProperGraphData(graphType: UserGraphTypes): AnyGraphData {
   switch (graphType) {
-    case UserGraphTypes.matrix: return matrixGraphData;
-    case UserGraphTypes.directed: return directedGraphData;
-    case UserGraphTypes.directedWeighted: return directedWeightedGraphData;
-    case UserGraphTypes.undirected: return undirectedGraphData;
-    case UserGraphTypes.undirectedWeighted: return undirectedWeightedGraphData;
+    case UserGraphTypes.M:
+      return graphDataM;
+    case UserGraphTypes.D:
+      return graphDataD;
+    case UserGraphTypes.DW:
+      return graphDataDW;
+    case UserGraphTypes.U:
+      return graphDataU;
+    case UserGraphTypes.UW:
+      return graphDataUW;
   }
 }
 
-export const getEmptySearchData = (type: SearchAlgorithmsTypes): AnySearchExecutionData => {
+export const getEmptySearchData = (
+  type: SearchAlgorithmsTypes
+): AnySearchExecutionData => {
   return {
     algorithmType: type,
     listOfSteps: [],
@@ -31,39 +55,48 @@ export const getEmptySearchData = (type: SearchAlgorithmsTypes): AnySearchExecut
     pathToEndNode: null,
     isEndNodeReached: false,
   };
-}
+};
 
-function getProperAlgorithmData(graphData: AnyGraphData, algorithmType: SearchAlgorithmsTypes): AnySearchExecutionData {
-  if (graphData.graphType === UserGraphTypes.matrix) {
-    const graphDataTmp = graphData as GraphDataMatrix;
+function getProperAlgorithmData(
+  graphData: AnyGraphData,
+  algorithmType: SearchAlgorithmsTypes
+): AnySearchExecutionData {
+  if (graphData.graphType === UserGraphTypes.M) {
+    const graphDataTmp = graphData as GraphDataM;
     const { dfs, bfs } = GraphAlgorithmsMatrix;
-    const fun = (algorithmType === SearchAlgorithmsTypes.dfs) ? dfs : bfs;
+    const fun = algorithmType === SearchAlgorithmsTypes.Dfs ? dfs : bfs;
     const data = fun(graphDataTmp);
     return data;
   } else {
-    const graphDataTmp = graphData as GraphDataDirectedWeighted;
+    const graphDataTmp = graphData as GraphDataDW;
     const { dfs, bfs } = GraphAlgorithmsDirectedWeighted;
-    const fun = (algorithmType === SearchAlgorithmsTypes.dfs) ? dfs : bfs;
+    const fun = algorithmType === SearchAlgorithmsTypes.Dfs ? dfs : bfs;
     const data = fun(graphDataTmp);
     return data;
   }
 }
 
-export function getDefaultVisualisationData(): VisualisationDataMatrix {
-  return getProperVisualisationData(UserGraphTypes.matrix, SearchAlgorithmsTypes.dfs) as VisualisationDataMatrix;
+export function getDefaultVisualisationData(): VisualisationDataM {
+  return getProperVisualisationData(
+    UserGraphTypes.M,
+    SearchAlgorithmsTypes.Dfs
+  ) as VisualisationDataM;
 }
 
-export function getProperVisualisationData(graphType: UserGraphTypes, algorithmType: SearchAlgorithmsTypes): AnyVisualisationData {
+export function getProperVisualisationData(
+  graphType: UserGraphTypes,
+  algorithmType: SearchAlgorithmsTypes
+): AnyVisualisationData {
   const graphData = getProperGraphData(graphType);
-  const algorithmData = getProperAlgorithmData(graphData, algorithmType)
-  if (graphType === UserGraphTypes.matrix) {
+  const algorithmData = getProperAlgorithmData(graphData, algorithmType);
+  if (graphType === UserGraphTypes.M) {
     return {
-      ...graphData as GraphDataMatrix,
-      ...algorithmData as SearchExecutionDataMatrixGraph,
+      ...(graphData as GraphDataM),
+      ...(algorithmData as SearchExecutionDataM),
     };
   }
   return {
-    ...graphData as GraphDataDirectedWeighted,
-    ...algorithmData as SearchExecutionDataDirectedWeightedGraph,
+    ...(graphData as GraphDataDW),
+    ...(algorithmData as SearchExecutionDataDW),
   };
 }

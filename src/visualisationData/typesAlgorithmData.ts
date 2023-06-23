@@ -1,42 +1,49 @@
-import { GraphDataDirectedWeighted, FieldMatrixGraph, GraphDataMatrix, NodeEdgeGraph } from "./typesGraphData";
+import { GraphDataDW, FieldM, GraphDataM, NodeE } from "./typesGraphData";
 
 export enum SearchAlgorithmsTypes {
-  dfs, bfs
+  Dfs,
+  Bfs,
 }
 
-export interface SearchExecutionDataMatrixGraph {
-  algorithmType: SearchAlgorithmsTypes,
-  listOfSteps: FieldMatrixGraph[];
+export interface SearchExecutionDataM {
+  algorithmType: SearchAlgorithmsTypes;
+  listOfSteps: FieldM[];
   isEndNodeReached: boolean;
-  pathToEndNode: FieldMatrixGraph[]|null;
+  pathToEndNode: FieldM[] | null;
   pathCost: number;
 }
-export interface SearchExecutionDataDirectedWeightedGraph {
-  algorithmType: SearchAlgorithmsTypes,
-  listOfSteps: NodeEdgeGraph[];
+export interface SearchExecutionDataDW {
+  algorithmType: SearchAlgorithmsTypes;
+  listOfSteps: NodeE[];
   isEndNodeReached: boolean;
-  pathToEndNode: NodeEdgeGraph[]|null;
+  pathToEndNode: NodeE[] | null;
   pathCost: number;
 }
 
-export type AnySearchExecutionData = SearchExecutionDataMatrixGraph | SearchExecutionDataDirectedWeightedGraph;
+export type AnySearchExecutionData =
+  | SearchExecutionDataM
+  | SearchExecutionDataDW;
 
 export type VisitedNodesStartNode = true;
 // true - startNode null - not visited or startNode; FieldMatrixGraph - field was visited from
-export type VisitedNodesMatrixGraph = (VisitedNodesStartNode|null|FieldMatrixGraph)[][]; 
+export type VisitedNodesM = (VisitedNodesStartNode | null | FieldM)[][];
 // from node to: null - not visited or NodeEdgeGraph - node was visited from
-export type VisitedNodesEdgeDirectedWieghtedGraph = Map<NodeEdgeGraph, VisitedNodesStartNode|null|NodeEdgeGraph>;
-export type AnyVisitedNodes = VisitedNodesMatrixGraph | VisitedNodesEdgeDirectedWieghtedGraph;
+export type VisitedNodesDW = Map<NodeE, VisitedNodesStartNode | null | NodeE>;
+export type AnyVisitedNodes = VisitedNodesM | VisitedNodesDW;
 
-export type SearchAlgorithmFunMatrix = (graphData: GraphDataMatrix) => SearchExecutionDataMatrixGraph;
-export type SearchAlgorithmFunDirectedWeighted = (graphData: GraphDataDirectedWeighted) => SearchExecutionDataDirectedWeightedGraph;
-export type AnySearchAlgorithmFun = SearchAlgorithmFunMatrix | SearchAlgorithmFunDirectedWeighted;
+export type SearchAlgorithmFunM = (
+  graphData: GraphDataM
+) => SearchExecutionDataM;
+export type SearchAlgorithmFunDW = (
+  graphData: GraphDataDW
+) => SearchExecutionDataDW;
+export type AnySearchAlgorithmFun = SearchAlgorithmFunM | SearchAlgorithmFunDW;
 
-export interface SearchAlgorithmsFunsMatrix {
-  dfs: SearchAlgorithmFunMatrix,
-  bfs: SearchAlgorithmFunMatrix,
+export interface SearchAlgorithmsFunsM {
+  dfs: SearchAlgorithmFunM;
+  bfs: SearchAlgorithmFunM;
 }
-export interface SearchAlgorithmsFunsDirectedWeighted {
-  dfs: SearchAlgorithmFunDirectedWeighted,
-  bfs: SearchAlgorithmFunDirectedWeighted,
+export interface SearchAlgorithmsFunsDW {
+  dfs: SearchAlgorithmFunDW;
+  bfs: SearchAlgorithmFunDW;
 }

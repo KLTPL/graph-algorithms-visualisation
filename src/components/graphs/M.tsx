@@ -1,7 +1,7 @@
 import { useUserInputData, useVisualisationData } from "../../SettingsContext";
-import { VisualisationDataMatrix } from "../../visualisationData/typesVisualisationData";
+import { VisualisationDataM } from "../../visualisationData/typesVisualisationData";
 import { useEffect, useRef, useState } from "react";
-import NodeMatrix from "./elements/NodeMatrix";
+import NodeMatrix from "./elements/NodeMx";
 import {
   backtrackIfShould,
   resetBacktracking,
@@ -9,7 +9,7 @@ import {
 
 export default function Matrix() {
   const visualisationData = useVisualisationData()
-    .visualisationData as VisualisationDataMatrix;
+    .visualisationData as VisualisationDataM;
   const { currStepIdx } = useUserInputData();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);

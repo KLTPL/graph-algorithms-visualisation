@@ -1,4 +1,4 @@
-import { NodePosition } from "../scripts/getRandomNodesPostions";
+import { NodePosition } from "../scripts/getDefaultNodesPostions";
 import { NODE_SIZE_PX } from "./NodeEdge";
 
 interface EdgeUndirectedProps {

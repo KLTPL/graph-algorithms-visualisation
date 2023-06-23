@@ -1,7 +1,7 @@
 import { useUserInputData, useVisualisationData } from "../../SettingsContext";
 import { VisualisationDataM } from "../../visualisationData/typesVisualisationData";
 import { useEffect, useRef, useState } from "react";
-import NodeMatrix from "./elements/NodeMx";
+import NodeMatrix from "./elements/NodeM";
 import {
   backtrackIfShould,
   resetBacktracking,

@@ -58,12 +58,19 @@ export default function Undirected() {
     <div className="w-[60%] aspect-square relative">
       {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
       {getEdges(visualisationData.graph).map((edge, key) => {
-        console.log(`${edge[0]} - ${edge[1]}`);
+        const node1Idx = nodes.indexOf(edge[0]);
+        const node2Idx = nodes.indexOf(edge[1]);
+        const isCurrentEdge =
+          (visualisationData.listOfSteps[currStepIdx] === edge[0] &&
+            (visualisationData.startNode === edge[1] || visualisationData.listOfSteps[currStepIdx - 1] === edge[1])) ||
+          (visualisationData.listOfSteps[currStepIdx] === edge[1] &&
+            (edge[0] === visualisationData.startNode || visualisationData.listOfSteps[currStepIdx - 1] === edge[0]));
         return (
           <EdgeUndirected
             key={key}
-            nodePos1={nodesPositons[nodes.indexOf(edge[0])]}
-            nodePos2={nodesPositons[nodes.indexOf(edge[1])]}
+            nodePos1={nodesPositons[node1Idx]}
+            nodePos2={nodesPositons[node2Idx]}
+            isCurrentEdge={isCurrentEdge}
           />
         );
       })}

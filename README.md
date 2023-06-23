@@ -30,7 +30,7 @@ When files in the public directory
 ```
 
 ## Naming comvetion:
-Theres several graph types with shorter and longer names, so to keep it rather shorter each of them has a shortcut name:
+Theres several graph types with shorter and longer names, so to keep them rather shorter each has a shortcut name:
  - M - matrix graph
  - D - directed graph
  - DW - directed weighted graph

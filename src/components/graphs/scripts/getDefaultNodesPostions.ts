@@ -1,7 +1,7 @@
 export type NodePosition = { left: number; top: number };
 export type NodesPositions = NodePosition[];
 
-export function getDefaultNodesPositionsUndirected(): NodesPositions {
+export function getDefaultNodesPositionsU(): NodesPositions {
   return [
     { left: 40, top: 75 },
     { left: 25, top: 25 },

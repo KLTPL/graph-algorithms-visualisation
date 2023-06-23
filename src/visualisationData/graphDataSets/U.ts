@@ -1,7 +1,7 @@
 import { getConverted } from "../getProperDataFunctions";
-import { GraphDataDirectedWeighted, UserGraphTypes } from "../typesGraphData";
+import { GraphDataDW, UserGraphTypes } from "../typesGraphData";
 
-const undirectedGraphData: GraphDataDirectedWeighted = {
+const graphDataU: GraphDataDW = {
   graph: new Map([
     ["a", getConverted(["h", "j", "l"])],
     ["b", getConverted(["i", "k"])],
@@ -19,7 +19,7 @@ const undirectedGraphData: GraphDataDirectedWeighted = {
   ]),
   startNode: "k",
   endNode: "e",
-  graphType: UserGraphTypes.undirected,
-}
+  graphType: UserGraphTypes.U,
+};
 
-export default undirectedGraphData;
+export default graphDataU;

@@ -3,7 +3,8 @@ import { UserGraphTypes } from "../visualisationData/typesGraphData";
 
 export default function GraphSettingsSelectType() {
   const visualisationDataContext = useVisualisationData();
-  const { visualisationData, switchVisualisationData } = visualisationDataContext;
+  const { visualisationData, switchVisualisationData } =
+    visualisationDataContext;
   function selectGraphType(graphType: UserGraphTypes): () => void {
     return () => {
       switchVisualisationData(graphType, visualisationData.algorithmType);
@@ -13,22 +14,20 @@ export default function GraphSettingsSelectType() {
   return (
     <div className="flex flex-col">
       <h3>Graph type:</h3>
-      <button onClick={selectGraphType(UserGraphTypes.matrix)}>
-        matrix graph
-      </button>
-      <button onClick={selectGraphType(UserGraphTypes.directed)}>
+      <button onClick={selectGraphType(UserGraphTypes.M)}>matrix graph</button>
+      <button onClick={selectGraphType(UserGraphTypes.D)}>
         directed graph
       </button>
-      <button onClick={selectGraphType(UserGraphTypes.directedWeighted)}>
+      <button onClick={selectGraphType(UserGraphTypes.DW)}>
         directed weighted graph
       </button>
-      <button onClick={selectGraphType(UserGraphTypes.undirected)}>
+      <button onClick={selectGraphType(UserGraphTypes.U)}>
         undirected graph
       </button>
-      <button onClick={selectGraphType(UserGraphTypes.undirectedWeighted)}>
+      <button onClick={selectGraphType(UserGraphTypes.UW)}>
         undirected weighted graph
       </button>
-      { visualisationData.graphType }
+      {visualisationData.graphType}
     </div>
   );
 }

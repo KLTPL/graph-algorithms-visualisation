@@ -5,42 +5,47 @@
 // edge directed weighted graph, -> edge directed weighted graph
 // edge undirected weighted graph -> edge directed weighted graph
 
+// Shortcuts for graph types:
+// - M - matrix graph
+// - D - directed graph
+// - DW - directed weighted graph
+// - U - undirected graph
+// - UW - undirected weighted graph
+// - E - edge graph (with edges) - not a matrix graph (including: D, DW, U, UW)
+
 export enum UserGraphTypes {
-  matrix,
-  directed,
-  directedWeighted,
-  undirected,
-  undirectedWeighted,
+  M,
+  D,
+  DW,
+  U,
+  UW,
 }
 
-export enum NodeTypesMatrixGraph {
+export enum NodeTypesM {
   empty,
   rock,
 }
 
-export type FieldMatrixGraph = { x: number; y: number };
-export type NodeEdgeGraph = string;
-export type ToNodeDirectedWeightedGraph = { node: NodeEdgeGraph; cost: number };
-export type AnyNode = FieldMatrixGraph | NodeEdgeGraph;
+export type FieldM = { x: number; y: number };
+export type NodeE = string;
+export type ToNodeDW = { node: NodeE; cost: number };
+export type AnyNode = FieldM | NodeE;
 
-export type MatrixGraph = NodeTypesMatrixGraph[][];
-export type DirectedWeightedGraph = Map<
-  NodeEdgeGraph,
-  ToNodeDirectedWeightedGraph[]
->;
-export type AnyGraph = MatrixGraph | DirectedWeightedGraph;
+export type GraphM = NodeTypesM[][];
+export type GraphDW = Map<NodeE, ToNodeDW[]>;
+export type AnyGraph = GraphM | GraphDW;
 
-export interface GraphDataMatrix {
-  graph: MatrixGraph;
-  startNode: FieldMatrixGraph;
-  endNode: FieldMatrixGraph;
+export interface GraphDataM {
+  graph: GraphM;
+  startNode: FieldM;
+  endNode: FieldM;
   graphType: UserGraphTypes;
 }
-export interface GraphDataDirectedWeighted {
-  graph: DirectedWeightedGraph;
-  startNode: NodeEdgeGraph;
-  endNode: NodeEdgeGraph;
+export interface GraphDataDW {
+  graph: GraphDW;
+  startNode: NodeE;
+  endNode: NodeE;
   graphType: UserGraphTypes;
 }
 
-export type AnyGraphData = GraphDataMatrix | GraphDataDirectedWeighted;
+export type AnyGraphData = GraphDataM | GraphDataDW;

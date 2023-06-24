@@ -42,7 +42,9 @@ export function getClassNamesForNodeM({
   const isRock = fieldType === NodeTypesM.rock;
   const isNodeVisited = isStepAlreadyMadeM(currStepIdx, listOfSteps, r, c);
   const isCurrNode = isNodeCurrNodeM(visualisationData, currStepIdx, r, c);
-  const isReachedEndNode = isEndNode && isNodeVisited;
+  const isReachedStartOrEndNode =
+    (isEndNode && isNodeVisited) ||
+    isEndNodeReachedM(isStartNode, visualisationData, backtrackCount);
   const isOnBacktrack = isNodeOnBacktrackM(
     visualisationData,
     backtrackCount,
@@ -52,14 +54,14 @@ export function getClassNamesForNodeM({
 
   const conditionAndValuePairs = [
     [isEmpty && !isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
-    [isStartOrEnd && !isReachedEndNode, "bg-nodeStartOrEnd"],
+    [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
     [isRock, "bg-rock"],
-    [isNodeVisited && !isReachedEndNode && !isOnBacktrack, "bg-primary"],
+    [isNodeVisited && !isReachedStartOrEndNode && !isOnBacktrack, "bg-primary"],
     [
       isCurrNode,
       "after:content-[''] after:rounded-[50%] after:bg-black after:w-[7px] after:h-[7px]",
     ],
-    [isReachedEndNode, "bg-nodeEndReached"],
+    [isReachedStartOrEndNode, "bg-nodeEndReached"],
     [isOnBacktrack, "bg-nodeBacktrack"],
   ];
 
@@ -81,7 +83,9 @@ export function getClassNamesForNodeE({
   const isStartOrEnd = isStartNode || isEndNode;
   const isNodeVisited = isStepAlreadyMadeE(currStepIdx, listOfSteps, node);
   const isCurrNode = isNodeCurrNodeE(visualisationData, currStepIdx, node);
-  const isReachedEndNode = isEndNode && isNodeVisited;
+  const isReachedStartOrEndNode =
+    (isEndNode && isNodeVisited) ||
+    isEndNodeReachedE(isStartNode, visualisationData, backtrackCount);
   const isOnBacktrack = isNodeOnBacktrackE(
     visualisationData,
     backtrackCount,
@@ -90,13 +94,13 @@ export function getClassNamesForNodeE({
 
   const conditionAndValuePairs = [
     [!isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
-    [isStartOrEnd && !isReachedEndNode, "bg-nodeStartOrEnd"],
-    [isNodeVisited && !isReachedEndNode && !isOnBacktrack, "bg-primary"],
+    [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
+    [isNodeVisited && !isReachedStartOrEndNode && !isOnBacktrack, "bg-primary"],
     [
       isCurrNode,
       "after:content-[''] after:rounded-[50%] after:bg-black after:w-[7px] after:h-[7px]",
     ],
-    [isReachedEndNode, "bg-nodeEndReached"],
+    [isReachedStartOrEndNode, "bg-nodeEndReached"],
     [isOnBacktrack, "bg-nodeBacktrack"],
   ];
 
@@ -186,4 +190,22 @@ function isNodeCurrNodeE(
 ): boolean {
   const currNode = visualisationData.listOfSteps[currStepIdx];
   return currNode !== undefined && currNode.to === node;
+}
+
+function isEndNodeReachedE(
+  isStartNode: boolean,
+  visualisationData: VisualisationDataDW,
+  backtrackCount: number
+): boolean {
+  const pathLen = (visualisationData.pathToEndNode as NodeE[]).length;
+  return isStartNode && backtrackCount === pathLen + 1;
+}
+
+function isEndNodeReachedM(
+  isStartNode: boolean,
+  visualisationData: VisualisationDataM,
+  backtrackCount: number
+): boolean {
+  const pathLen = (visualisationData.pathToEndNode as FieldM[]).length;
+  return isStartNode && backtrackCount === pathLen + 1;
 }

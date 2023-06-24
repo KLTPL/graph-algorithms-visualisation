@@ -14,7 +14,7 @@ export function backtrackToFirstNode(
       count++;
       setBacktrackCount(count);
       await new Promise(resolve => setTimeout(resolve, 100));
-    } while (isBacktracking.current && count < pathLen);
+    } while (isBacktracking.current && count <= pathLen);
   });
 }
 

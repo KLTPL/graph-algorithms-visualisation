@@ -57,9 +57,9 @@ function isNodeOnBacktrack(
     visualisationData.startNode,
     ...visualisationData.pathToEndNode,
   ];
-  for (let i = 0; i < backtrackCount; i++) {
-    const newNode1 = path.at(-(i + 1));
-    const newNode2 = path.at(-(i + 2));
+  for (let i = 1; i < backtrackCount; i++) {
+    const newNode1 = path.at(-i);
+    const newNode2 = path.at(-(i + 1));
     if (
       (newNode1 === node1 && newNode2 === node2) ||
       (newNode1 === node2 && newNode2 === node1)

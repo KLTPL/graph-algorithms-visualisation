@@ -1,3 +1,4 @@
+import { NodeE } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { Edge } from "./getEdges";
 
@@ -8,10 +9,15 @@ export function getClassNamesForEdgeU(
   backtrackCount: number
 ) {
   const isVisited = isEdgeVisited(edge, visualisationData, currStepIdx);
-  const isOnBacktrack = isNodeOnBacktrack();
+  const isOnBacktrack = isNodeOnBacktrack(
+    edge,
+    visualisationData,
+    backtrackCount
+  );
   const conditionAndValuePairs = [
-    [!isVisited, "bg-black"],
-    [isVisited, "bg-primary"],
+    [!isVisited && !isOnBacktrack, "bg-black"],
+    [isVisited && !isOnBacktrack, "bg-primary"],
+    [isOnBacktrack, "bg-nodeBacktrack"],
   ];
 
   return conditionAndValuePairs
@@ -37,6 +43,29 @@ function isEdgeVisited(
   return false;
 }
 
-function isNodeOnBacktrack(): boolean {
+function isNodeOnBacktrack(
+  [node1, node2]: Edge,
+  visualisationData: VisualisationDataDW,
+  backtrackCount: number
+): boolean {
+  // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
+  // backtrackCount is the count of how many nodes did the visualisation go back
+  if (visualisationData.pathToEndNode === null) {
+    return false;
+  }
+  const path = [
+    visualisationData.startNode,
+    ...visualisationData.pathToEndNode,
+  ];
+  for (let i = 0; i < backtrackCount; i++) {
+    const newNode1 = path.at(-(i + 1));
+    const newNode2 = path.at(-(i + 2));
+    if (
+      (newNode1 === node1 && newNode2 === node2) ||
+      (newNode1 === node2 && newNode2 === node1)
+    ) {
+      return true;
+    }
+  }
   return false;
 }

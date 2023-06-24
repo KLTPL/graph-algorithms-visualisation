@@ -5,14 +5,13 @@ export function getClassNamesForEdgeU(
   edge: Edge,
   visualisationData: VisualisationDataDW,
   currStepIdx: number,
-  backtrackCount: number,
+  backtrackCount: number
 ) {
   const isVisited = isEdgeVisited(edge, visualisationData, currStepIdx);
   const isOnBacktrack = isNodeOnBacktrack();
   const conditionAndValuePairs = [
     [!isVisited, "bg-black"],
     [isVisited, "bg-primary"],
-    
   ];
 
   return conditionAndValuePairs
@@ -23,24 +22,15 @@ export function getClassNamesForEdgeU(
 
 function isEdgeVisited(
   [node1, node2]: Edge,
-  visualisationData: VisualisationDataDW,
+  { listOfSteps }: VisualisationDataDW,
   currStepIdx: number
 ): boolean {
   if (currStepIdx === -1) {
     return false;
   }
-  const listOfSteps = [
-    visualisationData.startNode,
-    ...visualisationData.listOfSteps,
-  ];
-  currStepIdx++;
-  for (let i = 0; i < currStepIdx; i++) {
-    const currNode1 = listOfSteps[i];
-    const currNode2 = listOfSteps[i + 1];
-    if (
-      (currNode1 === node1 && currNode2 === node2) ||
-      (currNode1 === node2 && currNode2 === node1)
-    ) {
+  for (let i = 0; i <= currStepIdx; i++) {
+    const { to, from } = listOfSteps[i];
+    if ((to === node1 && from === node2) || (to === node2 && from === node1)) {
       return true;
     }
   }

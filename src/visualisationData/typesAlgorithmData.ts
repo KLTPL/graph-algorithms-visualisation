@@ -5,6 +5,8 @@ export enum SearchAlgorithmsTypes {
   Bfs,
 }
 
+export type StepDW = { from: NodeE, to: NodeE };
+
 export interface SearchExecutionDataM {
   algorithmType: SearchAlgorithmsTypes;
   listOfSteps: FieldM[];
@@ -14,7 +16,7 @@ export interface SearchExecutionDataM {
 }
 export interface SearchExecutionDataDW {
   algorithmType: SearchAlgorithmsTypes;
-  listOfSteps: NodeE[];
+  listOfSteps: StepDW[];
   isEndNodeReached: boolean;
   pathToEndNode: NodeE[] | null;
   pathCost: number;

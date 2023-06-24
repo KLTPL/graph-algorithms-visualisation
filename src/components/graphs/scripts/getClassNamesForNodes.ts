@@ -1,3 +1,4 @@
+import { StepDW } from "../../../visualisationData/typesAlgorithmData";
 import {
   FieldM,
   NodeE,
@@ -122,11 +123,11 @@ function isStepAlreadyMadeM(
 
 function isStepAlreadyMadeE(
   currStepIdx: number,
-  listOfSteps: NodeE[],
+  listOfSteps: StepDW[],
   node: NodeE
 ): boolean {
   for (let i = 0; i <= currStepIdx; i++) {
-    if (node === listOfSteps[i]) {
+    if (node === listOfSteps[i].to) {
       return true;
     }
   }
@@ -184,5 +185,5 @@ function isNodeCurrNodeE(
   node: NodeE
 ): boolean {
   const currNode = visualisationData.listOfSteps[currStepIdx];
-  return currNode !== undefined && currNode === node;
+  return currNode !== undefined && currNode.to === node;
 }

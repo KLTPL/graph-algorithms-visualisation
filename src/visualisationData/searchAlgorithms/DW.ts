@@ -68,11 +68,16 @@ function dfsOrBfs(
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes
   while (stack.length > 0 && !algorithmData.isEndNodeReached) {
     const currNode = (isDfs ? stack.pop() : stack.shift()) as NodeE;
-    algorithmData.listOfSteps.push(currNode);
+    const visitedFrom = visitedNodes.get(currNode) as
+      | NodeE
+      | VisitedNodesStartNode;
+    const nodeFrom =
+      visitedFrom === START_NODE_SIGN ? graphData.startNode : visitedFrom;
+    algorithmData.listOfSteps.push({ to: currNode, from: nodeFrom });
     for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
       if (isNodeEndNode(neighborNode, graphData.endNode)) {
         algorithmData.isEndNodeReached = true;
-        algorithmData.listOfSteps.push(neighborNode);
+        algorithmData.listOfSteps.push({ to: neighborNode, from: currNode });
         markNodeAsVisited(neighborNode, currNode, visitedNodes);
         break;
       }

@@ -60,13 +60,6 @@ export default function Undirected() {
       {getEdges(visualisationData.graph).map((edge, key) => {
         const node1Idx = nodes.indexOf(edge[0]);
         const node2Idx = nodes.indexOf(edge[1]);
-        const isCurrentEdge =
-          (visualisationData.listOfSteps[currStepIdx] === edge[0] &&
-            (visualisationData.startNode === edge[1] ||
-              visualisationData.listOfSteps[currStepIdx - 1] === edge[1])) ||
-          (visualisationData.listOfSteps[currStepIdx] === edge[1] &&
-            (edge[0] === visualisationData.startNode ||
-              visualisationData.listOfSteps[currStepIdx - 1] === edge[0]));
         return (
           <EdgeUndirected
             key={key}

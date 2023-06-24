@@ -15,6 +15,7 @@ export function getClassNamesForEdgeU(
     backtrackCount
   );
   const conditionAndValuePairs = [
+    [true, "h-1 absolute"],
     [!isVisited && !isOnBacktrack, "bg-black"],
     [isVisited && !isOnBacktrack, "bg-primary"],
     [isOnBacktrack, "bg-nodeBacktrack"],

@@ -1,5 +1,5 @@
 import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
-import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodes";
+import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodeE";
 
 type NodeMatrixProps = {
   visualisationData: VisualisationDataM;

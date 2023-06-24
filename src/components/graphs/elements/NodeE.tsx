@@ -1,6 +1,6 @@
 import { NodeE } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodes";
+import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodeE";
 import { NodePosition } from "../scripts/getDefaultNodesPostions";
 
 export const NODE_SIZE_PX =
@@ -22,6 +22,12 @@ function NodeEdge({
   pos,
 }: NodeEdgeProps) {
   const { left, top } = pos;
+  const className = getClassNamesForNodeE({
+    visualisationData,
+    currStepIdx,
+    backtrackCount,
+    node,
+  });
   return (
     <div
       style={{
@@ -30,9 +36,7 @@ function NodeEdge({
         width: `${NODE_SIZE_PX}px`,
         height: `${NODE_SIZE_PX}px`,
       }}
-      className={`absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeDefault ${getClassNamesForNodeE(
-        { visualisationData, currStepIdx, backtrackCount, node }
-      )}`}
+      className={className}
     >
       {node}
     </div>

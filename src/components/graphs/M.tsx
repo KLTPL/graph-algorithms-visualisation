@@ -34,8 +34,6 @@ export default function Matrix() {
     return (
       <NodeMatrix
         key={`${r};${c}`}
-        visualisationData={visualisationData}
-        currStepIdx={currStepIdx}
         backtrackCount={backtrackCount}
         r={r}
         c={c}

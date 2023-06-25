@@ -58,7 +58,7 @@ export default function Edge() {
             key={key}
             nodePos1={nodesPositons[node1Idx]}
             nodePos2={nodesPositons[node2Idx]}
-            edge={edgeData}
+            edgeData={edgeData}
             backtrackCount={backtrackCount}
           />
         );

@@ -6,47 +6,61 @@ import { VisualisationDataDW } from "../../../visualisationData/typesVisualisati
 import getBasicStylesForEdgeE from "../scripts/getStylesObjForEdgeE";
 import { getClassNamesForEdgeU } from "../scripts/getClassNamesForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
-import { UserGraphTypes } from "../../../visualisationData/typesGraphData";
+import {
+  ToNodeDW,
+  UserGraphTypes,
+} from "../../../visualisationData/typesGraphData";
 import { EdgeData } from "../scripts/getEdges";
+import { ChangeEvent } from "react";
 
 interface EdgeUndirectedProps {
   nodePos1: NodePosition;
   nodePos2: NodePosition;
-  edge: EdgeData;
+  edgeData: EdgeData;
   backtrackCount: number;
 }
 
 function EdgeUndirected({
   nodePos1,
   nodePos2,
-  edge,
+  edgeData,
   backtrackCount,
 }: EdgeUndirectedProps) {
-  const visualisationData = useVisualisationData()
-    .visualisationData as VisualisationDataDW;
+  const { visualisationData: visualisationDataAny, refreshVisualisationData } =
+    useVisualisationData();
+  const visualisationData = visualisationDataAny as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
   const isWeighted =
     visualisationData.graphType === UserGraphTypes.DW ||
     visualisationData.graphType === UserGraphTypes.UW;
-  const edgeData = calcEdgeData(nodePos1, nodePos2);
-  const stylesObj = getBasicStylesForEdgeE(edgeData);
+  const edgeStylesData = calcEdgeData(nodePos1, nodePos2);
+  const stylesObj = getBasicStylesForEdgeE(edgeStylesData);
   const classNames = getClassNamesForEdgeU(
-    edge,
+    edgeData,
     visualisationData,
     currStepIdx,
     backtrackCount
   );
+
+  function handleOnChange(ev: ChangeEvent) {
+    const input = ev.target as HTMLInputElement;
+    const [nodeFrom, nodeTo] = edgeData.edge;
+    const neighbours = visualisationData.graph.get(nodeFrom) as ToNodeDW[];
+    neighbours.filter(toNode => nodeTo === toNode.node)[0].cost = parseInt(input.value);
+    refreshVisualisationData();
+  }
 
   return (
     <div style={stylesObj} className={classNames}>
       {isWeighted && (
         <input
           type="number"
-          defaultValue={edge.cost}
+          defaultValue={edgeData.cost}
           className="absolute left-1/2 top-1/2 max-w-[4ch] bg-marixGraphFieldEmpty text-center border-2 border-nodeDefault rounded-full"
           style={{
-            transform: `translate(-50%, -50%) rotate(${-edgeData.angle}deg)`,
+            transform: `translate(-50%, -50%) rotate(${-edgeStylesData.angle}deg)`,
           }}
+          onChange={handleOnChange}
         />
       )}
     </div>

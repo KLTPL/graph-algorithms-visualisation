@@ -1,27 +1,16 @@
 import { UserGraphTypes } from "../visualisationData/typesGraphData";
 import Matrix from "./graphs/M";
-import Directed from "./graphs/D";
-import DirectedWeighted from "./graphs/DW";
-import Undirected from "./graphs/U";
-import UndirectedWeighted from "./graphs/UW";
+import Edge from "./graphs/E";
 import { useUserInputData, useVisualisationData } from "../SettingsContext";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
 
 function getProperGraphElement(
   visualisationData: AnyVisualisationData
 ): JSX.Element {
-  switch (visualisationData.graphType) {
-    case UserGraphTypes.M:
-      return <Matrix />;
-    case UserGraphTypes.D:
-      return <Directed />;
-    case UserGraphTypes.DW:
-      return <DirectedWeighted />;
-    case UserGraphTypes.U:
-      return <Undirected />;
-    case UserGraphTypes.UW:
-      return <UndirectedWeighted />;
+  if (visualisationData.graphType === UserGraphTypes.M) {
+    return <Matrix />;
   }
+  return <Edge />;
 }
 
 export default function GraphContainer() {

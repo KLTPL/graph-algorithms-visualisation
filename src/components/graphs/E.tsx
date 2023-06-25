@@ -7,31 +7,27 @@ import {
   resetBacktracking,
 } from "./scripts/backtrackMechanick";
 import { NodeE } from "../../visualisationData/typesGraphData";
-import {
-  getDefaultNodesPositionsU,
+import getProperNodesPosition, {
   NodePosition,
   NodesPositions,
-} from "./scripts/getDefaultNodesPostions";
+} from "./scripts/getProperNodesPostions";
 import EdgeUndirected from "./elements/EdgeU";
 import getEdges from "./scripts/getEdges";
 
-export default function Undirected() {
+export default function Edge() {
   const visualisationData = useVisualisationData()
     .visualisationData as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
   const nodes = [...visualisationData.graph.keys()];
+  const nodesPositons = getProperNodesPosition(visualisationData);
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
-  const [nodesPositons, setNodesPostions] = useState<NodesPositions>(
-    getDefaultNodesPositionsU()
-  );
   useEffect(
     () => resetBacktracking(isBacktracking, setBacktrackCount),
     [visualisationData.algorithmType, visualisationData.graphType, currStepIdx]
   );
-
   useEffect(() => {
     backtrackIfShould(
       visualisationData,

@@ -5,7 +5,7 @@ import {
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import getBasicStylesForEdgeE from "../scripts/getStylesObjForEdgeE";
 import { getClassNamesForEdgeU } from "../scripts/getClassNamesForEdgeE";
-import { NodePosition } from "../scripts/getDefaultNodesPostions";
+import { NodePosition } from "../scripts/getProperNodesPostions";
 import { Edge } from "../scripts/getEdges";
 
 interface EdgeUndirectedProps {

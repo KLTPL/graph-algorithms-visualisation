@@ -1,5 +1,5 @@
 import { NODE_SIZE_PX } from "../elements/NodeE";
-import { NodePosition } from "./getDefaultNodesPostions";
+import { NodePosition } from "./getProperNodesPostions";
 
 const EDGE_HEIGHT_PX = 4;
 

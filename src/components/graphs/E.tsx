@@ -41,8 +41,6 @@ export default function Edge() {
     return (
       <NodeEdge
         key={node}
-        visualisationData={visualisationData}
-        currStepIdx={currStepIdx}
         backtrackCount={backtrackCount}
         node={node}
         pos={nodePos}

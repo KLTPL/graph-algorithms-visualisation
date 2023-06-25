@@ -53,6 +53,7 @@ export function getClassNamesForNodeM({
   );
 
   const conditionAndValuePairs = [
+    [true, "aspect-square grid place-content-center"],
     [isEmpty && !isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
     [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
     [isRock, "bg-rock"],

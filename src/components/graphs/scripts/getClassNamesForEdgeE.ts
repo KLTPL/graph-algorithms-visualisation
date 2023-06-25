@@ -1,9 +1,8 @@
-import { NodeE } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { Edge } from "./getEdges";
+import { EdgeData } from "./getEdges";
 
 export function getClassNamesForEdgeU(
-  edge: Edge,
+  edge: EdgeData,
   visualisationData: VisualisationDataDW,
   currStepIdx: number,
   backtrackCount: number
@@ -28,10 +27,11 @@ export function getClassNamesForEdgeU(
 }
 
 function isEdgeVisited(
-  [node1, node2]: Edge,
+  edgeData: EdgeData,
   { listOfSteps }: VisualisationDataDW,
   currStepIdx: number
 ): boolean {
+  const [node1, node2] = edgeData.edge;
   if (currStepIdx === -1) {
     return false;
   }
@@ -45,12 +45,13 @@ function isEdgeVisited(
 }
 
 function isNodeOnBacktrack(
-  [node1, node2]: Edge,
+  edgeData: EdgeData,
   visualisationData: VisualisationDataDW,
   backtrackCount: number
 ): boolean {
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
+  const [node1, node2] = edgeData.edge;
   if (visualisationData.pathToEndNode === null) {
     return false;
   }

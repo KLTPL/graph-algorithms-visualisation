@@ -1,9 +1,9 @@
-import { EdgeData } from "../elements/EdgeU";
+import { EdgeStylesData } from "../elements/EdgeU";
 import { NODE_SIZE_PX } from "../elements/NodeE";
 
 const EDGE_HEIGHT_PX = 4;
 
-function getBasicStylesForEdgeE({ angle, width, left, top }: EdgeData) {
+function getBasicStylesForEdgeE({ angle, width, left, top }: EdgeStylesData) {
   return {
     transformOrigin: "left",
     height: `${EDGE_HEIGHT_PX}px`,

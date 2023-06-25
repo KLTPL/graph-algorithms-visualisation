@@ -6,13 +6,13 @@ import { VisualisationDataDW } from "../../../visualisationData/typesVisualisati
 import getBasicStylesForEdgeE from "../scripts/getStylesObjForEdgeE";
 import { getClassNamesForEdgeU } from "../scripts/getClassNamesForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
-import { Edge } from "../scripts/getEdges";
 import { UserGraphTypes } from "../../../visualisationData/typesGraphData";
+import { EdgeData } from "../scripts/getEdges";
 
 interface EdgeUndirectedProps {
   nodePos1: NodePosition;
   nodePos2: NodePosition;
-  edge: Edge;
+  edge: EdgeData;
   backtrackCount: number;
 }
 
@@ -25,7 +25,6 @@ function EdgeUndirected({
   const visualisationData = useVisualisationData()
     .visualisationData as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
-
   const isWeighted =
     visualisationData.graphType === UserGraphTypes.DW ||
     visualisationData.graphType === UserGraphTypes.UW;
@@ -43,7 +42,7 @@ function EdgeUndirected({
       {isWeighted && (
         <input
           type="number"
-          defaultValue={1}
+          defaultValue={edge.cost}
           className="absolute left-1/2 top-1/2 max-w-[4ch] bg-marixGraphFieldEmpty text-center border-2 border-nodeDefault rounded-full"
           style={{
             transform: `translate(-50%, -50%) rotate(${-edgeData.angle}deg)`,
@@ -54,7 +53,7 @@ function EdgeUndirected({
   );
 }
 
-export interface EdgeData {
+export interface EdgeStylesData {
   angle: number;
   width: number;
   left: number;
@@ -64,7 +63,7 @@ export interface EdgeData {
 function calcEdgeData(
   nodePos1: NodePosition,
   nodePos2: NodePosition
-): EdgeData {
+): EdgeStylesData {
   const distX = nodePos1.left - nodePos2.left;
   const distY = nodePos1.top - nodePos2.top;
   const angle = Math.atan(distY / distX) * (180 / Math.PI);

@@ -1,5 +1,8 @@
 import React, { useContext, useState } from "react";
-import { getDefaultVisualisationData, getProperVisualisationData } from "./visualisationData/getProperDataFunctions";
+import {
+  getDefaultVisualisationData,
+  getProperVisualisationData,
+} from "./visualisationData/getProperDataFunctions";
 import { UserGraphTypes } from "./visualisationData/typesGraphData";
 import { SearchAlgorithmsTypes } from "./visualisationData/typesAlgorithmData";
 import { AnyVisualisationData } from "./visualisationData/typesVisualisationData";
@@ -7,17 +10,26 @@ import { AnyVisualisationData } from "./visualisationData/typesVisualisationData
 const DEFAULT_CURR_STEP_IDX = -1;
 
 export interface VisualisationDataContextProps {
-  visualisationData: AnyVisualisationData,
-  switchVisualisationData: (graphType: UserGraphTypes, algorithmType: SearchAlgorithmsTypes) => void;
-};
+  visualisationData: AnyVisualisationData;
+  switchVisualisationData: (
+    graphType: UserGraphTypes,
+    algorithmType: SearchAlgorithmsTypes
+  ) => void;
+  refreshVisualisationData: () => void;
+}
 
 export interface UserInputDataContextProps {
-  currStepIdx: number,
+  currStepIdx: number;
   updateCurrStepIdx: (newIdx: number) => void;
 }
 
-const VisualisationDataContext = React.createContext<VisualisationDataContextProps>((null as unknown) as VisualisationDataContextProps);
-const UserInputDataContext = React.createContext<UserInputDataContextProps>((null as unknown) as UserInputDataContextProps);
+const VisualisationDataContext =
+  React.createContext<VisualisationDataContextProps>(
+    null as unknown as VisualisationDataContextProps
+  );
+const UserInputDataContext = React.createContext<UserInputDataContextProps>(
+  null as unknown as UserInputDataContextProps
+);
 
 export function useVisualisationData() {
   return useContext(VisualisationDataContext);
@@ -28,22 +40,39 @@ export function useUserInputData() {
 }
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
-  const [ visualisationData, setVisualisationData ] = useState<AnyVisualisationData>(getDefaultVisualisationData());
-  const [ currStepIdx, setCurrStepIdx ] = useState<number>(DEFAULT_CURR_STEP_IDX);
+  const [visualisationData, setVisualisationData] =
+    useState<AnyVisualisationData>(getDefaultVisualisationData());
+  const [currStepIdx, setCurrStepIdx] = useState<number>(DEFAULT_CURR_STEP_IDX);
 
-  function switchVisualisationData(graphType: UserGraphTypes, algorithmType: SearchAlgorithmsTypes): void {
-    const newVisualisationData = getProperVisualisationData(graphType, algorithmType);
+  function switchVisualisationData(
+    graphType: UserGraphTypes,
+    algorithmType: SearchAlgorithmsTypes
+  ): void {
+    const newVisualisationData = getProperVisualisationData(
+      graphType,
+      algorithmType
+    );
     setVisualisationData(newVisualisationData);
     updateCurrStepIdx(DEFAULT_CURR_STEP_IDX);
+  }
+  function refreshVisualisationData() {
+    const { graphType, algorithmType } = visualisationData;
+    switchVisualisationData(graphType, algorithmType);
   }
   function updateCurrStepIdx(newIdx: number) {
     setCurrStepIdx(newIdx);
   }
 
   return (
-    <VisualisationDataContext.Provider value={{ visualisationData, switchVisualisationData: switchVisualisationData }}>
+    <VisualisationDataContext.Provider
+      value={{
+        visualisationData,
+        switchVisualisationData,
+        refreshVisualisationData
+      }}
+    >
       <UserInputDataContext.Provider value={{ currStepIdx, updateCurrStepIdx }}>
-        { children }
+        {children}
       </UserInputDataContext.Provider>
     </VisualisationDataContext.Provider>
   );

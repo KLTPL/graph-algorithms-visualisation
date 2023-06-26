@@ -75,6 +75,9 @@ const graphDataUW: GraphDataDW = {
   startNode: "b",
   endNode: "i",
   graphType: UserGraphTypes.UW,
+  isUOrUW: true,
+  isDOrDW: false,
+  isDWOrUW: true,
 };
 
 export default graphDataUW;

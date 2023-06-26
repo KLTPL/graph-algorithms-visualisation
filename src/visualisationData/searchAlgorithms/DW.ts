@@ -74,13 +74,13 @@ function dfsOrBfs(
     const nodeFrom =
       visitedFrom === START_NODE_SIGN ? graphData.startNode : visitedFrom;
     algorithmData.listOfSteps.push({ to: currNode, from: nodeFrom });
+    if (isNodeEndNode(currNode, graphData.endNode)) {
+      algorithmData.isEndNodeReached = true;
+      markNodeAsVisited(currNode, nodeFrom, visitedNodes);
+      break;
+    }
     for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
-      if (isNodeEndNode(neighborNode, graphData.endNode)) {
-        algorithmData.isEndNodeReached = true;
-        algorithmData.listOfSteps.push({ to: neighborNode, from: currNode });
-        markNodeAsVisited(neighborNode, currNode, visitedNodes);
-        break;
-      }
+
       if (!isNodeVisited(neighborNode, visitedNodes)) {
         stack.push(neighborNode);
         markNodeAsVisited(neighborNode, currNode, visitedNodes);

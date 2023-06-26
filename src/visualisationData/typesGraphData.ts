@@ -46,6 +46,9 @@ export interface GraphDataDW {
   startNode: NodeE;
   endNode: NodeE;
   graphType: UserGraphTypes;
+  isUOrUW: boolean;
+  isDOrDW: boolean;
+  isDWOrUW: boolean;
 }
 
 export type AnyGraphData = GraphDataM | GraphDataDW;

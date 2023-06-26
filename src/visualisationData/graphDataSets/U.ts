@@ -20,6 +20,9 @@ const graphDataU: GraphDataDW = {
   startNode: "k",
   endNode: "e",
   graphType: UserGraphTypes.U,
+  isUOrUW: true,
+  isDOrDW: false,
+  isDWOrUW: false,
 };
 
 export default graphDataU;

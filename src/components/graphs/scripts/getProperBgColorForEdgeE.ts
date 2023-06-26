@@ -1,7 +1,7 @@
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { EdgeData } from "./getEdges";
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from 'tailwind-config';
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "tailwind-config";
 
 const twConfig = resolveConfig(tailwindConfig);
 
@@ -28,7 +28,7 @@ export function getProperBgColorForEdgeE(
 
 function isEdgeVisited(
   edgeData: EdgeData,
-  { listOfSteps }: VisualisationDataDW,
+  visualisationData: VisualisationDataDW,
   currStepIdx: number
 ): boolean {
   const [node1, node2] = edgeData.edge;
@@ -36,8 +36,11 @@ function isEdgeVisited(
     return false;
   }
   for (let i = 0; i <= currStepIdx; i++) {
-    const { to, from } = listOfSteps[i];
-    if ((to === node1 && from === node2) || (to === node2 && from === node1)) {
+    const { to, from } = visualisationData.listOfSteps[i];
+    if (
+      (to === node2 && from === node1) ||
+      (visualisationData.isUOrUW && to === node1 && from === node2)
+    ) {
       return true;
     }
   }
@@ -63,9 +66,9 @@ function isNodeOnBacktrack(
     const newNode1 = path.at(-i);
     const newNode2 = path.at(-(i + 1));
     if (
-      (newNode1 === node1 && newNode2 === node2) ||
-      (newNode1 === node2 && newNode2 === node1)
-    ) {
+      (newNode1 === node2 && newNode2 === node1) ||
+      (visualisationData.isUOrUW && newNode1 === node1 && newNode2 === node2)
+      ) {
       return true;
     }
   }

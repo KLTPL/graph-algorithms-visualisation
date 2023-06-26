@@ -27,17 +27,17 @@ const graphDataDW: GraphDataDW = {
     [
       "d",
       [
+        { node: "c", cost: -2 },
         { node: "e", cost: -4 },
         { node: "f", cost: 5 },
         { node: "g", cost: 2 },
-        { node: "c", cost: -2 },
       ],
     ],
     [
       "e",
       [
-        { node: "h", cost: 9 },
         { node: "d", cost: 5 },
+        { node: "h", cost: 9 },
       ],
     ],
     ["f", [{ node: "h", cost: 1 }]],
@@ -47,6 +47,9 @@ const graphDataDW: GraphDataDW = {
   startNode: "a",
   endNode: "h",
   graphType: UserGraphTypes.DW,
+  isUOrUW: false,
+  isDOrDW: true,
+  isDWOrUW: true,
 };
 
 export default graphDataDW;

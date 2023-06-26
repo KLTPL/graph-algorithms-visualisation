@@ -12,7 +12,7 @@ const graphDataD: GraphDataDW = {
     ["g", getConverted(["i"])],
     ["h", getConverted(["i", "j"])],
     ["i", getConverted(["l"])],
-    ["j", getConverted(["l", "m", "f"])],
+    ["j", getConverted(["f", "l", "m", "h"])],
     ["k", getConverted(["j"])],
     ["l", []],
     ["m", []],
@@ -20,6 +20,9 @@ const graphDataD: GraphDataDW = {
   startNode: "a",
   endNode: "m",
   graphType: UserGraphTypes.D,
+  isUOrUW: false,
+  isDOrDW: true,
+  isDWOrUW: false,
 };
 
 export default graphDataD;

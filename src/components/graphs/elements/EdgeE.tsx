@@ -33,12 +33,6 @@ function EdgeEdge({
     useVisualisationData();
   const visualisationData = visualisationDataAny as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
-  const isWeighted =
-    visualisationData.graphType === UserGraphTypes.DW ||
-    visualisationData.graphType === UserGraphTypes.UW;
-  const isDirected =
-    visualisationData.graphType === UserGraphTypes.D ||
-    visualisationData.graphType === UserGraphTypes.DW;
   const edgeStylesData = calcEdgeData(nodePos1, nodePos2);
   const stylesObj = getBasicStylesForEdgeE(edgeStylesData);
   const bgColor = getProperBgColorForEdgeE(
@@ -62,10 +56,10 @@ function EdgeEdge({
   }
   return (
     <div
-      style={{ ...stylesObj, backgroundColor: `${!isDirected ? bgColor : ""}` }}
+      style={{ ...stylesObj, backgroundColor: `${!visualisationData.isDOrDW ? bgColor : ""}` }}
       className="h-1 absolute"
     >
-      {isDirected && (
+      {visualisationData.isDOrDW && (
         <svg
           style={{
             transform: `translate(${NODE_SIZE_PX / 2}px, -50%)`,
@@ -83,14 +77,14 @@ function EdgeEdge({
           ></path>
         </svg>
       )}
-      {isWeighted && (
+      {visualisationData.isDWOrUW && (
         <input
           type="number"
           defaultValue={edgeData.cost}
           className="absolute left-1/2 top-1/2 max-w-[4ch] bg-marixGraphFieldEmpty text-center border-2 border-nodeDefault rounded-full"
           style={{
             transform: `translate(-50%, ${
-              isDirected ? "-125" : "-50"
+              visualisationData.isDOrDW ? "-125" : "-50"
             }%) rotate(${-edgeStylesData.angle}deg)`,
           }}
           onChange={handleOnChange}

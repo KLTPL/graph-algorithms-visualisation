@@ -19,7 +19,7 @@ interface EdgeEdgeProps {
   nodePos2: NodePosition;
   edgeData: EdgeData;
   backtrackCount: number;
-  containerWidth: number|null;
+  containerWidth: number;
 }
 
 function EdgeEdge({
@@ -48,7 +48,9 @@ function EdgeEdge({
     backtrackCount
   );
   const edgeSvgWidth =
-    containerWidth === null ? 0 : (edgeStylesData.width / 100) * containerWidth - NODE_SIZE_PX;
+    containerWidth === 0
+      ? 0
+      : (edgeStylesData.width / 100) * containerWidth - NODE_SIZE_PX;
   function handleOnChange(ev: ChangeEvent) {
     const input = ev.target as HTMLInputElement;
     const [nodeFrom, nodeTo] = edgeData.edge;
@@ -61,7 +63,7 @@ function EdgeEdge({
   return (
     <div
       style={{ ...stylesObj, backgroundColor: `${!isDirected ? bgColor : ""}` }}
-      className={`h-1 absolute`}
+      className="h-1 absolute"
     >
       {isDirected && (
         <svg

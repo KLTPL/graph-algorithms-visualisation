@@ -15,7 +15,7 @@ import getEdges from "./scripts/getEdges";
 
 export default function Edge() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const containerWidth = useRef<number|null>(null);
+  const [containerWidth, setContainerWidth] = useState<number>(0);
   const visualisationData = useVisualisationData()
     .visualisationData as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
@@ -39,7 +39,7 @@ export default function Edge() {
   });
 
   useLayoutEffect(() => {
-    containerWidth.current = (containerRef.current as HTMLDivElement).offsetWidth;
+    setContainerWidth((containerRef.current as HTMLDivElement).offsetWidth);
   }, []);
 
   function getNode(node: NodeE, nodePos: NodePosition): JSX.Element {
@@ -54,7 +54,11 @@ export default function Edge() {
   }
 
   return (
-    <div ref={containerRef} id="edge-container" className="w-[95%] md:w-[60%] aspect-square relative">
+    <div
+      ref={containerRef}
+      id="edge-container"
+      className="w-[95%] md:w-[60%] aspect-square relative"
+    >
       {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
       {getEdges(visualisationData).map((edgeData, key) => {
         const node1Idx = nodes.indexOf(edgeData.edge[0]);
@@ -66,7 +70,7 @@ export default function Edge() {
             nodePos2={nodesPositons[node2Idx]}
             edgeData={edgeData}
             backtrackCount={backtrackCount}
-            containerWidth={containerWidth.current}
+            containerWidth={containerWidth}
           />
         );
       })}

@@ -19,6 +19,7 @@ interface EdgeEdgeProps {
   nodePos2: NodePosition;
   edgeData: EdgeData;
   backtrackCount: number;
+  containerWidth: number|null;
 }
 
 function EdgeEdge({
@@ -26,6 +27,7 @@ function EdgeEdge({
   nodePos2,
   edgeData,
   backtrackCount,
+  containerWidth,
 }: EdgeEdgeProps) {
   const { visualisationData: visualisationDataAny, refreshVisualisationData } =
     useVisualisationData();
@@ -45,10 +47,8 @@ function EdgeEdge({
     currStepIdx,
     backtrackCount
   );
-  const conainerWidth = window.innerWidth * 0.36;
   const edgeSvgWidth =
-    (edgeStylesData.width / 100) * conainerWidth - NODE_SIZE_PX;
-
+    containerWidth === null ? 0 : (edgeStylesData.width / 100) * containerWidth - NODE_SIZE_PX;
   function handleOnChange(ev: ChangeEvent) {
     const input = ev.target as HTMLInputElement;
     const [nodeFrom, nodeTo] = edgeData.edge;
@@ -60,12 +60,15 @@ function EdgeEdge({
   }
   return (
     <div
-      style={{...stylesObj, backgroundColor: `${!isDirected ? bgColor : ""}`}}
+      style={{ ...stylesObj, backgroundColor: `${!isDirected ? bgColor : ""}` }}
       className={`h-1 absolute`}
     >
       {isDirected && (
         <svg
-          style={{ transform: `translate(${NODE_SIZE_PX / 2}px, -50%)`, fill: bgColor }}
+          style={{
+            transform: `translate(${NODE_SIZE_PX / 2}px, -50%)`,
+            fill: bgColor,
+          }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 600 150"
           width={edgeSvgWidth}

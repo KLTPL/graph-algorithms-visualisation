@@ -89,7 +89,9 @@ function EdgeEdge({
           defaultValue={edgeData.cost}
           className="absolute left-1/2 top-1/2 max-w-[4ch] bg-marixGraphFieldEmpty text-center border-2 border-nodeDefault rounded-full"
           style={{
-            transform: `translate(-50%, -50%) rotate(${-edgeStylesData.angle}deg)`,
+            transform: `translate(-50%, ${
+              isDirected ? "-125" : "-50"
+            }%) rotate(${-edgeStylesData.angle}deg)`,
           }}
           onChange={handleOnChange}
         />

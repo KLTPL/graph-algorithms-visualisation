@@ -4,7 +4,7 @@ import {
 } from "../../../SettingsContext";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import getBasicStylesForEdgeE from "../scripts/getStylesObjForEdgeE";
-import { getClassNamesForEdgeU } from "../scripts/getClassNamesForEdgeE";
+import { getProperBgColorForEdgeE } from "../scripts/getProperBgColorForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
 import {
   ToNodeDW,
@@ -12,20 +12,21 @@ import {
 } from "../../../visualisationData/typesGraphData";
 import { EdgeData } from "../scripts/getEdges";
 import { ChangeEvent } from "react";
+import { NODE_SIZE_PX } from "./NodeE";
 
-interface EdgeUndirectedProps {
+interface EdgeEdgeProps {
   nodePos1: NodePosition;
   nodePos2: NodePosition;
   edgeData: EdgeData;
   backtrackCount: number;
 }
 
-function EdgeUndirected({
+function EdgeEdge({
   nodePos1,
   nodePos2,
   edgeData,
   backtrackCount,
-}: EdgeUndirectedProps) {
+}: EdgeEdgeProps) {
   const { visualisationData: visualisationDataAny, refreshVisualisationData } =
     useVisualisationData();
   const visualisationData = visualisationDataAny as VisualisationDataDW;
@@ -33,25 +34,51 @@ function EdgeUndirected({
   const isWeighted =
     visualisationData.graphType === UserGraphTypes.DW ||
     visualisationData.graphType === UserGraphTypes.UW;
+  const isDirected =
+    visualisationData.graphType === UserGraphTypes.D ||
+    visualisationData.graphType === UserGraphTypes.DW;
   const edgeStylesData = calcEdgeData(nodePos1, nodePos2);
   const stylesObj = getBasicStylesForEdgeE(edgeStylesData);
-  const classNames = getClassNamesForEdgeU(
+  const bgColor = getProperBgColorForEdgeE(
     edgeData,
     visualisationData,
     currStepIdx,
     backtrackCount
   );
+  const conainerWidth = window.innerWidth * 0.36;
+  const edgeSvgWidth =
+    (edgeStylesData.width / 100) * conainerWidth - NODE_SIZE_PX;
 
   function handleOnChange(ev: ChangeEvent) {
     const input = ev.target as HTMLInputElement;
     const [nodeFrom, nodeTo] = edgeData.edge;
     const neighbours = visualisationData.graph.get(nodeFrom) as ToNodeDW[];
-    neighbours.filter(toNode => nodeTo === toNode.node)[0].cost = parseInt(input.value);
+    neighbours.filter(toNode => nodeTo === toNode.node)[0].cost = parseInt(
+      input.value
+    );
     refreshVisualisationData();
   }
-
   return (
-    <div style={stylesObj} className={classNames}>
+    <div
+      style={stylesObj}
+      className={`h-1 absolute ${!isDirected ? `bg-${bgColor}` : ""}`}
+    >
+      {isDirected && (
+        <svg
+          style={{ transform: `translate(${NODE_SIZE_PX / 2}px, -50%)` }}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 600 150"
+          width={edgeSvgWidth}
+          height={35}
+          preserveAspectRatio="none"
+          className={`fill-${bgColor}`}
+        >
+          <path
+            fillOpacity="1"
+            d="M 4 70 Q 308 0 598 80 L 551 106 L 575 40 L 597 80 L 583 83 Q 307 15 4 84 Z"
+          ></path>
+        </svg>
+      )}
       {isWeighted && (
         <input
           type="number"
@@ -91,4 +118,4 @@ function calcEdgeData(
   };
 }
 
-export default EdgeUndirected;
+export default EdgeEdge;

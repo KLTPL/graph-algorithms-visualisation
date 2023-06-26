@@ -1,7 +1,7 @@
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { EdgeData } from "./getEdges";
 
-export function getClassNamesForEdgeU(
+export function getProperBgColorForEdgeE(
   edge: EdgeData,
   visualisationData: VisualisationDataDW,
   currStepIdx: number,
@@ -13,17 +13,13 @@ export function getClassNamesForEdgeU(
     visualisationData,
     backtrackCount
   );
-  const conditionAndValuePairs = [
-    [true, "h-1 absolute"],
-    [!isVisited && !isOnBacktrack, "bg-black"],
-    [isVisited && !isOnBacktrack, "bg-primary"],
-    [isOnBacktrack, "bg-nodeBacktrack"],
-  ];
-
-  return conditionAndValuePairs
-    .filter(arr => arr[0])
-    .map(arr => arr[1])
-    .join(" ");
+  if (isOnBacktrack) {
+    return "nodeBacktrack";
+  }
+  if (isVisited) {
+    return "primary";
+  }
+  return "black"
 }
 
 function isEdgeVisited(

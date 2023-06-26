@@ -1,4 +1,4 @@
-import { EdgeStylesData } from "../elements/EdgeU";
+import { EdgeStylesData } from "../elements/EdgeE";
 import { NODE_SIZE_PX } from "../elements/NodeE";
 
 const EDGE_HEIGHT_PX = 4;

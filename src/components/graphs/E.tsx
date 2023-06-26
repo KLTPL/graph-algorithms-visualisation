@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useUserInputData, useVisualisationData } from "../../SettingsContext";
 import { VisualisationDataDW } from "../../visualisationData/typesVisualisationData";
 import NodeEdge from "./elements/NodeE";
@@ -14,6 +14,8 @@ import EdgeEdge from "./elements/EdgeE";
 import getEdges from "./scripts/getEdges";
 
 export default function Edge() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const containerWidth = useRef<number|null>(null);
   const visualisationData = useVisualisationData()
     .visualisationData as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
@@ -36,6 +38,10 @@ export default function Edge() {
     );
   });
 
+  useLayoutEffect(() => {
+    containerWidth.current = (containerRef.current as HTMLDivElement).offsetWidth;
+  }, []);
+
   function getNode(node: NodeE, nodePos: NodePosition): JSX.Element {
     return (
       <NodeEdge
@@ -48,13 +54,11 @@ export default function Edge() {
   }
 
   return (
-    <div id="edge-container" className="w-[60%] aspect-square relative">
+    <div ref={containerRef} id="edge-container" className="w-[95%] md:w-[60%] aspect-square relative">
       {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
       {getEdges(visualisationData).map((edgeData, key) => {
         const node1Idx = nodes.indexOf(edgeData.edge[0]);
         const node2Idx = nodes.indexOf(edgeData.edge[1]);
-        console.log(edgeData.edge)
-        console.log([nodesPositons[node1Idx], nodesPositons[node2Idx]])
         return (
           <EdgeEdge
             key={key}
@@ -62,6 +66,7 @@ export default function Edge() {
             nodePos2={nodesPositons[node2Idx]}
             edgeData={edgeData}
             backtrackCount={backtrackCount}
+            containerWidth={containerWidth.current}
           />
         );
       })}

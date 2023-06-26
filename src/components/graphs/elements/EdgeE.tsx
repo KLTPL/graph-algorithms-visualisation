@@ -107,9 +107,12 @@ function calcEdgeData(
 ): EdgeStylesData {
   const distX = nodePos1.left - nodePos2.left;
   const distY = nodePos1.top - nodePos2.top;
-  const angle = Math.atan(distY / distX) * (180 / Math.PI);
+  let angle = Math.atan(distY / distX) * (180 / Math.PI);
+  if (distX >= 0) {
+    angle += 180;
+  }
   const width = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
-  const { left, top } = nodePos1.left < nodePos2.left ? nodePos1 : nodePos2;
+  const { left, top } = nodePos1;
   return {
     angle,
     width,

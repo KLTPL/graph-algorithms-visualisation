@@ -53,6 +53,8 @@ export default function Edge() {
       {getEdges(visualisationData).map((edgeData, key) => {
         const node1Idx = nodes.indexOf(edgeData.edge[0]);
         const node2Idx = nodes.indexOf(edgeData.edge[1]);
+        console.log(edgeData.edge)
+        console.log([nodesPositons[node1Idx], nodesPositons[node2Idx]])
         return (
           <EdgeEdge
             key={key}

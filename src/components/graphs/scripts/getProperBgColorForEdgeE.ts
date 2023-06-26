@@ -68,7 +68,7 @@ function isNodeOnBacktrack(
     if (
       (newNode1 === node2 && newNode2 === node1) ||
       (visualisationData.isUOrUW && newNode1 === node1 && newNode2 === node2)
-      ) {
+    ) {
       return true;
     }
   }

@@ -42,7 +42,7 @@ function EdgeEdge({
     backtrackCount
   );
   const edgeSvgWidth =
-    containerWidth === 0
+    (edgeStylesData.width / 100) * containerWidth - NODE_SIZE_PX < 0
       ? 0
       : (edgeStylesData.width / 100) * containerWidth - NODE_SIZE_PX;
   function handleOnChange(ev: ChangeEvent) {
@@ -54,9 +54,14 @@ function EdgeEdge({
     );
     refreshVisualisationData();
   }
+  const isNodesTouching = edgeStylesData.width * containerWidth / 100 <= NODE_SIZE_PX;
   return (
     <div
-      style={{ ...stylesObj, backgroundColor: `${!visualisationData.isDOrDW ? bgColor : ""}` }}
+      style={{
+        ...stylesObj,
+        backgroundColor: `${!visualisationData.isDOrDW ? bgColor : ""}`,
+        display: isNodesTouching ? "none" : "block",
+      }}
       className="h-1 absolute"
     >
       {visualisationData.isDOrDW && (

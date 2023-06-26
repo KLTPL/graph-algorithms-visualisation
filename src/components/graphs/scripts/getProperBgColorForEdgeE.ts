@@ -1,12 +1,16 @@
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { EdgeData } from "./getEdges";
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from 'tailwind-config';
+
+const twConfig = resolveConfig(tailwindConfig);
 
 export function getProperBgColorForEdgeE(
   edge: EdgeData,
   visualisationData: VisualisationDataDW,
   currStepIdx: number,
   backtrackCount: number
-) {
+): string {
   const isVisited = isEdgeVisited(edge, visualisationData, currStepIdx);
   const isOnBacktrack = isNodeOnBacktrack(
     edge,
@@ -14,12 +18,12 @@ export function getProperBgColorForEdgeE(
     backtrackCount
   );
   if (isOnBacktrack) {
-    return "nodeBacktrack";
+    return twConfig.theme.colors.nodeBacktrack;
   }
   if (isVisited) {
-    return "primary";
+    return twConfig.theme.colors.primary;
   }
-  return "black"
+  return twConfig.theme.colors.black;
 }
 
 function isEdgeVisited(

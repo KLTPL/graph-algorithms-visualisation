@@ -60,18 +60,17 @@ function EdgeEdge({
   }
   return (
     <div
-      style={stylesObj}
-      className={`h-1 absolute ${!isDirected ? `bg-${bgColor}` : ""}`}
+      style={{...stylesObj, backgroundColor: `${!isDirected ? bgColor : ""}`}}
+      className={`h-1 absolute`}
     >
       {isDirected && (
         <svg
-          style={{ transform: `translate(${NODE_SIZE_PX / 2}px, -50%)` }}
+          style={{ transform: `translate(${NODE_SIZE_PX / 2}px, -50%)`, fill: bgColor }}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 600 150"
           width={edgeSvgWidth}
           height={35}
           preserveAspectRatio="none"
-          className={`fill-${bgColor}`}
         >
           <path
             fillOpacity="1"

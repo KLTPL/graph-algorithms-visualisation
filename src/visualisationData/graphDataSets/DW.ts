@@ -30,9 +30,16 @@ const graphDataDW: GraphDataDW = {
         { node: "e", cost: -4 },
         { node: "f", cost: 5 },
         { node: "g", cost: 2 },
+        { node: "c", cost: -2 },
       ],
     ],
-    ["e", [{ node: "h", cost: 9 }]],
+    [
+      "e",
+      [
+        { node: "h", cost: 9 },
+        { node: "d", cost: 5 },
+      ],
+    ],
     ["f", [{ node: "h", cost: 1 }]],
     ["g", [{ node: "h", cost: 2 }]],
     ["h", []],

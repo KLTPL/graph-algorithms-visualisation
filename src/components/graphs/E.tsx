@@ -10,7 +10,7 @@ import { NodeE } from "../../visualisationData/typesGraphData";
 import getProperNodesPosition, {
   NodePosition,
 } from "./scripts/getProperNodesPostions";
-import EdgeUndirected from "./elements/EdgeU";
+import EdgeEdge from "./elements/EdgeE";
 import getEdges from "./scripts/getEdges";
 
 export default function Edge() {
@@ -48,13 +48,13 @@ export default function Edge() {
   }
 
   return (
-    <div className="w-[60%] aspect-square relative">
+    <div id="edge-container" className="w-[60%] aspect-square relative">
       {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
-      {getEdges(visualisationData.graph).map((edgeData, key) => {
+      {getEdges(visualisationData).map((edgeData, key) => {
         const node1Idx = nodes.indexOf(edgeData.edge[0]);
         const node2Idx = nodes.indexOf(edgeData.edge[1]);
         return (
-          <EdgeUndirected
+          <EdgeEdge
             key={key}
             nodePos1={nodesPositons[node1Idx]}
             nodePos2={nodesPositons[node2Idx]}

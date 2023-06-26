@@ -12,7 +12,7 @@ const graphDataD: GraphDataDW = {
     ["g", getConverted(["i"])],
     ["h", getConverted(["i", "j"])],
     ["i", getConverted(["l"])],
-    ["j", getConverted(["l", "m"])],
+    ["j", getConverted(["l", "m", "f"])],
     ["k", getConverted(["j"])],
     ["l", []],
     ["m", []],

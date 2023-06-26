@@ -96,7 +96,7 @@ export function getClassNamesForNodeE({
   const conditionAndValuePairs = [
     [
       true,
-      "absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeDefault",
+      "absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeDefault select-none hover:cursor-grab",
     ],
     [!isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
     [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],

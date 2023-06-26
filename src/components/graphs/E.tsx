@@ -49,6 +49,7 @@ export default function Edge() {
         backtrackCount={backtrackCount}
         node={node}
         pos={nodePos}
+        containerRef={containerRef}
       />
     );
   }

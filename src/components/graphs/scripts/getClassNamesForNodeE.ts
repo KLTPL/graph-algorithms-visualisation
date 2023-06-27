@@ -41,7 +41,13 @@ export function getClassNamesForNodeM({
   const isEmpty = fieldType === NodeTypesM.empty;
   const isRock = fieldType === NodeTypesM.rock;
   const isNodeVisited = isStepAlreadyMadeM(currStepIdx, listOfSteps, r, c);
-  const isCurrNode = isNodeCurrNodeM(visualisationData, currStepIdx, r, c);
+  const isCurrNode = isNodeCurrNodeM(
+    visualisationData,
+    currStepIdx,
+    r,
+    c,
+    isStartNode
+  );
   const isReachedStartOrEndNode =
     (isEndNode && isNodeVisited) ||
     isEndNodeReachedM(isStartNode, visualisationData, backtrackCount);
@@ -83,7 +89,12 @@ export function getClassNamesForNodeE({
   const isEndNode = node === visualisationData.endNode;
   const isStartOrEnd = isStartNode || isEndNode;
   const isNodeVisited = isStepAlreadyMadeE(currStepIdx, listOfSteps, node);
-  const isCurrNode = isNodeCurrNodeE(visualisationData, currStepIdx, node);
+  const isCurrNode = isNodeCurrNodeE(
+    visualisationData,
+    currStepIdx,
+    node,
+    isStartNode
+  );
   const isReachedStartOrEndNode =
     (isEndNode && isNodeVisited) ||
     isEndNodeReachedE(isStartNode, visualisationData, backtrackCount);
@@ -182,8 +193,12 @@ function isNodeCurrNodeM(
   visualisationData: VisualisationDataM,
   currStepIdx: number,
   r: number,
-  c: number
+  c: number,
+  isStartNode: boolean
 ): boolean {
+  if (currStepIdx === -1) {
+    return isStartNode;
+  }
   const field = visualisationData.listOfSteps[currStepIdx];
   return field !== undefined && field.x === c && field.y === r;
 }
@@ -191,8 +206,12 @@ function isNodeCurrNodeM(
 function isNodeCurrNodeE(
   visualisationData: VisualisationDataDW,
   currStepIdx: number,
-  node: NodeE
+  node: NodeE,
+  isStartNode: boolean
 ): boolean {
+  if (currStepIdx === -1) {
+    return isStartNode;
+  }
   const currNode = visualisationData.listOfSteps[currStepIdx];
   return currNode !== undefined && currNode.to === node;
 }

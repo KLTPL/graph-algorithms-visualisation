@@ -11,10 +11,11 @@ export type EdgeData = { edge: EdgeE; cost: number };
 
 function getEdges(visualisationData: VisualisationDataDW): EdgeData[] {
   const { graph, graphType } = visualisationData;
-  const isUndirected =
+  const isUOrUW =
     graphType === UserGraphTypes.U || graphType === UserGraphTypes.UW;
   const edges: EdgeData[] = [];
   const edgesCodes = new Set<string>();
+  // edgesCodes is a system that makes sure that on UW or U graphs edges don't reapeat
   for (const node of graph.keys()) {
     const neighbours = graph.get(node) as ToNodeDW[];
     for (const { node: neighbour, cost } of neighbours) {
@@ -22,7 +23,7 @@ function getEdges(visualisationData: VisualisationDataDW): EdgeData[] {
         node.charCodeAt(0) < neighbour.charCodeAt(0)
           ? `${node};${neighbour}`
           : `${neighbour};${node}`;
-      if (!isUndirected || !edgesCodes.has(strCode)) {
+      if (!isUOrUW || !edgesCodes.has(strCode)) {
         edgesCodes.add(strCode);
         edges.push({ edge: [node, neighbour], cost });
       }

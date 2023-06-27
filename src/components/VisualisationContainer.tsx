@@ -14,10 +14,8 @@ function getProperGraphElement(
 }
 
 export default function GraphContainer() {
-  const visualisationDataContext = useVisualisationData();
-  const UserInputDataContext = useUserInputData();
-  const { visualisationData } = visualisationDataContext;
-  const { currStepIdx, updateCurrStepIdx } = UserInputDataContext;
+  const { visualisationData } = useVisualisationData();
+  const { currStepIdx, updateCurrStepIdx } = useUserInputData();
 
   function incrementCurrStepIdx() {
     const listOfStepsLen = visualisationData.listOfSteps.length;

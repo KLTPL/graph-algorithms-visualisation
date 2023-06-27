@@ -3,16 +3,14 @@ import {
   useVisualisationData,
 } from "../../../SettingsContext";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import getBasicStylesForEdgeE from "../scripts/getStylesObjForEdgeE";
 import { getProperBgColorForEdgeE } from "../scripts/getProperBgColorForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
-import {
-  ToNodeDW,
-  UserGraphTypes,
-} from "../../../visualisationData/typesGraphData";
+import { ToNodeDW, UserGraphTypes } from "../../../visualisationData/typesGraphData";
 import { EdgeData } from "../scripts/getEdges";
 import { ChangeEvent } from "react";
 import { NODE_SIZE_PX } from "./NodeE";
+
+const EDGE_HEIGHT_PX = 4;
 
 interface EdgeEdgeProps {
   nodePos1: NodePosition;
@@ -33,8 +31,7 @@ function EdgeEdge({
     useVisualisationData();
   const visualisationData = visualisationDataAny as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
-  const edgeStylesData = calcEdgeData(nodePos1, nodePos2);
-  const stylesObj = getBasicStylesForEdgeE(edgeStylesData);
+  const { left, top, width, angle } = calcEdgeData(nodePos1, nodePos2);
   const bgColor = getProperBgColorForEdgeE(
     edgeData,
     visualisationData,
@@ -42,9 +39,11 @@ function EdgeEdge({
     backtrackCount
   );
   const edgeSvgWidth =
-    (edgeStylesData.width / 100) * containerWidth - NODE_SIZE_PX < 0
+    (width / 100) * containerWidth - NODE_SIZE_PX < 0
       ? 0
-      : (edgeStylesData.width / 100) * containerWidth - NODE_SIZE_PX;
+      : (width / 100) * containerWidth - NODE_SIZE_PX;
+  const isNodesTouching = (width / 100) * containerWidth <= NODE_SIZE_PX;
+
   function handleOnChange(ev: ChangeEvent) {
     const input = ev.target as HTMLInputElement;
     const [nodeFrom, nodeTo] = edgeData.edge;
@@ -52,13 +51,26 @@ function EdgeEdge({
     neighbours.filter(toNode => nodeTo === toNode.node)[0].cost = parseInt(
       input.value
     );
+    // update both sides of edge if graph is UW
+    if (visualisationData.graphType === UserGraphTypes.UW) {
+      const neighbours = visualisationData.graph.get(nodeTo) as ToNodeDW[];
+      neighbours.filter(toNode => nodeFrom === toNode.node)[0].cost = parseInt(
+        input.value
+      );
+    }
     refreshVisualisationData();
   }
-  const isNodesTouching = edgeStylesData.width * containerWidth / 100 <= NODE_SIZE_PX;
   return (
     <div
       style={{
-        ...stylesObj,
+        transformOrigin: "left",
+        height: `${EDGE_HEIGHT_PX}px`,
+        width: `${width}%`,
+        left: `${left}%`,
+        top: `${top}%`,
+        transform: `translate(${NODE_SIZE_PX / 2}px, ${
+          NODE_SIZE_PX / 2 - EDGE_HEIGHT_PX / 2
+        }px) rotate(${angle}deg)`,
         backgroundColor: `${!visualisationData.isDOrDW ? bgColor : ""}`,
         display: isNodesTouching ? "none" : "block",
       }}
@@ -90,7 +102,7 @@ function EdgeEdge({
           style={{
             transform: `translate(-50%, ${
               visualisationData.isDOrDW ? "-125" : "-50"
-            }%) rotate(${-edgeStylesData.angle}deg)`,
+            }%) rotate(${-angle}deg)`,
           }}
           onChange={handleOnChange}
         />

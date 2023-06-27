@@ -2,18 +2,13 @@ import { useVisualisationData } from "../SettingsContext";
 import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
 
 export default function GraphSettingsSelectSearchType() {
-  const visualisationDataContext = useVisualisationData();
+  const { visualisationData, switchVisualisationData } = useVisualisationData();
 
   function getSelectAlgorithmTypeFun(
     algorithmType: SearchAlgorithmsTypes
   ): () => void {
     return () => {
-      if (
-        visualisationDataContext.visualisationData.algorithmType !==
-        algorithmType
-      ) {
-        const { visualisationData, switchVisualisationData } =
-          visualisationDataContext;
+      if (visualisationData.algorithmType !== algorithmType) {
         switchVisualisationData(visualisationData.graphType, algorithmType);
       }
     };
@@ -28,7 +23,7 @@ export default function GraphSettingsSelectSearchType() {
       <button onClick={getSelectAlgorithmTypeFun(SearchAlgorithmsTypes.Bfs)}>
         bfs
       </button>
-      {visualisationDataContext.visualisationData.algorithmType}
+      {visualisationData.algorithmType}
     </div>
   );
 }

@@ -18,9 +18,8 @@ interface NodeEdgeProps {
 }
 
 function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
-  const visualisationDataContext = useVisualisationData();
-  const visualisationData =
-    visualisationDataContext.visualisationData as VisualisationDataDW;
+  const { visualisationData: AnyVisualisationData, refreshVisualisationData } = useVisualisationData();
+  const visualisationData = AnyVisualisationData as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
   const { left, top } = pos;
   const className = getClassNamesForNodeE({
@@ -50,7 +49,7 @@ function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
     ) {
       pos.top = newRight;
     }
-    visualisationDataContext.refreshVisualisationData();
+    refreshVisualisationData();
   }
   return (
     <div

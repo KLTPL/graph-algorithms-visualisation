@@ -10,6 +10,7 @@ import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodeEAndM";
 import getProperNodesPosition, {
   NodePosition,
 } from "../scripts/getProperNodesPostions";
+import removeNode from "../scripts/removeNode";
 
 export const NODE_SIZE_PX =
   window.innerWidth < 500 ? window.innerWidth / 12 : 40;
@@ -46,27 +47,9 @@ function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
         });
         break;
       case VisualisationPointerTools.RemoveEdgeOrNode:
-        visualisationData.graph.splice(node, 1);
-        getProperNodesPosition(visualisationData).splice(node, 1);
-        if (visualisationData.startNode.current >= node) {
-          visualisationData.startNode.current--;
+        if (visualisationData.graph.length > 2) {
+          removeNode(visualisationData, node, refreshVisualisationData);
         }
-        if (visualisationData.endNode.current >= node) {
-          visualisationData.endNode.current--;
-        }
-        for (const neighbours of visualisationData.graph) {
-          for (let i = 0; i < neighbours.length; i++) {
-            if (neighbours[i].node === node) {
-              neighbours.splice(i, 1);
-              i--;
-              continue;
-            }
-            if (neighbours[i].node > node) {
-              neighbours[i].node--;
-            }
-          }
-        }
-        refreshVisualisationData();
         break;
     }
   }

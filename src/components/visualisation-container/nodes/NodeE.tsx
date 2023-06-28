@@ -1,6 +1,11 @@
-import { useUserInput, useVisualisationData } from "../../../context/Context";
+import {
+  useUserInput,
+  useVisualisationData,
+  useVisualisationPointerTools,
+} from "../../../context/Context";
 import { NodeE } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
+import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
 import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodeEAndM";
 import { NodePosition } from "../scripts/getProperNodesPostions";
 
@@ -18,6 +23,7 @@ function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
   const { visualisationData: AnyVisualisationData, refreshVisualisationData } =
     useVisualisationData();
   const visualisationData = AnyVisualisationData as VisualisationDataDW;
+  const { pointerTool } = useVisualisationPointerTools();
   const { currStepIdx } = useUserInput();
   const { left, top } = pos;
   const className = getClassNamesForNodeE({
@@ -27,7 +33,25 @@ function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
     node,
   });
 
-  function handlePointerMove(ev: PointerEvent) {
+  function handleOnPointerDown(): void {
+    switch (pointerTool) {
+      case VisualisationPointerTools.NoTool:
+        document.body.style.touchAction = "none";
+        document.addEventListener("pointermove", handlePointerMove);
+        document.addEventListener("pointerup", () => {
+          document.body.style.touchAction = "auto";
+          document.removeEventListener("pointermove", handlePointerMove);
+        });
+        break;
+      case VisualisationPointerTools.NewNode:
+        break;
+      case VisualisationPointerTools.NewEdge:
+        break;
+      case VisualisationPointerTools.RemoveEdgeOrNode:
+        break;
+    }
+  }
+  function handlePointerMove(ev: PointerEvent): void {
     ev.preventDefault();
     const { left, top, right, bottom, width, height } = (
       containerRef.current as HTMLDivElement
@@ -58,14 +82,7 @@ function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
         height: `${NODE_SIZE_PX}px`,
       }}
       className={className}
-      onPointerDown={() => {
-        document.body.style.touchAction = "none";
-        document.addEventListener("pointermove", handlePointerMove);
-        document.addEventListener("pointerup", () => {
-          document.body.style.touchAction = "auto";
-          document.removeEventListener("pointermove", handlePointerMove);
-        });
-      }}
+      onPointerDown={handleOnPointerDown}
     >
       {node}
     </div>

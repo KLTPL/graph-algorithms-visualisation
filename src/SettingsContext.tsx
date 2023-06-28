@@ -6,6 +6,10 @@ import {
 import { UserGraphTypes } from "./visualisationData/typesGraphData";
 import { SearchAlgorithmsTypes } from "./visualisationData/typesAlgorithmData";
 import { AnyVisualisationData } from "./visualisationData/typesVisualisationData";
+import {
+  AnyVisualisationPointerTool,
+  VisualisationPointerToolsM,
+} from "./components/VisualisationTools";
 
 const DEFAULT_CURR_STEP_IDX = -1;
 
@@ -23,6 +27,11 @@ export interface UserInputDataContextProps {
   updateCurrStepIdx: (newIdx: number) => void;
 }
 
+export interface VisualisationPointerToolsContextProps {
+  pointerTool: AnyVisualisationPointerTool;
+  updatePointerTool: (newTool: AnyVisualisationPointerTool) => void;
+}
+
 const VisualisationDataContext =
   React.createContext<VisualisationDataContextProps>(
     null as unknown as VisualisationDataContextProps
@@ -30,6 +39,10 @@ const VisualisationDataContext =
 const UserInputDataContext = React.createContext<UserInputDataContextProps>(
   null as unknown as UserInputDataContextProps
 );
+const VisualisationPointerToolsContext =
+  React.createContext<VisualisationPointerToolsContextProps>(
+    null as unknown as VisualisationPointerToolsContextProps
+  );
 
 export function useVisualisationData() {
   return useContext(VisualisationDataContext);
@@ -39,10 +52,17 @@ export function useUserInputData() {
   return useContext(UserInputDataContext);
 }
 
+export function useVisualisationPointerTools() {
+  return useContext(VisualisationPointerToolsContext);
+}
+
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [visualisationData, setVisualisationData] =
     useState<AnyVisualisationData>(getDefaultVisualisationData());
   const [currStepIdx, setCurrStepIdx] = useState<number>(DEFAULT_CURR_STEP_IDX);
+  const [pointerTool, setPointerTool] = useState<AnyVisualisationPointerTool>(
+    VisualisationPointerToolsM.EmptyField
+  );
 
   function switchVisualisationData(
     graphType: UserGraphTypes,
@@ -55,12 +75,15 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     setVisualisationData(newVisualisationData);
     updateCurrStepIdx(DEFAULT_CURR_STEP_IDX);
   }
-  function refreshVisualisationData() {
+  function refreshVisualisationData(): void {
     const { graphType, algorithmType } = visualisationData;
     switchVisualisationData(graphType, algorithmType);
   }
-  function updateCurrStepIdx(newIdx: number) {
+  function updateCurrStepIdx(newIdx: number): void {
     setCurrStepIdx(newIdx);
+  }
+  function updatePointerTool(newTool: number): void {
+    setPointerTool(newTool);
   }
 
   return (
@@ -68,11 +91,15 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
       value={{
         visualisationData,
         switchVisualisationData,
-        refreshVisualisationData
+        refreshVisualisationData,
       }}
     >
       <UserInputDataContext.Provider value={{ currStepIdx, updateCurrStepIdx }}>
-        {children}
+        <VisualisationPointerToolsContext.Provider
+          value={{ pointerTool, updatePointerTool }}
+        >
+          {children}
+        </VisualisationPointerToolsContext.Provider>
       </UserInputDataContext.Provider>
     </VisualisationDataContext.Provider>
   );

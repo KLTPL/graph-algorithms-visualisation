@@ -3,6 +3,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
 import { NODE_SIZE_PX } from "../visualisation-container/nodes/NodeE";
 import ToolRadioInput from "./ToolRadioInput";
+import { EDGE_HEIGHT_PX } from "../visualisation-container/nodes/EdgeE";
 
 const twConfig = resolveConfig(tailwindConfig);
 
@@ -33,36 +34,31 @@ const CONTENT_REMOVE = (
   </svg>
 );
 
-const CONTENT_NEW_EDGE = [
+const CONTENT_NEW_EDGE = (
   <div
     key={"edge"}
-    style={{ width: NODE_SIZE_PX }}
-    className="bg-black h-2"
-  ></div>,
-  <div
-    key={"coverSoTheEdgeDoesntLookLikeARectangle"}
-    style={{ width: NODE_SIZE_PX, height: NODE_SIZE_PX }}
-    className="bg-none w-full h-full border-solid border-2 border-nodeBorder absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-  ></div>,
-];
+    style={{ width: NODE_SIZE_PX * 0.6, height: EDGE_HEIGHT_PX }}
+    className="bg-black w-full"
+  ></div>
+);
 
 export default function SelectToolsE() {
   return (
     <div className="flex flex-col gap-3">
       <ToolRadioInput
-        className="bg-nodeEmpty"
+        customClassName="bg-nodeEmpty"
         title="new node"
         newPointerTool={Tools.NewNode}
         content={CONTENT_NEW_NODE}
       />
       <ToolRadioInput
-        className="bg-white"
+        customClassName="bg-inherit"
         title="new edge"
         newPointerTool={Tools.NewEdge}
         content={CONTENT_NEW_EDGE}
       />
       <ToolRadioInput
-        className="bg-white"
+        customClassName="bg-white"
         title="remove node or edge"
         newPointerTool={Tools.RemoveEdgeOrNode}
         content={CONTENT_REMOVE}

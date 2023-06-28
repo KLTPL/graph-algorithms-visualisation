@@ -13,7 +13,6 @@ export default {
       nodeBacktrack: "#ff6200",
       black: "#0a0a0a",
       white: "#e5e5e5",
-      removeNode: "#ff0015",
     },
     extend: {},
   },

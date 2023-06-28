@@ -82,7 +82,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
       (newVisualisationData.graphType === UserGraphTypes.M &&
         visualisationData.graphType !== UserGraphTypes.M)
     ) {
-      setPointerToolToDefault(newVisualisationData.graphType);
+      setPointerToolToDefault();
     }
   }
   function refreshVisualisationData(): void {
@@ -93,10 +93,14 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     setCurrStepIdx(newIdx);
   }
   function updatePointerTool(newTool: number): void {
-    setPointerTool(newTool);
+    if (pointerTool === newTool) {
+      setPointerToolToDefault();
+    } else {
+      setPointerTool(newTool);
+    }
   }
-  function setPointerToolToDefault(graphType: UserGraphTypes): void {
-    if (graphType === UserGraphTypes.M) {
+  function setPointerToolToDefault(): void {
+    if (visualisationData.graphType === UserGraphTypes.M) {
       updatePointerTool(VisualisationPointerToolsM.NoTool);
     } else {
       updatePointerTool(VisualisationPointerToolsE.NoTool);

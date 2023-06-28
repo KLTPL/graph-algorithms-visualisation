@@ -64,14 +64,10 @@ export default function Edge() {
   function handleOnPointerDown(ev: React.PointerEvent) {
     if (
       pointerTool === VisualisationPointerTools.NewNode &&
-      visualisationData.graph.length < 26 
+      visualisationData.graph.length < 26
     ) {
-      addNewNode(
-        containerRef.current as HTMLDivElement,
-        ev,
-        visualisationData,
-        refreshVisualisationData
-      );
+      addNewNode(containerRef.current as HTMLDivElement, ev, visualisationData);
+      refreshVisualisationData();
     }
   }
 
@@ -79,7 +75,7 @@ export default function Edge() {
     <div
       ref={containerRef}
       id="edge-container"
-      className="w-[95%] md:w-[60%] aspect-square relative border-2 border-black"
+      className="w-[95%] md:w-[60%] aspect-square relative"
       onPointerDown={handleOnPointerDown}
     >
       {nodes.map((node, i) => getNode(node, nodesPositons[i]))}

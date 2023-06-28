@@ -1,7 +1,7 @@
 import {
   useUserInputData,
   useVisualisationData,
-} from "../../../SettingsContext";
+} from "../../../context/SettingsContext";
 import { NodeE } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodeE";
@@ -18,7 +18,8 @@ interface NodeEdgeProps {
 }
 
 function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
-  const { visualisationData: AnyVisualisationData, refreshVisualisationData } = useVisualisationData();
+  const { visualisationData: AnyVisualisationData, refreshVisualisationData } =
+    useVisualisationData();
   const visualisationData = AnyVisualisationData as VisualisationDataDW;
   const { currStepIdx } = useUserInputData();
   const { left, top } = pos;

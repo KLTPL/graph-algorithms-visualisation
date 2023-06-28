@@ -1,17 +1,20 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useUserInputData, useVisualisationData } from "../../SettingsContext";
-import { VisualisationDataDW } from "../../visualisationData/typesVisualisationData";
-import NodeEdge from "./elements/NodeE";
+import {
+  useUserInputData,
+  useVisualisationData,
+} from "../../../context/SettingsContext";
+import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
+import NodeEdge from "../nodes/NodeE";
 import {
   backtrackIfShould,
   resetBacktracking,
-} from "./scripts/backtrackMechanick";
-import { NodeE } from "../../visualisationData/typesGraphData";
+} from "../scripts/backtrackMechanick";
+import { NodeE } from "../../../visualisationData/typesGraphData";
 import getProperNodesPosition, {
   NodePosition,
-} from "./scripts/getProperNodesPostions";
-import EdgeEdge from "./elements/EdgeE";
-import getEdges from "./scripts/getEdges";
+} from "../scripts/getProperNodesPostions";
+import EdgeEdge from "../nodes/EdgeE";
+import getEdges from "../scripts/getEdges";
 
 export default function Edge() {
   const containerRef = useRef<HTMLDivElement>(null);

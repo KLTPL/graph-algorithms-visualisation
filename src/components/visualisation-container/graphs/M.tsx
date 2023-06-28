@@ -1,11 +1,14 @@
-import { useUserInputData, useVisualisationData } from "../../SettingsContext";
-import { VisualisationDataM } from "../../visualisationData/typesVisualisationData";
+import {
+  useUserInputData,
+  useVisualisationData,
+} from "../../../context/SettingsContext";
+import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
 import { useEffect, useRef, useState } from "react";
-import NodeMatrix from "./elements/NodeM";
+import NodeMatrix from "../nodes/NodeM";
 import {
   backtrackIfShould,
   resetBacktracking,
-} from "./scripts/backtrackMechanick";
+} from "../scripts/backtrackMechanick";
 
 export default function Matrix() {
   const visualisationData = useVisualisationData()

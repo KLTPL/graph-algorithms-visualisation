@@ -1,7 +1,7 @@
-import { useVisualisationData } from "../SettingsContext";
-import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
+import { useVisualisationData } from "../../context/SettingsContext";
+import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
 
-export default function GraphSettingsSelectSearchType() {
+export default function SelectAlgorithmType() {
   const { visualisationData, switchVisualisationData } = useVisualisationData();
 
   function getSelectAlgorithmTypeFun(

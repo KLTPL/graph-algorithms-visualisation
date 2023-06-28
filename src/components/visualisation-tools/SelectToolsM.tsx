@@ -10,7 +10,7 @@ export default function SelectToolsM() {
         newPointerTool={Tools.EmptyField}
       />
       <ToolBox
-        className="bg-nodeRock"
+        className="bg-nodeRock" 
         title="rock field"
         newPointerTool={Tools.RockField}
       />

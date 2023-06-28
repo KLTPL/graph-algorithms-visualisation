@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import {
   getDefaultVisualisationData,
   getProperVisualisationData,
-} from "./visualisationData/getProperDataFunctions";
-import { UserGraphTypes } from "./visualisationData/typesGraphData";
-import { SearchAlgorithmsTypes } from "./visualisationData/typesAlgorithmData";
-import { AnyVisualisationData } from "./visualisationData/typesVisualisationData";
+} from "../visualisationData/getProperDataFunctions";
+import { UserGraphTypes } from "../visualisationData/typesGraphData";
+import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
+import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
 import {
   AnyVisualisationPointerTool,
   VisualisationPointerToolsM,
-} from "./components/VisualisationTools";
+} from "../components/visualisation-tools/VisualisationTools";
 
 const DEFAULT_CURR_STEP_IDX = -1;
 

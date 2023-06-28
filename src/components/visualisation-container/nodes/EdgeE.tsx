@@ -1,11 +1,14 @@
 import {
   useUserInputData,
   useVisualisationData,
-} from "../../../SettingsContext";
+} from "../../../context/SettingsContext";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { getProperBgColorForEdgeE } from "../scripts/getProperBgColorForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
-import { ToNodeDW, UserGraphTypes } from "../../../visualisationData/typesGraphData";
+import {
+  ToNodeDW,
+  UserGraphTypes,
+} from "../../../visualisationData/typesGraphData";
 import { EdgeData } from "../scripts/getEdges";
 import { ChangeEvent } from "react";
 import { NODE_SIZE_PX } from "./NodeE";

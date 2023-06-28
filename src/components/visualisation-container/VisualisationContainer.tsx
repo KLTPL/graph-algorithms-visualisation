@@ -1,8 +1,11 @@
-import { UserGraphTypes } from "../visualisationData/typesGraphData";
+import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import Matrix from "./graphs/M";
 import Edge from "./graphs/E";
-import { useUserInputData, useVisualisationData } from "../SettingsContext";
-import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
+import {
+  useUserInputData,
+  useVisualisationData,
+} from "../../context/SettingsContext";
+import { AnyVisualisationData } from "../../visualisationData/typesVisualisationData";
 
 function getProperGraphElement(
   visualisationData: AnyVisualisationData

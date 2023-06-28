@@ -1,7 +1,7 @@
 import {
   useUserInputData,
   useVisualisationData,
-} from "../../../SettingsContext";
+} from "../../../context/SettingsContext";
 import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
 import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodeE";
 
@@ -22,9 +22,7 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
     r,
     c,
   });
-  return (
-    <div className={className} />
-  );
+  return <div className={className} />;
 }
 
 export default NodeMatrix;

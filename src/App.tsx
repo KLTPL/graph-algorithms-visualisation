@@ -1,7 +1,7 @@
-import GraphSettings from "./components/VisualisationSettings";
-import GraphContainer from "./components/VisualisationContainer";
-import GraphTools from "./components/VisualisationTools";
-import { SettingsProvider } from "./SettingsContext";
+import GraphSettings from "./components/visualisation-settings/VisualisationSettings";
+import GraphContainer from "./components/visualisation-container/VisualisationContainer";
+import GraphTools from "./components/visualisation-tools/VisualisationTools";
+import { SettingsProvider } from "./context/SettingsContext";
 
 export default function App() {
   return (

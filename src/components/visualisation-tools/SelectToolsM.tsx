@@ -1,5 +1,5 @@
 import { useVisualisationPointerTools } from "../../context/Context";
-import { VisualisationPointerToolsM as Tools } from "./VisualisationTools";
+import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 
 export default function SelectToolsM() {
   return (
@@ -10,7 +10,7 @@ export default function SelectToolsM() {
         newPointerTool={Tools.EmptyField}
       />
       <ToolBox
-        className="bg-nodeRock" 
+        className="bg-nodeRock"
         title="rock field"
         newPointerTool={Tools.RockField}
       />
@@ -38,7 +38,14 @@ interface ToolBoxProps {
 }
 
 function ToolBox({ className, title, newPointerTool, content }: ToolBoxProps) {
-  const { updatePointerTool } = useVisualisationPointerTools();
+  const { pointerTool, updatePointerTool, setPointerToolToDefault } = useVisualisationPointerTools();
+  function handleOnClick() {
+    if (newPointerTool === pointerTool) {
+      setPointerToolToDefault();
+    } else {
+      updatePointerTool(newPointerTool);
+    }
+  }
   return (
     <button
       className={[
@@ -46,7 +53,7 @@ function ToolBox({ className, title, newPointerTool, content }: ToolBoxProps) {
         className,
       ].join(" ")}
       title={title}
-      onClick={() => updatePointerTool(newPointerTool)}
+      onClick={handleOnClick}
     >
       {content}
     </button>

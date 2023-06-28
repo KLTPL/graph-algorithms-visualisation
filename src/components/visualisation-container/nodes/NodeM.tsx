@@ -18,7 +18,6 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
   const { visualisationData: AnyVisualisationData, refreshVisualisationData } =
     useVisualisationData();
   const visualisationData = AnyVisualisationData as VisualisationDataM;
-  console.log(visualisationData.startNode);
   const pointerTool = useVisualisationPointerTools()
     .pointerTool as VisualisationPointerToolsM;
   const { currStepIdx } = useUserInput();
@@ -30,20 +29,30 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
     c,
   });
   function handleOnPointerDown(): void {
+    const { graph, startNode, endNode } = visualisationData;
     switch (pointerTool) {
       case VisualisationPointerToolsM.EmptyField:
-        visualisationData.graph[r][c] = NodeTypesM.empty;
+        graph[r][c] = NodeTypesM.empty;
         break;
       case VisualisationPointerToolsM.RockField:
-        visualisationData.graph[r][c] = NodeTypesM.rock;
+        if (
+          r !== startNode.y ||
+          r !== endNode.y ||
+          c !== startNode.x ||
+          c !== endNode.x
+        ) {
+          graph[r][c] = NodeTypesM.rock;
+        }
         break;
       case VisualisationPointerToolsM.StartField:
-        visualisationData.startNode.x = c;
-        visualisationData.startNode.y = r;
+        startNode.x = c;
+        startNode.y = r;
+        graph[r][c] = NodeTypesM.empty;
         break;
       case VisualisationPointerToolsM.EndField:
-        visualisationData.endNode.x = c;
-        visualisationData.endNode.y = r;
+        endNode.x = c;
+        endNode.y = r;
+        graph[r][c] = NodeTypesM.empty;
         break;
     }
     if (pointerTool !== VisualisationPointerToolsM.NoTool) {

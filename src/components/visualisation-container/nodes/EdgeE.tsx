@@ -47,13 +47,13 @@ function EdgeEdge({
   function handleOnChange(ev: ChangeEvent) {
     const input = ev.target as HTMLInputElement;
     const [nodeFrom, nodeTo] = edgeData.edge;
-    const neighbours = visualisationData.graph.get(nodeFrom) as ToNodeDW[];
+    const neighbours = visualisationData.graph[nodeFrom] as ToNodeDW[];
     neighbours.filter(toNode => nodeTo === toNode.node)[0].cost = parseInt(
       input.value
     );
     // update both sides of edge if graph is UW
     if (visualisationData.graphType === UserGraphTypes.UW) {
-      const neighbours = visualisationData.graph.get(nodeTo) as ToNodeDW[];
+      const neighbours = visualisationData.graph[nodeTo] as ToNodeDW[];
       neighbours.filter(toNode => nodeFrom === toNode.node)[0].cost = parseInt(
         input.value
       );

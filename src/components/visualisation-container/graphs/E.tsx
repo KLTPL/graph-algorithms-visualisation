@@ -62,13 +62,11 @@ export default function Edge() {
     >
       {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
       {getEdges(visualisationData).map((edgeData, key) => {
-        const node1Idx = nodes.indexOf(edgeData.edge[0]);
-        const node2Idx = nodes.indexOf(edgeData.edge[1]);
         return (
           <EdgeEdge
             key={key}
-            nodePos1={nodesPositons[node1Idx]}
-            nodePos2={nodesPositons[node2Idx]}
+            nodePos1={nodesPositons[edgeData.edge[0]]}
+            nodePos2={nodesPositons[edgeData.edge[1]]}
             edgeData={edgeData}
             backtrackCount={backtrackCount}
             containerWidth={containerWidth}

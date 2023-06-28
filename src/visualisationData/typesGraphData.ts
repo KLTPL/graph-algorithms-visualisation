@@ -27,12 +27,12 @@ export enum NodeTypesM {
 }
 
 export type FieldM = { x: number; y: number };
-export type NodeE = string;
+export type NodeE = number;
 export type ToNodeDW = { node: NodeE; cost: number };
 export type AnyNode = FieldM | NodeE;
 
 export type GraphM = NodeTypesM[][];
-export type GraphDW = Map<NodeE, ToNodeDW[]>;
+export type GraphDW = ToNodeDW[][];
 export type AnyGraph = GraphM | GraphDW;
 
 export interface GraphDataM {

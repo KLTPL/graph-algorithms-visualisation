@@ -4,7 +4,7 @@ import { AnyVisualisationData } from "../../../visualisationData/typesVisualisat
 export type NodePosition = { left: number; top: number };
 export type NodesPositions = NodePosition[];
 
-const nodesPositionsU = [
+const nodesPositionsU: NodesPositions = [
   { left: 40, top: 75 },
   { left: 25, top: 25 },
   { left: 55, top: 15 },
@@ -20,7 +20,7 @@ const nodesPositionsU = [
   { left: 35, top: 20 },
 ];
 
-const nodesPositionsUW = [
+const nodesPositionsUW: NodesPositions = [
   { left: 30, top: 20 },
   { left: 10, top: 50 },
   { left: 30, top: 70 },
@@ -32,7 +32,7 @@ const nodesPositionsUW = [
   { left: 90, top: 50 },
 ];
 
-const nodesPositionsD = [
+const nodesPositionsD: NodesPositions = [
   { left: 20, top: 30 },
   { left: 25, top: 80 },
   { left: 10, top: 70 },
@@ -48,7 +48,7 @@ const nodesPositionsD = [
   { left: 90, top: 45 },
 ];
 
-const nodesPositionsDW = [
+const nodesPositionsDW: NodesPositions = [
   { left: 10, top: 50 },
   { left: 30, top: 20 },
   { left: 30, top: 80 },

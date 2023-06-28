@@ -84,7 +84,7 @@ function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
       className={className}
       onPointerDown={handleOnPointerDown}
     >
-      {node}
+      {String.fromCharCode(node + "a".charCodeAt(0))}
     </div>
   );
 }

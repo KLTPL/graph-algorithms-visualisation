@@ -1,79 +1,52 @@
 import { GraphDataDW, UserGraphTypes } from "../typesGraphData";
 
 const graphDataUW: GraphDataDW = {
-  graph: new Map([
+  graph: [
     [
-      "a",
-      [
-        { node: "b", cost: 1 },
-        { node: "c", cost: 6 },
-        { node: "d", cost: 5 },
-      ],
+      { node: 1, cost: 1 },
+      { node: 2, cost: 6 },
+      { node: 3, cost: 5 },
     ],
     [
-      "b",
-      [
-        { node: "a", cost: 1 },
-        { node: "c", cost: 6 },
-      ],
+      { node: 0, cost: 1 },
+      { node: 2, cost: 6 },
     ],
     [
-      "c",
-      [
-        { node: "a", cost: 6 },
-        { node: "e", cost: 7 },
-        { node: "f", cost: 3 },
-      ],
+      { node: 0, cost: 6 },
+      { node: 4, cost: 7 },
+      { node: 5, cost: 3 },
     ],
     [
-      "d",
-      [
-        { node: "a", cost: 5 },
-        { node: "f", cost: 2 },
-        { node: "g", cost: 10 },
-      ],
+      { node: 0, cost: 5 },
+      { node: 5, cost: 2 },
+      { node: 6, cost: 10 },
     ],
     [
-      "e",
-      [
-        { node: "c", cost: 7 },
-        { node: "h", cost: 12 },
-      ],
+      { node: 2, cost: 7 },
+      { node: 7, cost: 12 },
     ],
     [
-      "f",
-      [
-        { node: "c", cost: 3 },
-        { node: "d", cost: 2 },
-        { node: "h", cost: 8 },
-      ],
+      { node: 2, cost: 3 },
+      { node: 3, cost: 2 },
+      { node: 7, cost: 8 },
     ],
     [
-      "g",
-      [
-        { node: "d", cost: 10 },
-        { node: "h", cost: 7 },
-        { node: "i", cost: 3 },
-      ],
+      { node: 3, cost: 10 },
+      { node: 7, cost: 7 },
+      { node: 8, cost: 3 },
     ],
     [
-      "h",
-      [
-        { node: "e", cost: 12 },
-        { node: "g", cost: 7 },
-        { node: "i", cost: 8 },
-      ],
+      { node: 4, cost: 12 },
+      { node: 6, cost: 7 },
+      { node: 8, cost: 8 },
     ],
     [
-      "i",
-      [
-        { node: "g", cost: 3 },
-        { node: "h", cost: 8 },
-      ],
+      { node: 6, cost: 3 },
+      { node: 7, cost: 8 },
     ],
-  ]),
-  startNode: "b",
-  endNode: "i",
+  ],
+  startNode: 1,
+  endNode: 8,
   graphType: UserGraphTypes.UW,
   isUOrUW: true,
   isDOrDW: false,

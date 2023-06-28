@@ -45,7 +45,7 @@ function getEmptyVisitedNodes(
 }
 
 function getAdjacentNodes(currNode: NodeE, graph: GraphDW): NodeE[] {
-  const neighborNodes = graph.get(currNode);
+  const neighborNodes = graph[currNode];
   if (neighborNodes === undefined) {
     throw new Error(`Cannot find node ${currNode} in graph.`);
   }
@@ -127,7 +127,7 @@ function getPathCost(
   currNode: NodeE,
   beforeNode: NodeE
 ): number {
-  return (graph.get(currNode) as ToNodeDW[]).filter(
+  return (graph[currNode] as ToNodeDW[]).filter(
     ToNode => ToNode.node === beforeNode
   )[0].cost;
 }

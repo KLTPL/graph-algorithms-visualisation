@@ -10,7 +10,7 @@ import { EdgeData } from "../scripts/getEdges";
 import { ChangeEvent } from "react";
 import { NODE_SIZE_PX } from "./NodeE";
 
-const EDGE_HEIGHT_PX = 4;
+export const EDGE_HEIGHT_PX = 4;
 
 interface EdgeEdgeProps {
   nodePos1: NodePosition;

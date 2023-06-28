@@ -1,7 +1,7 @@
 import { useUserInput, useVisualisationData } from "../../../context/Context";
 import { NodeE } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodeE";
+import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodeEAndM";
 import { NodePosition } from "../scripts/getProperNodesPostions";
 
 export const NODE_SIZE_PX =

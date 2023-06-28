@@ -1,7 +1,4 @@
-import {
-  useUserInputData,
-  useVisualisationData,
-} from "../../../context/SettingsContext";
+import { useUserInput, useVisualisationData } from "../../../context/Context";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { getProperBgColorForEdgeE } from "../scripts/getProperBgColorForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
@@ -33,7 +30,7 @@ function EdgeEdge({
   const { visualisationData: visualisationDataAny, refreshVisualisationData } =
     useVisualisationData();
   const visualisationData = visualisationDataAny as VisualisationDataDW;
-  const { currStepIdx } = useUserInputData();
+  const { currStepIdx } = useUserInput();
   const { left, top, width, angle } = calcEdgeData(nodePos1, nodePos2);
   const bgColor = getProperBgColorForEdgeE(
     edgeData,

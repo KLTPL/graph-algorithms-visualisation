@@ -1,4 +1,4 @@
-import { useVisualisationData } from "../../context/SettingsContext";
+import { useVisualisationData } from "../../context/Context";
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 
 export default function SelectGraphType() {

@@ -1,8 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  useUserInputData,
-  useVisualisationData,
-} from "../../../context/SettingsContext";
+import { useUserInput, useVisualisationData } from "../../../context/Context";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import NodeEdge from "../nodes/NodeE";
 import {
@@ -21,7 +18,7 @@ export default function Edge() {
   const [containerWidth, setContainerWidth] = useState<number>(0);
   const visualisationData = useVisualisationData()
     .visualisationData as VisualisationDataDW;
-  const { currStepIdx } = useUserInputData();
+  const { currStepIdx } = useUserInput();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
   const nodes = [...visualisationData.graph.keys()];

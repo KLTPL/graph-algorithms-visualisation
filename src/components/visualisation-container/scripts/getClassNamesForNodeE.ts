@@ -60,9 +60,9 @@ export function getClassNamesForNodeM({
 
   const conditionAndValuePairs = [
     [true, "aspect-square grid place-content-center"],
-    [isEmpty && !isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
+    [isEmpty && !isStartOrEnd && !isOnBacktrack, "bg-nodeEmpty"],
     [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
-    [isRock, "bg-rock"],
+    [isRock, "bg-nodeRock"],
     [isNodeVisited && !isReachedStartOrEndNode && !isOnBacktrack, "bg-primary"],
     [
       isCurrNode,
@@ -107,9 +107,9 @@ export function getClassNamesForNodeE({
   const conditionAndValuePairs = [
     [
       true,
-      "absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeDefault select-none hover:cursor-grab",
+      "absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeBorder select-none hover:cursor-grab",
     ],
-    [!isStartOrEnd && !isOnBacktrack, "bg-marixGraphFieldEmpty"],
+    [!isStartOrEnd && !isOnBacktrack, "bg-nodeEmpty"],
     [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
     [isNodeVisited && !isReachedStartOrEndNode && !isOnBacktrack, "bg-primary"],
     [

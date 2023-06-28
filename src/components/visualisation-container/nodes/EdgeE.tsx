@@ -98,7 +98,7 @@ function EdgeEdge({
         <input
           type="number"
           defaultValue={edgeData.cost}
-          className="absolute left-1/2 top-1/2 max-w-[4ch] bg-marixGraphFieldEmpty text-center border-2 border-nodeDefault rounded-full"
+          className="absolute left-1/2 top-1/2 max-w-[4ch] bg-nodeEmpty text-center border-2 border-nodeBorder rounded-full"
           style={{
             transform: `translate(-50%, ${
               visualisationData.isDOrDW ? "-125" : "-50"

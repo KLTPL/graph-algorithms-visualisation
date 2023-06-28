@@ -1,7 +1,4 @@
-import {
-  useUserInputData,
-  useVisualisationData,
-} from "../../../context/SettingsContext";
+import { useUserInput, useVisualisationData } from "../../../context/Context";
 import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
 import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodeE";
 
@@ -14,7 +11,7 @@ type NodeMatrixProps = {
 function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
   const visualisationData = useVisualisationData()
     .visualisationData as VisualisationDataM;
-  const { currStepIdx } = useUserInputData();
+  const { currStepIdx } = useUserInput();
   const className = getClassNamesForNodeM({
     visualisationData,
     currStepIdx,

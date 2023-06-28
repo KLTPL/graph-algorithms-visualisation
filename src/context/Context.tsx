@@ -22,7 +22,7 @@ export interface VisualisationDataContextProps {
   refreshVisualisationData: () => void;
 }
 
-export interface UserInputDataContextProps {
+export interface UserInputContextProps {
   currStepIdx: number;
   updateCurrStepIdx: (newIdx: number) => void;
 }
@@ -36,8 +36,8 @@ const VisualisationDataContext =
   React.createContext<VisualisationDataContextProps>(
     null as unknown as VisualisationDataContextProps
   );
-const UserInputDataContext = React.createContext<UserInputDataContextProps>(
-  null as unknown as UserInputDataContextProps
+const UserInputContext = React.createContext<UserInputContextProps>(
+  null as unknown as UserInputContextProps
 );
 const VisualisationPointerToolsContext =
   React.createContext<VisualisationPointerToolsContextProps>(
@@ -48,15 +48,15 @@ export function useVisualisationData() {
   return useContext(VisualisationDataContext);
 }
 
-export function useUserInputData() {
-  return useContext(UserInputDataContext);
+export function useUserInput() {
+  return useContext(UserInputContext);
 }
 
 export function useVisualisationPointerTools() {
   return useContext(VisualisationPointerToolsContext);
 }
 
-export function SettingsProvider({ children }: { children: React.ReactNode }) {
+export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [visualisationData, setVisualisationData] =
     useState<AnyVisualisationData>(getDefaultVisualisationData());
   const [currStepIdx, setCurrStepIdx] = useState<number>(DEFAULT_CURR_STEP_IDX);
@@ -94,13 +94,13 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
         refreshVisualisationData,
       }}
     >
-      <UserInputDataContext.Provider value={{ currStepIdx, updateCurrStepIdx }}>
+      <UserInputContext.Provider value={{ currStepIdx, updateCurrStepIdx }}>
         <VisualisationPointerToolsContext.Provider
           value={{ pointerTool, updatePointerTool }}
         >
           {children}
         </VisualisationPointerToolsContext.Provider>
-      </UserInputDataContext.Provider>
+      </UserInputContext.Provider>
     </VisualisationDataContext.Provider>
   );
 }

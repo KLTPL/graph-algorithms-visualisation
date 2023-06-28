@@ -1,10 +1,7 @@
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import Matrix from "./graphs/M";
 import Edge from "./graphs/E";
-import {
-  useUserInputData,
-  useVisualisationData,
-} from "../../context/SettingsContext";
+import { useUserInput, useVisualisationData } from "../../context/Context";
 import { AnyVisualisationData } from "../../visualisationData/typesVisualisationData";
 
 function getProperGraphElement(
@@ -18,7 +15,7 @@ function getProperGraphElement(
 
 export default function GraphContainer() {
   const { visualisationData } = useVisualisationData();
-  const { currStepIdx, updateCurrStepIdx } = useUserInputData();
+  const { currStepIdx, updateCurrStepIdx } = useUserInput();
 
   function incrementCurrStepIdx() {
     const listOfStepsLen = visualisationData.listOfSteps.length;

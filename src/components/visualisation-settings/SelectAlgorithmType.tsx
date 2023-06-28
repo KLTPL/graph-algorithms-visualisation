@@ -1,4 +1,4 @@
-import { useVisualisationData } from "../../context/SettingsContext";
+import { useVisualisationData } from "../../context/Context";
 import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
 
 export default function SelectAlgorithmType() {

@@ -1,7 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useUserInput, useVisualisationData } from "../../../context/Context";
+import {
+  useUserInput,
+  useVisualisationData,
+  useVisualisationPointerTools,
+} from "../../../context/Context";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import NodeEdge from "../nodes/NodeE";
+import NodeEdge, { NODE_SIZE_PX } from "../nodes/NodeE";
 import {
   backtrackIfShould,
   resetBacktracking,
@@ -12,12 +16,16 @@ import getProperNodesPosition, {
 } from "../scripts/getProperNodesPostions";
 import EdgeEdge from "../nodes/EdgeE";
 import getEdges from "../scripts/getEdges";
+import addNewNode from "../scripts/addNewNode";
+import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
 
 export default function Edge() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState<number>(0);
-  const visualisationData = useVisualisationData()
-    .visualisationData as VisualisationDataDW;
+  const { visualisationData: AnyVisualisationData, refreshVisualisationData } =
+    useVisualisationData();
+  const visualisationData = AnyVisualisationData as VisualisationDataDW;
+  const { pointerTool } = useVisualisationPointerTools();
   const { currStepIdx } = useUserInput();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
@@ -53,12 +61,26 @@ export default function Edge() {
       />
     );
   }
+  function handleOnPointerDown(ev: React.PointerEvent) {
+    if (
+      pointerTool === VisualisationPointerTools.NewNode &&
+      visualisationData.graph.length < 26 
+    ) {
+      addNewNode(
+        containerRef.current as HTMLDivElement,
+        ev,
+        visualisationData,
+        refreshVisualisationData
+      );
+    }
+  }
 
   return (
     <div
       ref={containerRef}
       id="edge-container"
-      className="w-[95%] md:w-[60%] aspect-square relative"
+      className="w-[95%] md:w-[60%] aspect-square relative border-2 border-black"
+      onPointerDown={handleOnPointerDown}
     >
       {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
       {getEdges(visualisationData).map((edgeData, key) => {

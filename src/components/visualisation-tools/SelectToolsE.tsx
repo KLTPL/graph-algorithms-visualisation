@@ -1,12 +1,12 @@
-import { useVisualisationPointerTools } from "../../context/Context";
 import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
 import { NODE_SIZE_PX } from "../visualisation-container/nodes/NodeE";
+import ToolRadioInput from "./ToolRadioInput";
 
 const twConfig = resolveConfig(tailwindConfig);
 
-const svgAdd = (
+const CONTENT_NEW_NODE = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="26"
@@ -21,7 +21,7 @@ const svgAdd = (
     />
   </svg>
 );
-const svgRemove = (
+const CONTENT_REMOVE = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="26"
@@ -33,69 +33,40 @@ const svgRemove = (
   </svg>
 );
 
+const CONTENT_NEW_EDGE = [
+  <div
+    key={"edge"}
+    style={{ width: NODE_SIZE_PX }}
+    className="bg-black h-2"
+  ></div>,
+  <div
+    key={"coverSoTheEdgeDoesntLookLikeARectangle"}
+    style={{ width: NODE_SIZE_PX, height: NODE_SIZE_PX }}
+    className="bg-none w-full h-full border-solid border-2 border-nodeBorder absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+  ></div>,
+];
+
 export default function SelectToolsE() {
   return (
     <div className="flex flex-col gap-3">
-      <ToolBox
+      <ToolRadioInput
         className="bg-nodeEmpty"
         title="new node"
         newPointerTool={Tools.NewNode}
-        content={svgAdd}
+        content={CONTENT_NEW_NODE}
       />
-      <ToolBox
+      <ToolRadioInput
         className="bg-white"
         title="new edge"
         newPointerTool={Tools.NewEdge}
-        content={[
-          <div
-            key={"edge"}
-            style={{ width: NODE_SIZE_PX }}
-            className="bg-black h-2"
-          ></div>,
-          <div
-            key={"coverSoTheEdgeDoesntLookLikeARectangle"}
-            style={{ width: NODE_SIZE_PX, height: NODE_SIZE_PX }}
-            className="bg-none w-full h-full border-solid border-2 border-nodeBorder absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-          ></div>,
-        ]}
+        content={CONTENT_NEW_EDGE}
       />
-      <ToolBox
+      <ToolRadioInput
         className="bg-white"
         title="remove node or edge"
         newPointerTool={Tools.RemoveEdgeOrNode}
-        content={svgRemove}
+        content={CONTENT_REMOVE}
       />
     </div>
-  );
-}
-
-interface ToolBoxProps {
-  className: string;
-  title: string;
-  newPointerTool: Tools;
-  content?: string | JSX.Element | JSX.Element[];
-}
-
-function ToolBox({ className, title, newPointerTool, content }: ToolBoxProps) {
-  const { pointerTool, updatePointerTool, setPointerToolToDefault } = useVisualisationPointerTools();
-  function handleOnClick() {
-    if (newPointerTool === pointerTool) {
-      setPointerToolToDefault();
-    } else {
-      updatePointerTool(newPointerTool);
-    }
-  }
-  return (
-    <button
-      style={{ width: NODE_SIZE_PX }}
-      className={[
-        "aspect-square border-solid border-2 border-nodeBorder text-black rounded-full font-semibold flex items-center justify-center relative",
-        className,
-      ].join(" ")}
-      title={title}
-      onClick={handleOnClick}
-    >
-      {content}
-    </button>
   );
 }

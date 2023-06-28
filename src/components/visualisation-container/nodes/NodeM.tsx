@@ -6,7 +6,7 @@ import {
 import { NodeTypesM } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
 import { VisualisationPointerToolsM } from "../../visualisation-tools/VisualisationTools";
-import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodeE";
+import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodeEAndM";
 
 type NodeMatrixProps = {
   backtrackCount: number;

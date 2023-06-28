@@ -221,6 +221,9 @@ function isEndNodeReachedE(
   visualisationData: VisualisationDataDW,
   backtrackCount: number
 ): boolean {
+  if (!visualisationData.isEndNodeReached) {
+    return false;
+  }
   const pathLen = (visualisationData.pathToEndNode as NodeE[]).length;
   return isStartNode && backtrackCount === pathLen + 1;
 }
@@ -230,6 +233,9 @@ function isEndNodeReachedM(
   visualisationData: VisualisationDataM,
   backtrackCount: number
 ): boolean {
+  if (!visualisationData.isEndNodeReached) {
+    return false;
+  }
   const pathLen = (visualisationData.pathToEndNode as FieldM[]).length;
   return isStartNode && backtrackCount === pathLen + 1;
 }

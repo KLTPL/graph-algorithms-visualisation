@@ -1,3 +1,5 @@
+import SelectToolsM from "./SelectToolsM";
+
 export enum VisualisationPointerToolsM {
   NoTool,
   EmptyField,
@@ -13,8 +15,14 @@ export enum VisualisationPointerToolsE {
   Remove,
 }
 
-export type AnyVisualisationPointerTool = VisualisationPointerToolsM | VisualisationPointerToolsE;
+export type AnyVisualisationPointerTool =
+  | VisualisationPointerToolsM
+  | VisualisationPointerToolsE;
 
 export default function GraphTools() {
-  return <div className="flex flex-col">tools</div>;
+  return (
+    <div className="flex flex-col">
+      <SelectToolsM />
+    </div>
+  );
 }

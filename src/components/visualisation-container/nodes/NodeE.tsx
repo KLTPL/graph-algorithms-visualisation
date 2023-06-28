@@ -48,7 +48,8 @@ function NodeEdge({ backtrackCount, node, pos, containerRef }: NodeEdgeProps) {
         break;
       case VisualisationPointerTools.RemoveEdgeOrNode:
         if (visualisationData.graph.length > 2) {
-          removeNode(visualisationData, node, refreshVisualisationData);
+          removeNode(visualisationData, node);
+          refreshVisualisationData();
         }
         break;
     }

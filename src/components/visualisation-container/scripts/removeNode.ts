@@ -5,7 +5,6 @@ import getProperNodesPosition from "./getProperNodesPostions";
 export default function removeNode(
   visualisationData: VisualisationDataDW,
   node: NodeE,
-  refreshVisualisationData: () => void
 ) {
   visualisationData.graph.splice(node, 1);
   getProperNodesPosition(visualisationData).splice(node, 1);
@@ -22,7 +21,6 @@ export default function removeNode(
       }
     }
   }
-  refreshVisualisationData();
 }
 
 function changeStartAndEndNodeIfNeeded(

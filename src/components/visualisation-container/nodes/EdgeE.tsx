@@ -1,4 +1,8 @@
-import { useUserInput, useVisualisationData } from "../../../context/Context";
+import {
+  useUserInput,
+  useVisualisationData,
+  useVisualisationPointerTools,
+} from "../../../context/Context";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
 import { getProperBgColorForEdgeE } from "../scripts/getProperBgColorForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
@@ -9,6 +13,8 @@ import {
 import { EdgeData } from "../scripts/getEdges";
 import { ChangeEvent } from "react";
 import { NODE_SIZE_PX } from "./NodeE";
+import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
+import removeEdge from "../scripts/removeEdge";
 
 export const EDGE_HEIGHT_PX = 4;
 
@@ -30,6 +36,7 @@ function EdgeEdge({
   const { visualisationData: visualisationDataAny, refreshVisualisationData } =
     useVisualisationData();
   const visualisationData = visualisationDataAny as VisualisationDataDW;
+  const { pointerTool } = useVisualisationPointerTools();
   const { currStepIdx } = useUserInput();
   const { left, top, width, angle } = calcEdgeData(nodePos1, nodePos2);
   const bgColor = getProperBgColorForEdgeE(
@@ -44,7 +51,13 @@ function EdgeEdge({
       : (width / 100) * containerWidth - NODE_SIZE_PX;
   const isNodesTouching = (width / 100) * containerWidth <= NODE_SIZE_PX;
 
-  function handleOnChange(ev: ChangeEvent) {
+  function handleOnPointerDown() {
+    if (pointerTool === VisualisationPointerTools.RemoveEdgeOrNode) {
+      removeEdge(visualisationData, edgeData.edge);
+      refreshVisualisationData();
+    }
+  }
+  function handleInputOnChange(ev: ChangeEvent) {
     const input = ev.target as HTMLInputElement;
     const [nodeFrom, nodeTo] = edgeData.edge;
     const neighbours = visualisationData.graph[nodeFrom] as ToNodeDW[];
@@ -71,31 +84,44 @@ function EdgeEdge({
         transform: `translate(${NODE_SIZE_PX / 2}px, ${
           NODE_SIZE_PX / 2 - EDGE_HEIGHT_PX / 2
         }px) rotate(${angle}deg)`,
-        backgroundColor: `${!visualisationData.isDOrDW ? bgColor : ""}`,
         display: isNodesTouching ? "none" : "block",
       }}
-      className="h-1 absolute"
+      className="absolute"
     >
-      {visualisationData.isDOrDW && (
-        <svg
-          style={{
-            transform: `translate(${NODE_SIZE_PX / 2}px, -50%)`,
-            fill: bgColor,
-          }}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 600 150"
-          width={edgeSvgWidth}
-          height={35}
-          preserveAspectRatio="none"
-        >
-          <path
-            fillOpacity="1"
-            d="M 4 70 Q 308 0 598 80 L 551 106 L 575 40 L 597 80 L 583 83 Q 307 15 4 84 Z"
-          ></path>
-        </svg>
-      )}
+      <div
+        onPointerDown={handleOnPointerDown}
+        className="absolute left-0 top-0 bottom-0 right-0"
+      >
+        {visualisationData.isDOrDW ? (
+          <svg
+            style={{
+              transform: `translate(${NODE_SIZE_PX / 2}px, -50%)`,
+              fill: bgColor,
+              visibility: visualisationData.isDOrDW ? "visible" : "hidden",
+            }}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 600 150"
+            width={edgeSvgWidth}
+            height={EDGE_HEIGHT_PX * 8}
+            preserveAspectRatio="none"
+          >
+            <path
+              fillOpacity="1"
+              d="M 4 70 Q 308 0 598 80 L 551 106 L 575 40 L 597 80 L 583 83 Q 307 15 4 84 Z"
+            ></path>
+          </svg>
+        ) : (
+          <div
+            style={{
+              backgroundColor: `${bgColor}`,
+            }}
+            className="w-full h-full"
+          ></div>
+        )}
+      </div>
       {visualisationData.isDWOrUW && (
         <input
+          key={JSON.stringify(edgeData)} // key is necesary when removing en edge
           type="number"
           defaultValue={edgeData.cost}
           className="absolute left-1/2 top-1/2 max-w-[4ch] bg-nodeEmpty text-center border-2 border-nodeBorder rounded-full"
@@ -104,7 +130,7 @@ function EdgeEdge({
               visualisationData.isDOrDW ? "-125" : "-50"
             }%) rotate(${-angle}deg)`,
           }}
-          onChange={handleOnChange}
+          onChange={handleInputOnChange}
         />
       )}
     </div>

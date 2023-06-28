@@ -5,8 +5,7 @@ import getProperNodesPosition, { NodePosition } from "./getProperNodesPostions";
 export default function addNewNode(
   containerDiv: HTMLDivElement,
   { clientX, clientY }: React.PointerEvent,
-  visualisationData: VisualisationDataDW,
-  refreshVisualisationData: () => void
+  visualisationData: VisualisationDataDW
 ) {
   const { left, top, right, width, height, bottom } =
     containerDiv.getBoundingClientRect();
@@ -29,5 +28,4 @@ export default function addNewNode(
     left: newLeft,
     top: newTop,
   });
-  refreshVisualisationData();
 }

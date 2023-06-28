@@ -1,27 +1,22 @@
-import { useVisualisationData, useVisualisationPointerTools } from "../../context/Context";
+import {
+  useVisualisationData,
+  useVisualisationPointerTools,
+} from "../../context/Context";
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import { AnyVisualisationData } from "../../visualisationData/typesVisualisationData";
 import SelectToolsE from "./SelectToolsE";
 import SelectToolsM from "./SelectToolsM";
 
-export enum VisualisationPointerToolsM {
+export enum VisualisationPointerTools {
   NoTool,
   EmptyField,
   RockField,
   StartField,
   EndField,
-}
-
-export enum VisualisationPointerToolsE {
-  NoTool,
   NewNode,
   NewEdge,
-  Remove,
+  RemoveEdgeOrNode,
 }
-
-export type AnyVisualisationPointerTool =
-  | VisualisationPointerToolsM
-  | VisualisationPointerToolsE;
 
 export default function GraphTools() {
   const { visualisationData } = useVisualisationData();

@@ -1,5 +1,5 @@
 import { useVisualisationPointerTools } from "../../context/Context";
-import { VisualisationPointerToolsE as Tools } from "./VisualisationTools";
+import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
 import { NODE_SIZE_PX } from "../visualisation-container/nodes/NodeE";
@@ -62,7 +62,7 @@ export default function SelectToolsE() {
       <ToolBox
         className="bg-white"
         title="remove node or edge"
-        newPointerTool={Tools.Remove}
+        newPointerTool={Tools.RemoveEdgeOrNode}
         content={svgRemove}
       />
     </div>
@@ -77,7 +77,14 @@ interface ToolBoxProps {
 }
 
 function ToolBox({ className, title, newPointerTool, content }: ToolBoxProps) {
-  const { updatePointerTool } = useVisualisationPointerTools();
+  const { pointerTool, updatePointerTool, setPointerToolToDefault } = useVisualisationPointerTools();
+  function handleOnClick() {
+    if (newPointerTool === pointerTool) {
+      setPointerToolToDefault();
+    } else {
+      updatePointerTool(newPointerTool);
+    }
+  }
   return (
     <button
       style={{ width: NODE_SIZE_PX }}
@@ -86,7 +93,7 @@ function ToolBox({ className, title, newPointerTool, content }: ToolBoxProps) {
         className,
       ].join(" ")}
       title={title}
-      onClick={() => updatePointerTool(newPointerTool)}
+      onClick={handleOnClick}
     >
       {content}
     </button>

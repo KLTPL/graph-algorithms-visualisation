@@ -6,11 +6,7 @@ import {
 import { UserGraphTypes } from "../visualisationData/typesGraphData";
 import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
-import {
-  AnyVisualisationPointerTool,
-  VisualisationPointerToolsE,
-  VisualisationPointerToolsM,
-} from "../components/visualisation-tools/VisualisationTools";
+import { VisualisationPointerTools } from "../components/visualisation-tools/VisualisationTools";
 
 const DEFAULT_CURR_STEP_IDX = -1;
 
@@ -29,9 +25,9 @@ export interface UserInputContextProps {
 }
 
 export interface VisualisationPointerToolsContextProps {
-  pointerTool: AnyVisualisationPointerTool;
-  updatePointerTool: (newTool: AnyVisualisationPointerTool) => void;
-  setPointerToolToDefault: (graphType: UserGraphTypes) => void;
+  pointerTool: VisualisationPointerTools;
+  updatePointerTool: (newTool: VisualisationPointerTools) => void;
+  setPointerToolToDefault: () => void;
 }
 
 const VisualisationDataContext =
@@ -62,8 +58,8 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [visualisationData, setVisualisationData] =
     useState<AnyVisualisationData>(getDefaultVisualisationData());
   const [currStepIdx, setCurrStepIdx] = useState<number>(DEFAULT_CURR_STEP_IDX);
-  const [pointerTool, setPointerTool] = useState<AnyVisualisationPointerTool>(
-    VisualisationPointerToolsM.NoTool
+  const [pointerTool, setPointerTool] = useState<VisualisationPointerTools>(
+    VisualisationPointerTools.NoTool
   );
 
   function switchVisualisationData(
@@ -93,18 +89,10 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     setCurrStepIdx(newIdx);
   }
   function updatePointerTool(newTool: number): void {
-    if (pointerTool === newTool) {
-      setPointerToolToDefault();
-    } else {
-      setPointerTool(newTool);
-    }
+    setPointerTool(newTool);
   }
   function setPointerToolToDefault(): void {
-    if (visualisationData.graphType === UserGraphTypes.M) {
-      updatePointerTool(VisualisationPointerToolsM.NoTool);
-    } else {
-      updatePointerTool(VisualisationPointerToolsE.NoTool);
-    }
+    updatePointerTool(VisualisationPointerTools.NoTool);
   }
 
   return (

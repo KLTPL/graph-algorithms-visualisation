@@ -5,7 +5,7 @@ import {
 } from "../../../context/Context";
 import { NodeTypesM } from "../../../visualisationData/typesGraphData";
 import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
-import { VisualisationPointerToolsM } from "../../visualisation-tools/VisualisationTools";
+import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
 import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodeEAndM";
 
 type NodeMatrixProps = {
@@ -19,7 +19,7 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
     useVisualisationData();
   const visualisationData = AnyVisualisationData as VisualisationDataM;
   const pointerTool = useVisualisationPointerTools()
-    .pointerTool as VisualisationPointerToolsM;
+    .pointerTool as VisualisationPointerTools;
   const { currStepIdx } = useUserInput();
   const className = getClassNamesForNodeM({
     visualisationData,
@@ -31,10 +31,10 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
   function handleOnPointerDown(): void {
     const { graph, startNode, endNode } = visualisationData;
     switch (pointerTool) {
-      case VisualisationPointerToolsM.EmptyField:
+      case VisualisationPointerTools.EmptyField:
         graph[r][c] = NodeTypesM.empty;
         break;
-      case VisualisationPointerToolsM.RockField:
+      case VisualisationPointerTools.RockField:
         if (
           r !== startNode.y ||
           r !== endNode.y ||
@@ -44,18 +44,18 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
           graph[r][c] = NodeTypesM.rock;
         }
         break;
-      case VisualisationPointerToolsM.StartField:
+      case VisualisationPointerTools.StartField:
         startNode.x = c;
         startNode.y = r;
         graph[r][c] = NodeTypesM.empty;
         break;
-      case VisualisationPointerToolsM.EndField:
+      case VisualisationPointerTools.EndField:
         endNode.x = c;
         endNode.y = r;
         graph[r][c] = NodeTypesM.empty;
         break;
     }
-    if (pointerTool !== VisualisationPointerToolsM.NoTool) {
+    if (pointerTool !== VisualisationPointerTools.NoTool) {
       refreshVisualisationData();
     }
   }

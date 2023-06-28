@@ -8,6 +8,7 @@ import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
 import {
   AnyVisualisationPointerTool,
+  VisualisationPointerToolsE,
   VisualisationPointerToolsM,
 } from "../components/visualisation-tools/VisualisationTools";
 
@@ -30,6 +31,7 @@ export interface UserInputContextProps {
 export interface VisualisationPointerToolsContextProps {
   pointerTool: AnyVisualisationPointerTool;
   updatePointerTool: (newTool: AnyVisualisationPointerTool) => void;
+  setPointerToolToDefault: (graphType: UserGraphTypes) => void;
 }
 
 const VisualisationDataContext =
@@ -61,7 +63,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     useState<AnyVisualisationData>(getDefaultVisualisationData());
   const [currStepIdx, setCurrStepIdx] = useState<number>(DEFAULT_CURR_STEP_IDX);
   const [pointerTool, setPointerTool] = useState<AnyVisualisationPointerTool>(
-    VisualisationPointerToolsM.EmptyField
+    VisualisationPointerToolsM.NoTool
   );
 
   function switchVisualisationData(
@@ -74,6 +76,14 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     );
     setVisualisationData(newVisualisationData);
     updateCurrStepIdx(DEFAULT_CURR_STEP_IDX);
+    if (
+      (newVisualisationData.graphType !== UserGraphTypes.M &&
+        visualisationData.graphType === UserGraphTypes.M) ||
+      (newVisualisationData.graphType === UserGraphTypes.M &&
+        visualisationData.graphType !== UserGraphTypes.M)
+    ) {
+      setPointerToolToDefault(newVisualisationData.graphType);
+    }
   }
   function refreshVisualisationData(): void {
     const { graphType, algorithmType } = visualisationData;
@@ -84,6 +94,13 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   }
   function updatePointerTool(newTool: number): void {
     setPointerTool(newTool);
+  }
+  function setPointerToolToDefault(graphType: UserGraphTypes): void {
+    if (graphType === UserGraphTypes.M) {
+      updatePointerTool(VisualisationPointerToolsM.NoTool);
+    } else {
+      updatePointerTool(VisualisationPointerToolsE.NoTool);
+    }
   }
 
   return (
@@ -96,7 +113,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     >
       <UserInputContext.Provider value={{ currStepIdx, updateCurrStepIdx }}>
         <VisualisationPointerToolsContext.Provider
-          value={{ pointerTool, updatePointerTool }}
+          value={{ pointerTool, updatePointerTool, setPointerToolToDefault }}
         >
           {children}
         </VisualisationPointerToolsContext.Provider>

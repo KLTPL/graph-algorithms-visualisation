@@ -85,8 +85,8 @@ export function getClassNamesForNodeE({
   node,
 }: NodeDataE): string {
   const listOfSteps = visualisationData.listOfSteps;
-  const isStartNode = node === visualisationData.startNode;
-  const isEndNode = node === visualisationData.endNode;
+  const isStartNode = node === visualisationData.startNode.current;
+  const isEndNode = node === visualisationData.endNode.current;
   const isStartOrEnd = isStartNode || isEndNode;
   const isNodeVisited = isStepAlreadyMadeE(currStepIdx, listOfSteps, node);
   const isCurrNode = isNodeCurrNodeE(

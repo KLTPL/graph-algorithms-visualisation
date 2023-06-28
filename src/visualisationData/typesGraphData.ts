@@ -43,8 +43,8 @@ export interface GraphDataM {
 }
 export interface GraphDataDW {
   graph: GraphDW;
-  startNode: NodeE;
-  endNode: NodeE;
+  startNode: { current: NodeE };
+  endNode: { current: NodeE };
   graphType: UserGraphTypes;
   isUOrUW: boolean;
   isDOrDW: boolean;

@@ -56,14 +56,15 @@ function dfsOrBfs(
   graphData: GraphDataHere,
   isDfs: boolean
 ): SearchExecutionDataHere {
+  const { graph, startNode, endNode } = graphData;
   const algorithmData = getEmptySearchData(
     isDfs ? SearchAlgorithmsTypes.Dfs : SearchAlgorithmsTypes.Bfs
   ) as SearchExecutionDataHere;
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
-  const stack = [graphData.startNode];
+  const stack = [graphData.startNode.current];
   const visitedNodes = getEmptyVisitedNodes(
     graphData.graph,
-    graphData.startNode
+    startNode.current
   );
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes
   while (stack.length > 0 && !algorithmData.isEndNodeReached) {
@@ -72,9 +73,9 @@ function dfsOrBfs(
       | NodeE
       | VisitedNodesStartNode;
     const nodeFrom =
-      visitedFrom === START_NODE_SIGN ? graphData.startNode : visitedFrom;
+      visitedFrom === START_NODE_SIGN ? graphData.startNode.current : visitedFrom;
     algorithmData.listOfSteps.push({ to: currNode, from: nodeFrom });
-    if (isNodeEndNode(currNode, graphData.endNode)) {
+    if (isNodeEndNode(currNode, graphData.endNode.current)) {
       algorithmData.isEndNodeReached = true;
       markNodeAsVisited(currNode, nodeFrom, visitedNodes);
       break;
@@ -97,21 +98,21 @@ function dfsOrBfs(
 }
 
 function backtrackToStartNode(
-  graphData: GraphDataHere,
+  { endNode, graph }: GraphDataHere,
   data: SearchExecutionDataHere,
   visitedNodes: VisitedNodesHere
 ): void {
   // fills data.pathToEndNode and data.pathCost
-  data.pathToEndNode = [graphData.endNode];
+  data.pathToEndNode = [endNode.current];
   data.pathCost = 0;
-  let at = visitedNodes.get(graphData.endNode);
+  let at = visitedNodes.get(endNode.current);
   while (at !== true) {
     // at!==null just for type safety
     if (at === null || at === undefined) {
       throw new Error("visited nodes arr filed incorrectly");
     }
     data.pathCost += getPathCost(
-      graphData.graph,
+      graph,
       at,
       data.pathToEndNode.at(-1) as NodeE
     );

@@ -16,7 +16,6 @@ function getProperGraphElement(
 export default function GraphContainer() {
   const { visualisationData } = useVisualisationData();
   const { currStepIdx, updateCurrStepIdx } = useUserInput();
-
   function incrementCurrStepIdx() {
     const listOfStepsLen = visualisationData.listOfSteps.length;
     if (currStepIdx < listOfStepsLen - 1) {

@@ -13,7 +13,7 @@ export function backtrackToFirstNode(
     do {
       count++;
       setBacktrackCount(count);
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 1000));
     } while (isBacktracking.current && count <= pathLen);
   });
 }

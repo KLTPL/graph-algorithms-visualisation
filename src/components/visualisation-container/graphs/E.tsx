@@ -5,7 +5,7 @@ import {
   useVisualisationPointerTools,
 } from "../../../context/Context";
 import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import NodeEdge, { NODE_SIZE_PX } from "../nodes/NodeE";
+import NodeEdge, { nodeSizePx } from "../nodes/NodeE";
 import {
   backtrackIfShould,
   resetBacktracking,
@@ -29,6 +29,7 @@ export default function Edge() {
   const { currStepIdx } = useUserInput();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
+  const newEdgeNode1 = useRef<NodeE|null>(null);
   const nodes = [...visualisationData.graph.keys()];
   const nodesPositons = getProperNodesPosition(visualisationData);
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
@@ -58,6 +59,7 @@ export default function Edge() {
         node={node}
         pos={nodePos}
         containerRef={containerRef}
+        newEdgeNode1Ref={newEdgeNode1}
       />
     );
   }

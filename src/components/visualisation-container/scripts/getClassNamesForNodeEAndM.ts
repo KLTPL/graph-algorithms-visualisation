@@ -22,6 +22,7 @@ interface NodeDataE {
   currStepIdx: number;
   backtrackCount: number;
   node: NodeE;
+  isNode1InNewEdge: boolean;
 }
 
 export function getClassNamesForNodeM({
@@ -83,6 +84,7 @@ export function getClassNamesForNodeE({
   currStepIdx,
   backtrackCount,
   node,
+  isNode1InNewEdge,
 }: NodeDataE): string {
   const listOfSteps = visualisationData.listOfSteps;
   const isStartNode = node === visualisationData.startNode.current;
@@ -109,15 +111,22 @@ export function getClassNamesForNodeE({
       true,
       "absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeBorder select-none hover:cursor-grab",
     ],
-    [!isStartOrEnd && !isOnBacktrack, "bg-nodeEmpty"],
-    [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
-    [isNodeVisited && !isReachedStartOrEndNode && !isOnBacktrack, "bg-primary"],
+    [!isStartOrEnd && !isOnBacktrack && !isNode1InNewEdge, "bg-nodeEmpty"],
+    [
+      isStartOrEnd && !isReachedStartOrEndNode && !isNode1InNewEdge,
+      "bg-nodeStartOrEnd",
+    ],
+    [
+      (isNodeVisited && !isReachedStartOrEndNode && !isOnBacktrack) ||
+        isNode1InNewEdge,
+      "bg-primary",
+    ],
     [
       isCurrNode,
       "after:content-[''] after:rounded-[50%] after:bg-black after:w-[7px] after:h-[7px]",
     ],
-    [isReachedStartOrEndNode, "bg-nodeEndReached"],
-    [isOnBacktrack, "bg-nodeBacktrack"],
+    [isReachedStartOrEndNode && !isNode1InNewEdge, "bg-nodeEndReached"],
+    [isOnBacktrack && !isNode1InNewEdge, "bg-nodeBacktrack"],
   ];
 
   return conditionAndValuePairs

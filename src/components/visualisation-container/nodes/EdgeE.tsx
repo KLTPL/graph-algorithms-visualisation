@@ -7,12 +7,13 @@ import { VisualisationDataDW } from "../../../visualisationData/typesVisualisati
 import { getProperBgColorForEdgeE } from "../scripts/getProperBgColorForEdgeE";
 import { NodePosition } from "../scripts/getProperNodesPostions";
 import {
+  NodeE,
   ToNodeDW,
   UserGraphTypes,
 } from "../../../visualisationData/typesGraphData";
 import { EdgeData } from "../scripts/getEdges";
-import { ChangeEvent } from "react";
-import { NODE_SIZE_PX } from "./NodeE";
+import { ChangeEvent, useRef } from "react";
+import { nodeSizePx } from "./NodeE";
 import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
 import removeEdge from "../scripts/removeEdge";
 
@@ -46,10 +47,10 @@ function EdgeEdge({
     backtrackCount
   );
   const edgeSvgWidth =
-    (width / 100) * containerWidth - NODE_SIZE_PX < 0
+    (width / 100) * containerWidth - nodeSizePx < 0
       ? 0
-      : (width / 100) * containerWidth - NODE_SIZE_PX;
-  const isNodesTouching = (width / 100) * containerWidth <= NODE_SIZE_PX;
+      : (width / 100) * containerWidth - nodeSizePx;
+  const isNodesTouching = (width / 100) * containerWidth <= nodeSizePx;
 
   function handleOnPointerDown() {
     if (pointerTool === VisualisationPointerTools.RemoveEdgeOrNode) {
@@ -81,8 +82,8 @@ function EdgeEdge({
         width: `${width}%`,
         left: `${left}%`,
         top: `${top}%`,
-        transform: `translate(${NODE_SIZE_PX / 2}px, ${
-          NODE_SIZE_PX / 2 - EDGE_HEIGHT_PX / 2
+        transform: `translate(${nodeSizePx / 2}px, ${
+          nodeSizePx / 2 - EDGE_HEIGHT_PX / 2
         }px) rotate(${angle}deg)`,
         display: isNodesTouching ? "none" : "block",
       }}
@@ -95,7 +96,7 @@ function EdgeEdge({
         {visualisationData.isDOrDW ? (
           <svg
             style={{
-              transform: `translate(${NODE_SIZE_PX / 2}px, -50%)`,
+              transform: `translate(${nodeSizePx / 2}px, -50%)`,
               fill: bgColor,
               visibility: visualisationData.isDOrDW ? "visible" : "hidden",
             }}

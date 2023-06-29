@@ -2,6 +2,19 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontSize: {
+      h1: [
+        "2rem",
+        { lineHeight: "2.5rem", fontWeight: "600", letterSpacing: "0.1rem" },
+      ],
+      sm: "0.8rem",
+      base: "1rem",
+      xl: "1.25rem",
+      "2xl": "1.563rem",
+      "3xl": "1.953rem",
+      "4xl": "2.441rem",
+      "5xl": "3.052rem",
+    },
     colors: {
       primary: "#00a2ff",
       bg1: "#D4E5EF",

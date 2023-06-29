@@ -9,7 +9,7 @@ import NodeEdge, { nodeSizePx } from "../nodes/NodeE";
 import {
   backtrackIfShould,
   resetBacktracking,
-} from "../scripts/backtrackMechanick";
+} from "../scripts/backtrackMechanic";
 import { NodeE } from "../../../visualisationData/typesGraphData";
 import getProperNodesPosition, {
   NodePosition,
@@ -29,7 +29,8 @@ export default function Edge() {
   const { currStepIdx } = useUserInput();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
-  const newEdgeNode1 = useRef<NodeE|null>(null);
+  console.log(backtrackCount);
+  const newEdgeNode1 = useRef<NodeE | null>(null);
   const nodes = [...visualisationData.graph.keys()];
   const nodesPositons = getProperNodesPosition(visualisationData);
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode

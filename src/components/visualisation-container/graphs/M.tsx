@@ -5,7 +5,7 @@ import NodeMatrix from "../nodes/NodeM";
 import {
   backtrackIfShould,
   resetBacktracking,
-} from "../scripts/backtrackMechanick";
+} from "../scripts/backtrackMechanic";
 
 export default function Matrix() {
   const visualisationData = useVisualisationData()

@@ -2,6 +2,7 @@ import { VisualisationDataDW } from "../../../visualisationData/typesVisualisati
 import { EdgeData } from "./getEdges";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
+import { NodeE } from "../../../visualisationData/typesGraphData";
 
 const twConfig = resolveConfig(tailwindConfig);
 
@@ -58,8 +59,8 @@ function isNodeOnBacktrack(
   if (visualisationData.pathToEndNode === null) {
     return false;
   }
-  const path = [
-    visualisationData.startNode,
+  const path: NodeE[] = [
+    visualisationData.startNode.current,
     ...visualisationData.pathToEndNode,
   ];
   for (let i = 1; i < backtrackCount; i++) {

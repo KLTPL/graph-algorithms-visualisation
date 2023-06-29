@@ -44,7 +44,6 @@ function NodeEdge({
   });
 
   useEffect(() => {
-    console.log(isNode1InNewEdge && newEdgeNode1Ref.current === null);
     if (isNode1InNewEdge && newEdgeNode1Ref.current === null) {
       setIsNode1InNewEdge(false);
     }
@@ -72,7 +71,6 @@ function NodeEdge({
           setIsNode1InNewEdge(true);
         } else if (newEdgeNode1Ref.current === node) {
           setIsNode1InNewEdge(false);
-          console.log("reset");
           newEdgeNode1Ref.current = null;
         } else {
           visualisationData.graph[newEdgeNode1Ref.current].push({

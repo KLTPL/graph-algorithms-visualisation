@@ -3,7 +3,7 @@ import ToolRadioInput from "./ToolRadioInput";
 
 export default function SelectToolsM() {
   return (
-    <div className="flex flex-col gap-3">
+    <>
       <ToolRadioInput
         customClassName="bg-nodeEmpty"
         title="empty field"
@@ -26,6 +26,6 @@ export default function SelectToolsM() {
         newPointerTool={Tools.EndField}
         content="E"
       />
-    </div>
+    </>
   );
 }

@@ -7,6 +7,10 @@ export default {
         "2rem",
         { lineHeight: "2.5rem", fontWeight: "600", letterSpacing: "0.1rem" },
       ],
+      h3: [
+        "1.5rem",
+        { fontWeight: "600", letterSpacing: "0.1rem" },
+      ],
       sm: "0.8rem",
       base: "1rem",
       xl: "1.25rem",

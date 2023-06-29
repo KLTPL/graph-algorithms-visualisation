@@ -29,7 +29,7 @@ export default function GraphContainer() {
   }
 
   return (
-    <div>
+    <div className="mb-8">
       {getProperGraphElement(visualisationData)}
       <div>
         <button onClick={decrementCurrStepIdx}>

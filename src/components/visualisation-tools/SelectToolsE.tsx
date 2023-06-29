@@ -44,7 +44,7 @@ const CONTENT_NEW_EDGE = (
 
 export default function SelectToolsE() {
   return (
-    <div className="flex flex-col gap-3">
+    <>
       <ToolRadioInput
         customClassName="bg-nodeEmpty"
         title="new node"
@@ -63,6 +63,6 @@ export default function SelectToolsE() {
         newPointerTool={Tools.RemoveEdgeOrNode}
         content={CONTENT_REMOVE}
       />
-    </div>
+    </>
   );
 }

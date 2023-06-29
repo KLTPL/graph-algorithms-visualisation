@@ -1,31 +1,53 @@
 import { useVisualisationData } from "../../context/Context";
+import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
+import SelectButton from "./SelectButton";
 
 export default function SelectGraphType() {
   const { visualisationData, switchVisualisationData } = useVisualisationData();
-  function selectGraphType(graphType: UserGraphTypes): () => void {
-    return () => {
-      switchVisualisationData(graphType, visualisationData.algorithmType);
-    };
+  function switchGraphType(
+    newGraphType: UserGraphTypes | SearchAlgorithmsTypes
+  ) {
+    switchVisualisationData(
+      newGraphType as UserGraphTypes,
+      visualisationData.algorithmType
+    );
   }
-
   return (
-    <div className="flex flex-col">
-      <h3>Graph type:</h3>
-      <button onClick={selectGraphType(UserGraphTypes.M)}>matrix graph</button>
-      <button onClick={selectGraphType(UserGraphTypes.D)}>
-        directed graph
-      </button>
-      <button onClick={selectGraphType(UserGraphTypes.DW)}>
-        directed weighted graph
-      </button>
-      <button onClick={selectGraphType(UserGraphTypes.U)}>
-        undirected graph
-      </button>
-      <button onClick={selectGraphType(UserGraphTypes.UW)}>
-        undirected weighted graph
-      </button>
-      {visualisationData.graphType}
+    <div className="flex flex-col items-center">
+      <h3 className="text-h3">Graph type:</h3>
+      <div className="flex flex-wrap justify-center gap-1">
+        <SelectButton
+          optionName="matrix graph"
+          optionType={UserGraphTypes.M}
+          currOptionType={visualisationData.graphType}
+          switchFun={switchGraphType}
+        />
+        <SelectButton
+          optionName="directed graph"
+          optionType={UserGraphTypes.D}
+          currOptionType={visualisationData.graphType}
+          switchFun={switchGraphType}
+        />
+        <SelectButton
+          optionName="directed weighted graph"
+          optionType={UserGraphTypes.DW}
+          currOptionType={visualisationData.graphType}
+          switchFun={switchGraphType}
+        />
+        <SelectButton
+          optionName="undirected graph"
+          optionType={UserGraphTypes.U}
+          currOptionType={visualisationData.graphType}
+          switchFun={switchGraphType}
+        />
+        <SelectButton
+          optionName="undirected weighted graph"
+          optionType={UserGraphTypes.UW}
+          currOptionType={visualisationData.graphType}
+          switchFun={switchGraphType}
+        />
+      </div>
     </div>
   );
 }

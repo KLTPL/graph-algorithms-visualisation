@@ -1,29 +1,37 @@
 import { useVisualisationData } from "../../context/Context";
 import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
+import { UserGraphTypes } from "../../visualisationData/typesGraphData";
+import SelectButton from "./SelectButton";
 
 export default function SelectAlgorithmType() {
   const { visualisationData, switchVisualisationData } = useVisualisationData();
 
-  function getSelectAlgorithmTypeFun(
-    algorithmType: SearchAlgorithmsTypes
-  ): () => void {
-    return () => {
-      if (visualisationData.algorithmType !== algorithmType) {
-        switchVisualisationData(visualisationData.graphType, algorithmType);
-      }
-    };
+  function switchAlgorithmType(
+    newAlgorithmType: UserGraphTypes | SearchAlgorithmsTypes
+  ) {
+    switchVisualisationData(
+      visualisationData.graphType,
+      newAlgorithmType as SearchAlgorithmsTypes
+    );
   }
 
   return (
-    <div className="flex flex-col">
-      <h3>Search algorithm type:</h3>
-      <button onClick={getSelectAlgorithmTypeFun(SearchAlgorithmsTypes.Dfs)}>
-        dfs
-      </button>
-      <button onClick={getSelectAlgorithmTypeFun(SearchAlgorithmsTypes.Bfs)}>
-        bfs
-      </button>
-      {visualisationData.algorithmType}
+    <div className="flex flex-col items-center">
+      <h3 className="text-h3">Search algorithm type:</h3>
+      <div className="flex flex-wrap justify-center gap-1">
+        <SelectButton
+          optionName="dfs"
+          optionType={SearchAlgorithmsTypes.Dfs}
+          currOptionType={visualisationData.algorithmType}
+          switchFun={switchAlgorithmType}
+        />
+        <SelectButton
+          optionName="bfs"
+          optionType={SearchAlgorithmsTypes.Bfs}
+          currOptionType={visualisationData.algorithmType}
+          switchFun={switchAlgorithmType}
+        />
+      </div>
     </div>
   );
 }

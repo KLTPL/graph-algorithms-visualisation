@@ -3,7 +3,7 @@ import {
   useVisualisationPointerTools,
 } from "../../context/Context";
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
-import { NODE_SIZE_PX } from "../visualisation-container/nodes/NodeE";
+import { nodeSizePx } from "../visualisation-container/nodes/NodeE";
 import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 
 const DEFAULT_CLASS_NAME_M =
@@ -45,7 +45,7 @@ export default function ToolRadioInput({
   }
   return (
     <button
-      style={{ width: NODE_SIZE_PX }}
+      style={{ width: nodeSizePx }}
       className={classNames.join(" ")}
       title={title}
       onClick={handleOnClick}

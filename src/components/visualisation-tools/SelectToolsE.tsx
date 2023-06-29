@@ -1,7 +1,7 @@
 import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
-import { NODE_SIZE_PX } from "../visualisation-container/nodes/NodeE";
+import { nodeSizePx } from "../visualisation-container/nodes/NodeE";
 import ToolRadioInput from "./ToolRadioInput";
 import { EDGE_HEIGHT_PX } from "../visualisation-container/nodes/EdgeE";
 
@@ -37,7 +37,7 @@ const CONTENT_REMOVE = (
 const CONTENT_NEW_EDGE = (
   <div
     key={"edge"}
-    style={{ width: NODE_SIZE_PX * 0.6, height: EDGE_HEIGHT_PX }}
+    style={{ width: nodeSizePx * 0.6, height: EDGE_HEIGHT_PX }}
     className="bg-black w-full"
   ></div>
 );

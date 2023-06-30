@@ -123,7 +123,7 @@ export function getClassNamesForNodeE({
     ],
     [
       isCurrNode,
-      "after:content-[''] after:rounded-[50%] after:bg-black after:w-[7px] after:h-[7px]",
+      "after:content-[''] after:rounded-[50%] after:bg-black after:w-[7px] after:h-[7px] after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:-translate-y-[5%] after:absolute",
     ],
     [isReachedStartOrEndNode && !isNode1InNewEdge, "bg-nodeEndReached"],
     [isOnBacktrack && !isNode1InNewEdge, "bg-nodeBacktrack"],

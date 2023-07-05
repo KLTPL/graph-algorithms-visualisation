@@ -1,17 +1,20 @@
 import { AnyVisualisationData } from "../../../visualisationData/typesVisualisationData";
 
 export function displaySummaryIfShould(
-  visualisationData: AnyVisualisationData,
+  { pathToEndNode, isEndNodeReached, listOfSteps }: AnyVisualisationData,
+  currStepIdx: number,
   backtrackCount: number,
   isSummaryDisplayed: boolean,
   setIsSummaryDisplayed: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  const pathLen = visualisationData.pathToEndNode?.length;
+  const pathLen = pathToEndNode?.length;
   setTimeout(() => {
     if (
-      pathLen !== undefined &&
-      backtrackCount === pathLen + 1 &&
-      !isSummaryDisplayed
+      !isSummaryDisplayed &&
+      ((!isEndNodeReached && currStepIdx === listOfSteps.length - 1) ||
+        (isEndNodeReached &&
+          pathLen !== undefined &&
+          backtrackCount === pathLen + 1))
     ) {
       setIsSummaryDisplayed(true);
     }

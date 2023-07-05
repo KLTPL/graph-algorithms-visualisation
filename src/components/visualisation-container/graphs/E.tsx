@@ -15,7 +15,7 @@ import getProperNodesPosition, {
   NodePosition,
 } from "../scripts/getProperNodesPostions";
 import EdgeEdge from "../nodes/EdgeE";
-import getEdges from "../scripts/getEdges";
+import getEdges, { EdgeData } from "../scripts/getEdges";
 import addNewNode from "../scripts/addNewNode";
 import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
 
@@ -29,9 +29,7 @@ export default function Edge() {
   const { currStepIdx } = useUserInput();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
-  console.log(backtrackCount);
   const newEdgeNode1 = useRef<NodeE | null>(null);
-  const nodes = [...visualisationData.graph.keys()];
   const nodesPositons = getProperNodesPosition(visualisationData);
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
@@ -64,6 +62,18 @@ export default function Edge() {
       />
     );
   }
+  function getEdge(edgeData: EdgeData): JSX.Element {
+    return (
+      <EdgeEdge
+        key={JSON.stringify(edgeData)}
+        nodePos1={nodesPositons[edgeData.edge[0]]}
+        nodePos2={nodesPositons[edgeData.edge[1]]}
+        edgeData={edgeData}
+        backtrackCount={backtrackCount}
+        containerWidth={containerWidth}
+      />
+    );
+  }
   function handleOnPointerDown(ev: React.PointerEvent) {
     if (
       pointerTool === VisualisationPointerTools.NewNode &&
@@ -81,19 +91,10 @@ export default function Edge() {
       className="w-[95%] md:w-[60%] aspect-square relative"
       onPointerDown={handleOnPointerDown}
     >
-      {nodes.map((node, i) => getNode(node, nodesPositons[i]))}
-      {getEdges(visualisationData).map((edgeData, key) => {
-        return (
-          <EdgeEdge
-            key={key}
-            nodePos1={nodesPositons[edgeData.edge[0]]}
-            nodePos2={nodesPositons[edgeData.edge[1]]}
-            edgeData={edgeData}
-            backtrackCount={backtrackCount}
-            containerWidth={containerWidth}
-          />
-        );
-      })}
+      {[...visualisationData.graph.keys()].map((node, i) =>
+        getNode(node, nodesPositons[i])
+      )}
+      {getEdges(visualisationData).map(edgeData => getEdge(edgeData))}
     </div>
   );
 }

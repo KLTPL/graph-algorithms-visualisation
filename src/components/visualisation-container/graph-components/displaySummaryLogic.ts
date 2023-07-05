@@ -7,13 +7,15 @@ export function displaySummaryIfShould(
   setIsSummaryDisplayed: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   const pathLen = visualisationData.pathToEndNode?.length;
-  if (
-    pathLen !== undefined &&
-    backtrackCount === pathLen + 1 &&
-    !isSummaryDisplayed
-  ) {
-    setIsSummaryDisplayed(true);
-  }
+  setTimeout(() => {
+    if (
+      pathLen !== undefined &&
+      backtrackCount === pathLen + 1 &&
+      !isSummaryDisplayed
+    ) {
+      setIsSummaryDisplayed(true);
+    }
+  }, 250);
 }
 
 export function stoDisplayingSummaryIfShould(

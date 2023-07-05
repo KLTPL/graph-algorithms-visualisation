@@ -102,6 +102,14 @@ export default function GraphContainer() {
 
   return (
     <div className="mb-8 md:m-0 relative">
+      {!isSummaryDisplayed && (
+        <button
+          className="aspect-square w-10 h-10 absolute right-0 top-0 font-bold"
+          onClick={() => setIsSummaryDisplayed(true)}
+        >
+          +
+        </button>
+      )}
       {getProperGraphElement(visualisationData, backtrackCount)}
       <div>
         <button onClick={decrementCurrStepIdx}>{svgs.decrement}</button>

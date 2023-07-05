@@ -1,10 +1,10 @@
-import { NodeE } from "../../../visualisationData/typesGraphData";
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import getProperNodesPosition from "./getProperNodesPostions";
+import { NodeE } from "../../../../visualisationData/typesGraphData";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import getProperNodesPosition from "../../graph-components/E/getProperNodesPostions";
 
 export default function removeNode(
   visualisationData: VisualisationDataDW,
-  node: NodeE,
+  node: NodeE
 ) {
   visualisationData.graph.splice(node, 1);
   getProperNodesPosition(visualisationData).splice(node, 1);

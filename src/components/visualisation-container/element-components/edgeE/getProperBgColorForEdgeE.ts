@@ -1,8 +1,8 @@
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { EdgeData } from "./getEdges";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import { EdgeData } from "../../graph-components/E/getEdges";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
-import { NodeE } from "../../../visualisationData/typesGraphData";
+import { NodeE } from "../../../../visualisationData/typesGraphData";
 
 const twConfig = resolveConfig(tailwindConfig);
 

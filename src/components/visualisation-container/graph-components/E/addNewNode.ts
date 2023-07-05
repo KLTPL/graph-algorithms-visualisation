@@ -1,5 +1,5 @@
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { nodeSizePx } from "../nodes/NodeE";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import { nodeSizePx } from "../../element-components/nodeE/NodeE";
 import getProperNodesPosition, { NodePosition } from "./getProperNodesPostions";
 
 export default function addNewNode(

@@ -4,7 +4,7 @@ import {
   useVisualisationPointerTools,
 } from "../../context/Context";
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
-import { nodeSizePx } from "../visualisation-container/nodes/NodeE";
+import { nodeSizePx } from "../visualisation-container/element-components/nodeE/NodeE";
 import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 
 const DEFAULT_CLASS_NAME_M =

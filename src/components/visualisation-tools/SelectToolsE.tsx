@@ -1,9 +1,9 @@
 import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
-import { nodeSizePx } from "../visualisation-container/nodes/NodeE";
+import { nodeSizePx } from "../visualisation-container/element-components/nodeE/NodeE";
 import ToolRadioInput from "./ToolRadioInput";
-import { EDGE_HEIGHT_PX } from "../visualisation-container/nodes/EdgeE";
+import { EDGE_HEIGHT_PX } from "../visualisation-container/element-components/edgeE/EdgeE";
 
 const twConfig = resolveConfig(tailwindConfig);
 

@@ -1,6 +1,8 @@
 import { AnyVisualisationData } from "../../../visualisationData/typesVisualisationData";
 
-export function backtrackToFirstNode(
+const ONE_BACKTRACK_STEP_TIME_MS = 150;
+
+function backtrackToFirstNode(
   visualisationData: AnyVisualisationData,
   isBacktracking: React.MutableRefObject<boolean>,
   setBacktrackCount: React.Dispatch<React.SetStateAction<number>>
@@ -13,7 +15,7 @@ export function backtrackToFirstNode(
     do {
       count++;
       setBacktrackCount(count);
-      await new Promise(resolve => setTimeout(resolve, 150));
+      await new Promise(resolve => setTimeout(resolve, ONE_BACKTRACK_STEP_TIME_MS));
     } while (isBacktracking.current && count <= pathLen);
   });
 }

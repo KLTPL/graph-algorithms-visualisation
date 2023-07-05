@@ -1,4 +1,3 @@
-import { useVisualisationData } from "../../context/Context";
 import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import tailwindConfig from "tailwind-config";

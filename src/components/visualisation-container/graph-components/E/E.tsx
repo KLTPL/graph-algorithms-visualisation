@@ -5,7 +5,7 @@ import {
   useVisualisationPointerTools,
 } from "../../../../context/Context";
 import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
-import NodeEdge, { nodeSizePx } from "../../element-components/nodeE/NodeE";
+import NodeEdge from "../../element-components/nodeE/NodeE";
 import { backtrackIfShould, resetBacktracking } from "../backtrackMechanic";
 import { NodeE } from "../../../../visualisationData/typesGraphData";
 import getProperNodesPosition, { NodePosition } from "./getProperNodesPostions";

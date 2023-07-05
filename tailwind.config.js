@@ -22,6 +22,7 @@ export default {
     colors: {
       primary: "#00a2ff",
       bg1: "#D4E5EF",
+      bg2: "#0022ff",
       nodeEmpty: "#e9f3f8",
       nodeRock: "#3e4245",
       nodeBorder: "#50565a",

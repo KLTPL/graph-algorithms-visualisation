@@ -1,4 +1,5 @@
 import {
+  useUserInput,
   useVisualisationData,
   useVisualisationPointerTools,
 } from "../../context/Context";
@@ -28,6 +29,7 @@ export default function ToolRadioInput({
   const { visualisationData } = useVisualisationData();
   const { pointerTool, updatePointerTool, setPointerToolToDefault } =
     useVisualisationPointerTools();
+  const { resetCurrStepIdx } = useUserInput();
   const defaultClassName =
     visualisationData.graphType === UserGraphTypes.M
       ? DEFAULT_CLASS_NAME_M
@@ -48,7 +50,10 @@ export default function ToolRadioInput({
       style={{ width: nodeSizePx }}
       className={classNames.join(" ")}
       title={title}
-      onClick={handleOnClick}
+      onClick={() => {
+        handleOnClick();
+        resetCurrStepIdx();
+      }}
     >
       {content}
     </button>

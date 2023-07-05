@@ -22,6 +22,7 @@ export interface VisualisationDataContextProps {
 export interface UserInputContextProps {
   currStepIdx: number;
   updateCurrStepIdx: (newIdx: number) => void;
+  resetCurrStepIdx: () => void;
 }
 
 export interface VisualisationPointerToolsContextProps {
@@ -88,6 +89,9 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   function updateCurrStepIdx(newIdx: number): void {
     setCurrStepIdx(newIdx);
   }
+  function resetCurrStepIdx() {
+    setCurrStepIdx(DEFAULT_CURR_STEP_IDX);
+  }
   function updatePointerTool(newTool: number): void {
     setPointerTool(newTool);
   }
@@ -103,7 +107,9 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
         refreshVisualisationData,
       }}
     >
-      <UserInputContext.Provider value={{ currStepIdx, updateCurrStepIdx }}>
+      <UserInputContext.Provider
+        value={{ currStepIdx, updateCurrStepIdx, resetCurrStepIdx }}
+      >
         <VisualisationPointerToolsContext.Provider
           value={{ pointerTool, updatePointerTool, setPointerToolToDefault }}
         >

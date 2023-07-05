@@ -18,6 +18,10 @@ import EdgeEdge from "../nodes/EdgeE";
 import getEdges, { EdgeData } from "../scripts/getEdges";
 import addNewNode from "../scripts/addNewNode";
 import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
+import {
+  displaySummaryIfShould,
+  stoDisplayingSummaryIfShould,
+} from "../scripts/displaySummaryLogic";
 
 export default function Edge() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,6 +33,7 @@ export default function Edge() {
   const { currStepIdx } = useUserInput();
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
+  const [isSummaryDisplayed, setIsSummaryDisplayed] = useState<boolean>(false);
   const newEdgeNode1 = useRef<NodeE | null>(null);
   const nodesPositons = getProperNodesPosition(visualisationData);
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
@@ -44,7 +49,18 @@ export default function Edge() {
       currStepIdx,
       setBacktrackCount
     );
-  });
+  }, [currStepIdx]);
+  useEffect(() => {
+    displaySummaryIfShould(
+      visualisationData,
+      backtrackCount,
+      isSummaryDisplayed,
+      setIsSummaryDisplayed
+    );
+  }, [backtrackCount]);
+  useEffect(() => {
+    stoDisplayingSummaryIfShould(isSummaryDisplayed, setIsSummaryDisplayed);
+  }, [currStepIdx]);
 
   useLayoutEffect(() => {
     setContainerWidth((containerRef.current as HTMLDivElement).offsetWidth);
@@ -95,6 +111,39 @@ export default function Edge() {
         getNode(node, nodesPositons[i])
       )}
       {getEdges(visualisationData).map(edgeData => getEdge(edgeData))}
+      {isSummaryDisplayed && (
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-square bg-bg2 z-50 flex flex-col items-center text-white p-3 rounded-lg">
+          <button
+            className="aspect-square w-10 h-10 absolute right-0 top-0 font-bold"
+            onClick={() => setIsSummaryDisplayed(false)}
+          >
+            -
+          </button>
+          <h3 className="text-h3">Summary:</h3>
+          <ul className="flex flex-col w-full text-center">
+            <li className="grid grid-cols-2 grid-rows-1">
+              <div>Graph Type:</div>
+              <div>{visualisationData.graphType}</div>
+            </li>
+            <li className="grid grid-cols-2 grid-rows-1">
+              <div>Start Node:</div>
+              <div>{JSON.stringify(visualisationData.startNode.current)}</div>
+            </li>
+            <li className="grid grid-cols-2 grid-rows-1">
+              <div>End Node:</div>
+              <div>{JSON.stringify(visualisationData.endNode.current)}</div>
+            </li>
+            <li className="grid grid-cols-2 grid-rows-1">
+              <div>Algorighm Type:</div>
+              <div>{JSON.stringify(visualisationData.algorithmType)}</div>
+            </li>
+            <li className="grid grid-cols-2 grid-rows-1">
+              <div>Path cost:</div>
+              <div>{JSON.stringify(visualisationData.pathCost)}</div>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

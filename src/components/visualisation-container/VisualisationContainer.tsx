@@ -1,6 +1,6 @@
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
-import Matrix from "./graphs/M";
-import Edge from "./graphs/E";
+import Matrix from "./graph-components/M/M";
+import Edge from "./graph-components/E/E";
 import { useUserInput, useVisualisationData } from "../../context/Context";
 import { AnyVisualisationData } from "../../visualisationData/typesVisualisationData";
 

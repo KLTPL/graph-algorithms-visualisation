@@ -1,5 +1,5 @@
-import { UserGraphTypes } from "../../../visualisationData/typesGraphData";
-import { AnyVisualisationData } from "../../../visualisationData/typesVisualisationData";
+import { UserGraphTypes } from "../../../../visualisationData/typesGraphData";
+import { AnyVisualisationData } from "../../../../visualisationData/typesVisualisationData";
 
 export type NodePosition = { left: number; top: number };
 export type NodesPositions = NodePosition[];
@@ -58,8 +58,6 @@ const nodesPositionsDW: NodesPositions = [
   { left: 70, top: 80 },
   { left: 90, top: 50 },
 ];
-
-
 
 function getProperNodesPosition({
   graphType,

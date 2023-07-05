@@ -1,5 +1,5 @@
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { EdgeE } from "./getEdges";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import { EdgeE } from "../../graph-components/E/getEdges";
 
 export default function removeEdge(
   { graph, isUOrUW }: VisualisationDataDW,

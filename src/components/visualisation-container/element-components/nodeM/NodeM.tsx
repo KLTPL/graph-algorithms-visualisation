@@ -2,11 +2,11 @@ import {
   useUserInput,
   useVisualisationData,
   useVisualisationPointerTools,
-} from "../../../context/Context";
-import { NodeTypesM } from "../../../visualisationData/typesGraphData";
-import { VisualisationDataM } from "../../../visualisationData/typesVisualisationData";
-import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
-import { getClassNamesForNodeM } from "../scripts/getClassNamesForNodeEAndM";
+} from "../../../../context/Context";
+import { NodeTypesM } from "../../../../visualisationData/typesGraphData";
+import { VisualisationDataM } from "../../../../visualisationData/typesVisualisationData";
+import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
+import { getClassNamesForNodeM } from "./getClassNamesForNodeM";
 
 type NodeMatrixProps = {
   backtrackCount: number;

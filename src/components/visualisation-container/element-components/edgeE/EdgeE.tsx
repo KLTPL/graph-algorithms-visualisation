@@ -2,20 +2,20 @@ import {
   useUserInput,
   useVisualisationData,
   useVisualisationPointerTools,
-} from "../../../context/Context";
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { getProperBgColorForEdgeE } from "../scripts/getProperBgColorForEdgeE";
-import { NodePosition } from "../scripts/getProperNodesPostions";
+} from "../../../../context/Context";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import { getProperBgColorForEdgeE } from "./getProperBgColorForEdgeE";
+import { NodePosition } from "../../graph-components/E/getProperNodesPostions";
 import {
   NodeE,
   ToNodeDW,
   UserGraphTypes,
-} from "../../../visualisationData/typesGraphData";
-import { EdgeData } from "../scripts/getEdges";
-import { ChangeEvent, useRef } from "react";
-import { nodeSizePx } from "./NodeE";
-import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
-import removeEdge from "../scripts/removeEdge";
+} from "../../../../visualisationData/typesGraphData";
+import { EdgeData } from "../../graph-components/E/getEdges";
+import { ChangeEvent } from "react";
+import { nodeSizePx } from "../nodeE/NodeE";
+import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
+import removeEdge from "./removeEdge";
 
 export const EDGE_HEIGHT_PX = 4;
 

@@ -3,13 +3,13 @@ import {
   useUserInput,
   useVisualisationData,
   useVisualisationPointerTools,
-} from "../../../context/Context";
-import { NodeE } from "../../../visualisationData/typesGraphData";
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
-import { getClassNamesForNodeE } from "../scripts/getClassNamesForNodeEAndM";
-import { NodePosition } from "../scripts/getProperNodesPostions";
-import removeNode from "../scripts/removeNode";
+} from "../../../../context/Context";
+import { NodeE } from "../../../../visualisationData/typesGraphData";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
+import { NodePosition } from "../../graph-components/E/getProperNodesPostions";
+import { getClassNamesForNodeE } from "./getClassNamesForNodeE";
+import removeNode from "./removeNode";
 
 export const nodeSizePx = window.innerWidth < 500 ? window.innerWidth / 12 : 40;
 

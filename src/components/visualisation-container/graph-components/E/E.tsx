@@ -3,25 +3,20 @@ import {
   useUserInput,
   useVisualisationData,
   useVisualisationPointerTools,
-} from "../../../context/Context";
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
-import NodeEdge, { nodeSizePx } from "../nodes/NodeE";
-import {
-  backtrackIfShould,
-  resetBacktracking,
-} from "../scripts/backtrackMechanic";
-import { NodeE } from "../../../visualisationData/typesGraphData";
-import getProperNodesPosition, {
-  NodePosition,
-} from "../scripts/getProperNodesPostions";
-import EdgeEdge from "../nodes/EdgeE";
-import getEdges, { EdgeData } from "../scripts/getEdges";
-import addNewNode from "../scripts/addNewNode";
-import { VisualisationPointerTools } from "../../visualisation-tools/VisualisationTools";
+} from "../../../../context/Context";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import NodeEdge, { nodeSizePx } from "../../element-components/nodeE/NodeE";
+import { backtrackIfShould, resetBacktracking } from "../backtrackMechanic";
+import { NodeE } from "../../../../visualisationData/typesGraphData";
+import getProperNodesPosition, { NodePosition } from "./getProperNodesPostions";
+import EdgeEdge from "../../element-components/edgeE/EdgeE";
+import getEdges, { EdgeData } from "./getEdges";
+import addNewNode from "./addNewNode";
+import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
 import {
   displaySummaryIfShould,
   stoDisplayingSummaryIfShould,
-} from "../scripts/displaySummaryLogic";
+} from "../displaySummaryLogic";
 
 export default function Edge() {
   const containerRef = useRef<HTMLDivElement>(null);

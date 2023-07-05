@@ -1,10 +1,9 @@
 import {
-  GraphDW,
   NodeE,
   ToNodeDW,
   UserGraphTypes,
-} from "../../../visualisationData/typesGraphData";
-import { VisualisationDataDW } from "../../../visualisationData/typesVisualisationData";
+} from "../../../../visualisationData/typesGraphData";
+import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
 
 export type EdgeE = NodeE[]; // of length 2
 export type EdgeData = { edge: EdgeE; cost: number };

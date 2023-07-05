@@ -94,6 +94,7 @@ export default function GraphContainer() {
   useEffect(() => {
     displaySummaryIfShould(
       visualisationData,
+      currStepIdx,
       backtrackCount,
       isSummaryDisplayed,
       setIsSummaryDisplayed

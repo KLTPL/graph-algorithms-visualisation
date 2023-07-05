@@ -1,6 +1,6 @@
 import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
 import { nodeSizePx } from "../../element-components/nodeE/NodeE";
-import getProperNodesPosition, { NodePosition } from "./getProperNodesPostions";
+import getProperNodesPosition from "./getProperNodesPostions";
 
 export default function addNewNode(
   containerDiv: HTMLDivElement,

@@ -3,6 +3,15 @@ import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmDat
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import SelectButton from "./SelectButton";
 
+export function searchAlgorithmTypeToName(algorithmType: SearchAlgorithmsTypes): string {
+  switch (algorithmType) {
+    case SearchAlgorithmsTypes.Dfs:
+      return "dfs";
+    case SearchAlgorithmsTypes.Bfs:
+      return "bfs";
+  }
+}
+
 export default function SelectAlgorithmType() {
   const { visualisationData, switchVisualisationData } = useVisualisationData();
 
@@ -20,13 +29,13 @@ export default function SelectAlgorithmType() {
       <h3 className="text-h3">Search algorithm type:</h3>
       <div className="flex flex-wrap justify-center gap-1">
         <SelectButton
-          optionName="dfs"
+          optionName={searchAlgorithmTypeToName(SearchAlgorithmsTypes.Dfs)}
           optionType={SearchAlgorithmsTypes.Dfs}
           currOptionType={visualisationData.algorithmType}
           switchFun={switchAlgorithmType}
         />
         <SelectButton
-          optionName="bfs"
+          optionName={searchAlgorithmTypeToName(SearchAlgorithmsTypes.Bfs)}
           optionType={SearchAlgorithmsTypes.Bfs}
           currOptionType={visualisationData.algorithmType}
           switchFun={switchAlgorithmType}

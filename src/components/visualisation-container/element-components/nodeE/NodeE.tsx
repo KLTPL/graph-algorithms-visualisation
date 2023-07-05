@@ -12,6 +12,8 @@ import { getClassNamesForNodeE } from "./getClassNamesForNodeE";
 import removeNode from "./removeNode";
 
 export const nodeSizePx = window.innerWidth < 500 ? window.innerWidth / 12 : 40;
+export const nodeNumToChar = (node: NodeE) =>
+  String.fromCharCode(node + "a".charCodeAt(0));
 
 interface NodeEdgeProps {
   backtrackCount: number;
@@ -118,7 +120,7 @@ function NodeEdge({
     >
       {pointerTool === VisualisationPointerTools.NewEdge
         ? "Click"
-        : String.fromCharCode(node + "a".charCodeAt(0))}
+        : nodeNumToChar(node)}
     </div>
   );
 }

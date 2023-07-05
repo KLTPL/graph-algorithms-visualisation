@@ -28,6 +28,7 @@ export enum NodeTypesM {
 
 export type FieldM = { x: number; y: number };
 export type NodeE = number;
+export type NodeEStartOrEnd = { current: NodeE };
 export type ToNodeDW = { node: NodeE; cost: number };
 export type AnyNode = FieldM | NodeE;
 
@@ -43,8 +44,8 @@ export interface GraphDataM {
 }
 export interface GraphDataDW {
   graph: GraphDW;
-  startNode: { current: NodeE };
-  endNode: { current: NodeE };
+  startNode: NodeEStartOrEnd;
+  endNode: NodeEStartOrEnd;
   graphType: UserGraphTypes;
   isUOrUW: boolean;
   isDOrDW: boolean;

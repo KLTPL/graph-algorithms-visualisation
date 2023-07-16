@@ -70,26 +70,33 @@ function isFieldEmpty(field: FieldM, graph: GraphM) {
   return graph[field.y][field.x] === NodeTypesM.empty;
 }
 
+function getGetCurrNodeFun(isDfs: boolean): (stack: FieldM[]) => FieldM {
+  return isDfs
+    ? (stack: FieldM[]) => stack.pop() as FieldM
+    : (stack: FieldM[]) => stack.shift() as FieldM;
+}
+
 function dfsOrBfs(
   graphData: GraphDataHere,
   isDfs: boolean
 ): SearchExecutionDataHere {
+  const { graph, startNode, endNode } = graphData;
   const algorithmData = getEmptySearchData(
     isDfs ? SearchAlgorithmsTypes.Dfs : SearchAlgorithmsTypes.Bfs
   ) as SearchExecutionDataHere;
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
-  const stack = [graphData.startNode];
+  const stack = [startNode];
   const visitedNodes = getEmptyVisitedNodes(
-    graphData.graph,
-    graphData.startNode
+    graph,
+    startNode
   );
-
+  const getCurrNode = getGetCurrNodeFun(isDfs);
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes
   while (stack.length > 0 && !algorithmData.isEndNodeReached) {
-    const currNode = (isDfs ? stack.pop() : stack.shift()) as FieldM;
+    const currNode = getCurrNode(stack);
     algorithmData.listOfSteps.push(currNode);
-    for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
-      if (isNodeEndNode(neighborNode, graphData.endNode)) {
+    for (const neighborNode of getAdjacentNodes(currNode, graph)) {
+      if (isNodeEndNode(neighborNode, endNode)) {
         algorithmData.isEndNodeReached = true;
         algorithmData.listOfSteps.push(neighborNode);
         markNodeAsVisited(neighborNode, currNode, visitedNodes);
@@ -97,7 +104,7 @@ function dfsOrBfs(
       }
       if (
         !isNodeVisited(neighborNode, visitedNodes) &&
-        isFieldEmpty(neighborNode, graphData.graph)
+        isFieldEmpty(neighborNode, graph)
       ) {
         stack.push(neighborNode);
         markNodeAsVisited(neighborNode, currNode, visitedNodes);
@@ -114,12 +121,12 @@ function dfsOrBfs(
 }
 
 function backtrackToStartNode(
-  graphData: GraphDataHere,
+  { endNode }: GraphDataHere,
   data: SearchExecutionDataHere,
   visitedNodes: VisitedNodesHere
 ): void {
   // fills data.pathToEndNode and data.pathCost
-  const eNode = graphData.endNode;
+  const eNode = endNode;
   data.pathToEndNode = [eNode];
   data.pathCost = 0;
   let at = visitedNodes[eNode.y][eNode.x];

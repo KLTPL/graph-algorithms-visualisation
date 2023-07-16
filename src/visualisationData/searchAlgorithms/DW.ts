@@ -2,7 +2,7 @@ import { getEmptySearchData } from "../getProperDataFunctions";
 import {
   GraphDataDW as GraphDataHere,
   GraphDW,
-  NodeE,
+  NodeE as NodeHere,
   ToNodeDW,
 } from "../typesGraphData";
 import {
@@ -16,25 +16,28 @@ import {
 
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 
-function isNodeVisited(node: NodeE, visitedNodes: VisitedNodesHere): boolean {
+function isNodeVisited(
+  node: NodeHere,
+  visitedNodes: VisitedNodesHere
+): boolean {
   return !(visitedNodes.get(node) === null);
 }
 
 function markNodeAsVisited(
-  node: NodeE,
-  nodeVisitedFrom: NodeE,
+  node: NodeHere,
+  nodeVisitedFrom: NodeHere,
   visitedNodes: VisitedNodesHere
 ): void {
   visitedNodes.set(node, nodeVisitedFrom);
 }
 
-function isNodeEndNode(node: NodeE, endNode: NodeE) {
+function isNodeHerendNode(node: NodeHere, endNode: NodeHere) {
   return node === endNode;
 }
 
 function getEmptyVisitedNodes(
   graph: GraphDW,
-  startNode: NodeE
+  startNode: NodeHere
 ): VisitedNodesHere {
   const visitedNodes: VisitedNodesHere = new Map();
   for (const node of graph.keys()) {
@@ -44,12 +47,18 @@ function getEmptyVisitedNodes(
   return visitedNodes;
 }
 
-function getAdjacentNodes(currNode: NodeE, graph: GraphDW): NodeE[] {
+function getAdjacentNodes(currNode: NodeHere, graph: GraphDW): NodeHere[] {
   const neighborNodes = graph[currNode];
   if (neighborNodes === undefined) {
     throw new Error(`Cannot find node ${currNode} in graph.`);
   }
   return neighborNodes.map(toNode => toNode.node);
+}
+
+function getGetCurrNodeFun(isDfs: boolean): (stack: NodeHere[]) => NodeHere {
+  return isDfs
+    ? (stack: NodeHere[]) => stack.pop() as NodeHere
+    : (stack: NodeHere[]) => stack.shift() as NodeHere;
 }
 
 function dfsOrBfs(
@@ -61,27 +70,24 @@ function dfsOrBfs(
     isDfs ? SearchAlgorithmsTypes.Dfs : SearchAlgorithmsTypes.Bfs
   ) as SearchExecutionDataHere;
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
-  const stack = [graphData.startNode.current];
-  const visitedNodes = getEmptyVisitedNodes(
-    graphData.graph,
-    startNode.current
-  );
+  const stack = [startNode.current];
+  const visitedNodes = getEmptyVisitedNodes(graph, startNode.current);
+  const getCurrNode = getGetCurrNodeFun(isDfs);
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes
   while (stack.length > 0 && !algorithmData.isEndNodeReached) {
-    const currNode = (isDfs ? stack.pop() : stack.shift()) as NodeE;
+    const currNode = getCurrNode(stack);
     const visitedFrom = visitedNodes.get(currNode) as
-      | NodeE
+      | NodeHere
       | VisitedNodesStartNode;
     const nodeFrom =
-      visitedFrom === START_NODE_SIGN ? graphData.startNode.current : visitedFrom;
+      visitedFrom === START_NODE_SIGN ? startNode.current : visitedFrom;
     algorithmData.listOfSteps.push({ to: currNode, from: nodeFrom });
-    if (isNodeEndNode(currNode, graphData.endNode.current)) {
+    if (isNodeHerendNode(currNode, endNode.current)) {
       algorithmData.isEndNodeReached = true;
       markNodeAsVisited(currNode, nodeFrom, visitedNodes);
       break;
     }
-    for (const neighborNode of getAdjacentNodes(currNode, graphData.graph)) {
-
+    for (const neighborNode of getAdjacentNodes(currNode, graph)) {
       if (!isNodeVisited(neighborNode, visitedNodes)) {
         stack.push(neighborNode);
         markNodeAsVisited(neighborNode, currNode, visitedNodes);
@@ -114,7 +120,7 @@ function backtrackToStartNode(
     data.pathCost += getPathCost(
       graph,
       at,
-      data.pathToEndNode.at(-1) as NodeE
+      data.pathToEndNode.at(-1) as NodeHere
     );
     data.pathToEndNode.push(at);
     at = visitedNodes.get(at);
@@ -125,8 +131,8 @@ function backtrackToStartNode(
 
 function getPathCost(
   graph: GraphDW,
-  currNode: NodeE,
-  beforeNode: NodeE
+  currNode: NodeHere,
+  beforeNode: NodeHere
 ): number {
   return (graph[currNode] as ToNodeDW[]).filter(
     ToNode => ToNode.node === beforeNode

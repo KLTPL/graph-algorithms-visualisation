@@ -7,13 +7,15 @@ import {
 } from "../../typesGraphData";
 import {
   SearchAlgorithmFunDW as SearchAlgorithmFunHere,
-  SearchAlgorithmsFunsDW,
   SearchAlgorithmsTypes,
   SearchExecutionDataDW as SearchExecutionDataHere,
   VisitedNodesStartNode,
 } from "../../typesAlgorithmData";
 // from node to: null - not visited or NodeEdgeGraph - node was visited from
-export type VisitedNodesHere = Map<NodeHere, VisitedNodesStartNode | null | NodeHere>;
+export type VisitedNodesHere = Map<
+  NodeHere,
+  VisitedNodesStartNode | null | NodeHere
+>;
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 
 function isNodeVisited(
@@ -61,31 +63,35 @@ function getGetCurrNodeFun(isDfs: boolean): (stack: NodeHere[]) => NodeHere {
     : (stack: NodeHere[]) => stack.shift() as NodeHere;
 }
 
-function dfsOrBfs(
+function dfsOrBfsAlgorithm(
   graphData: GraphDataHere,
   isDfs: boolean
-): SearchExecutionDataHere {
+): {
+  visitedNodes: VisitedNodesHere;
+  listOfSteps: {
+    to: NodeHere;
+    from: NodeHere;
+  }[];
+} {
   const { graph, startNode, endNode } = graphData;
-  const algorithmData = getEmptySearchData(
-    isDfs ? SearchAlgorithmsTypes.Dfs : SearchAlgorithmsTypes.Bfs
-  ) as SearchExecutionDataHere;
+  const listOfSteps: { to: NodeHere; from: NodeHere }[] = [];
   // Two algorithms in one beacouse there's only one change (stack.pop() or stack.shift)
   const stack = [startNode.current];
   const visitedNodes = getEmptyVisitedNodes(graph, startNode.current);
   const getCurrNode = getGetCurrNodeFun(isDfs);
   // Search through the graph. Collect data: data.isEndNodeReached, data.listOfSteps and fill visitedNodes
-  while (stack.length > 0 && !algorithmData.isEndNodeReached) {
+  while (stack.length > 0) {
     const currNode = getCurrNode(stack);
     const visitedFrom = visitedNodes.get(currNode) as
       | NodeHere
       | VisitedNodesStartNode;
     const nodeFrom =
       visitedFrom === START_NODE_SIGN ? startNode.current : visitedFrom;
-    algorithmData.listOfSteps.push({ to: currNode, from: nodeFrom });
+    listOfSteps.push({ to: currNode, from: nodeFrom });
     if (isNodeHerendNode(currNode, endNode.current)) {
-      algorithmData.isEndNodeReached = true;
       markNodeAsVisited(currNode, nodeFrom, visitedNodes);
-      break;
+      listOfSteps.shift();
+      return { visitedNodes, listOfSteps };
     }
     for (const neighborNode of getAdjacentNodes(currNode, graph)) {
       if (!isNodeVisited(neighborNode, visitedNodes)) {
@@ -94,12 +100,26 @@ function dfsOrBfs(
       }
     }
   }
-  algorithmData.listOfSteps.shift();
+  listOfSteps.shift();
+  return { visitedNodes, listOfSteps };
+}
 
-  // Use visitedNodes to backtrack to the startNode and reverse the order to get data.pathToEndNode. Also count data.pathCost.
+function dfsOrBfs(
+  graphData: GraphDataHere,
+  isDfs: boolean
+): SearchExecutionDataHere {
+  const { listOfSteps, visitedNodes } = dfsOrBfsAlgorithm(graphData, isDfs);
+  const algorithmData = getEmptySearchData(
+    isDfs ? SearchAlgorithmsTypes.Dfs : SearchAlgorithmsTypes.Bfs
+  ) as SearchExecutionDataHere;
+
+  algorithmData.listOfSteps = listOfSteps;
+  algorithmData.isEndNodeReached =
+    visitedNodes.get(graphData.endNode.current) !== null;
   if (algorithmData.isEndNodeReached) {
     backtrackToStartNode(graphData, algorithmData, visitedNodes);
   }
+
   return algorithmData;
 }
 
@@ -112,7 +132,7 @@ function backtrackToStartNode(
   data.pathToEndNode = [endNode.current];
   data.pathCost = 0;
   let at = visitedNodes.get(endNode.current);
-  while (at !== true) {
+  while (at !== START_NODE_SIGN) {
     // at!==null just for type safety
     if (at === null || at === undefined) {
       throw new Error("visited nodes arr filed incorrectly");
@@ -151,9 +171,7 @@ const bfs: SearchAlgorithmFunHere = function (
   return dfsOrBfs(graphData, false);
 };
 
-const searchAlgorithmsFunsDW: SearchAlgorithmsFunsDW = {
+export default {
   dfs,
   bfs,
 };
-
-export default searchAlgorithmsFunsDW;

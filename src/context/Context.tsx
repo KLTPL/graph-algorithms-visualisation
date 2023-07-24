@@ -12,7 +12,7 @@ import {
 import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
 import { VisualisationPointerTools } from "../components/visualisation-tools/VisualisationTools";
-import { dijsktras } from "../visualisationData/searchAlgorithms/DW/dijkstras";
+import { dijkstars } from "../visualisationData/searchAlgorithms/DW/dijkstras";
 
 const DEFAULT_CURR_STEP_IDX = -1;
 
@@ -70,7 +70,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   );
 
   if (visualisationData.graphType !== UserGraphTypes.M) {
-    console.log(dijsktras(visualisationData as GraphDataDW));
+    console.log(dijkstars(visualisationData as GraphDataDW));
   }
 
   function switchVisualisationData(

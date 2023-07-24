@@ -4,15 +4,13 @@ import {
   SearchAlgorithmsTypes,
   SearchExecutionDataM as SearchExecutionDataHere,
 } from "../../typesAlgorithmData";
-import {
-  GraphDataM as GraphDataHere,
-} from "../../typesGraphData";
+import { GraphDataM as GraphDataHere } from "../../typesGraphData";
 
 const dijsktras: SearchAlgorithmFunHere = function (
   graphData: GraphDataHere
 ): SearchExecutionDataHere {
   return getEmptySearchData(
-    SearchAlgorithmsTypes.Dijsktras
+    SearchAlgorithmsTypes.Dijkstras
   ) as SearchExecutionDataHere;
 };
 

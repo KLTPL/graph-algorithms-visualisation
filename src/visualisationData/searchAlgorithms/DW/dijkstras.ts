@@ -111,14 +111,16 @@ function dijkstrasAlgorithm(graphData: GraphDataHere): {
       }
       if (neighborNode === endNode.current) {
         listOfSteps.push({ to: neighborNode, from: currNode });
+        listOfSteps.shift();
         return { listOfSteps, costs, visitedNodes };
       }
     }
   }
+  listOfSteps.shift();
   return { listOfSteps, costs, visitedNodes };
 }
 
-const dijkstars: SearchAlgorithmFunHere = function (
+const dijkstras: SearchAlgorithmFunHere = function (
   graphData: GraphDataHere
 ): SearchExecutionDataHere {
   const { listOfSteps, costs, visitedNodes } = dijkstrasAlgorithm(graphData);
@@ -137,4 +139,4 @@ const dijkstars: SearchAlgorithmFunHere = function (
   return algorithmData;
 };
 
-export { dijkstars };
+export { dijkstras };

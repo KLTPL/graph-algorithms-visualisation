@@ -3,12 +3,16 @@ import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmDat
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import SelectButton from "./SelectButton";
 
-export function searchAlgorithmTypeToName(algorithmType: SearchAlgorithmsTypes): string {
+export function searchAlgorithmTypeToName(
+  algorithmType: SearchAlgorithmsTypes
+): string {
   switch (algorithmType) {
     case SearchAlgorithmsTypes.Dfs:
       return "dfs";
     case SearchAlgorithmsTypes.Bfs:
       return "bfs";
+    case SearchAlgorithmsTypes.Dijkstras:
+      return "dijkstra's";
   }
 }
 
@@ -37,6 +41,14 @@ export default function SelectAlgorithmType() {
         <SelectButton
           optionName={searchAlgorithmTypeToName(SearchAlgorithmsTypes.Bfs)}
           optionType={SearchAlgorithmsTypes.Bfs}
+          currOptionType={visualisationData.algorithmType}
+          switchFun={switchAlgorithmType}
+        />
+        <SelectButton
+          optionName={searchAlgorithmTypeToName(
+            SearchAlgorithmsTypes.Dijkstras
+          )}
+          optionType={SearchAlgorithmsTypes.Dijkstras}
           currOptionType={visualisationData.algorithmType}
           switchFun={switchAlgorithmType}
         />

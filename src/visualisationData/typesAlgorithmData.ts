@@ -3,9 +3,10 @@ import { GraphDataDW, FieldM, GraphDataM, NodeE } from "./typesGraphData";
 export enum SearchAlgorithmsTypes {
   Dfs,
   Bfs,
+  Dijsktras,
 }
 
-export type StepDW = { from: NodeE, to: NodeE };
+export type StepDW = { from: NodeE; to: NodeE };
 
 export interface SearchExecutionDataM {
   algorithmType: SearchAlgorithmsTypes;
@@ -27,11 +28,6 @@ export type AnySearchExecutionData =
   | SearchExecutionDataDW;
 
 export type VisitedNodesStartNode = true;
-// true - startNode null - not visited or startNode; FieldMatrixGraph - field was visited from
-export type VisitedNodesM = (VisitedNodesStartNode | null | FieldM)[][];
-// from node to: null - not visited or NodeEdgeGraph - node was visited from
-export type VisitedNodesDW = Map<NodeE, VisitedNodesStartNode | null | NodeE>;
-export type AnyVisitedNodes = VisitedNodesM | VisitedNodesDW;
 
 export type SearchAlgorithmFunM = (
   graphData: GraphDataM

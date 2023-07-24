@@ -3,10 +3,16 @@ import {
   getDefaultVisualisationData,
   getProperVisualisationData,
 } from "../visualisationData/getProperDataFunctions";
-import { UserGraphTypes } from "../visualisationData/typesGraphData";
+import {
+  GraphDW,
+  GraphDataDW,
+  NodeEStartOrEnd,
+  UserGraphTypes,
+} from "../visualisationData/typesGraphData";
 import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
 import { VisualisationPointerTools } from "../components/visualisation-tools/VisualisationTools";
+import { dijsktras } from "../visualisationData/searchAlgorithms/DW/dijkstras";
 
 const DEFAULT_CURR_STEP_IDX = -1;
 
@@ -62,6 +68,10 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [pointerTool, setPointerTool] = useState<VisualisationPointerTools>(
     VisualisationPointerTools.NoTool
   );
+
+  if (visualisationData.graphType !== UserGraphTypes.M) {
+    console.log(dijsktras(visualisationData as GraphDataDW));
+  }
 
   function switchVisualisationData(
     graphType: UserGraphTypes,

@@ -3,7 +3,7 @@ import { GraphDataDW, FieldM, GraphDataM, NodeE } from "./typesGraphData";
 export enum SearchAlgorithmsTypes {
   Dfs,
   Bfs,
-  Dijsktras,
+  Dijkstras,
 }
 
 export type StepDW = { from: NodeE; to: NodeE };
@@ -36,12 +36,3 @@ export type SearchAlgorithmFunDW = (
   graphData: GraphDataDW
 ) => SearchExecutionDataDW;
 export type AnySearchAlgorithmFun = SearchAlgorithmFunM | SearchAlgorithmFunDW;
-
-export interface SearchAlgorithmsFunsM {
-  dfs: SearchAlgorithmFunM;
-  bfs: SearchAlgorithmFunM;
-}
-export interface SearchAlgorithmsFunsDW {
-  dfs: SearchAlgorithmFunDW;
-  bfs: SearchAlgorithmFunDW;
-}

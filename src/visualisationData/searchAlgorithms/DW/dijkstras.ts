@@ -4,6 +4,7 @@ import {
   SearchAlgorithmFunDW as SearchAlgorithmFunHere,
   SearchAlgorithmsTypes,
   SearchExecutionDataDW as SearchExecutionDataHere,
+  StepDW as StepHere,
   VisitedNodesStartNode,
 } from "../../typesAlgorithmData";
 import {
@@ -53,12 +54,10 @@ function getEmptyCostsArr({ graph, startNode }: GraphDataHere): number[] {
 
 function backtrackToStartNode(
   { endNode, graph }: GraphDataHere,
-  data: SearchExecutionDataHere,
   visitedNodes: VisitedNodesHere
-): void {
+): NodeHere[] {
   // fills data.pathToEndNode and data.pathCost
-  data.pathToEndNode = [endNode.current];
-  data.pathCost = 0;
+  const pathToEndNode = [endNode.current];
   let at = visitedNodes.get(endNode.current) as
     | NodeHere
     | VisitedNodesStartNode;
@@ -67,34 +66,20 @@ function backtrackToStartNode(
     if (at === null || at === undefined) {
       throw new Error("visited nodes arr filed incorrectly");
     }
-    data.pathCost += getPathCost(
-      graph,
-      at,
-      data.pathToEndNode.at(-1) as NodeHere
-    );
-    data.pathToEndNode.push(at);
+    pathToEndNode.push(at);
     at = visitedNodes.get(at) as NodeHere | VisitedNodesStartNode;
   }
-  data.pathToEndNode.pop();
-  data.pathToEndNode.reverse();
+  pathToEndNode.pop();
+  pathToEndNode.reverse();
+  return pathToEndNode;
 }
 
-function getPathCost(
-  graph: GraphHere,
-  currNode: NodeHere,
-  beforeNode: NodeHere
-): number {
-  return (graph[currNode] as ToNodeDW[]).filter(
-    ToNode => ToNode.node === beforeNode
-  )[0].cost;
-}
-
-const dijsktras: SearchAlgorithmFunHere = function (
-  graphData: GraphDataHere
-): SearchExecutionDataHere {
-  const algorithmData = getEmptySearchData(
-    SearchAlgorithmsTypes.Dijsktras
-  ) as SearchExecutionDataHere;
+function dijkstrasAlgorithm(graphData: GraphDataHere): {
+  listOfSteps: StepHere[];
+  costs: number[];
+  visitedNodes: VisitedNodesHere;
+} {
+  const listOfSteps: StepHere[] = [];
   const { graph, startNode, endNode } = graphData;
   const pq = new PriorityQueue<ToNodeDW>(
     (el1: ToNodeDW, el2: ToNodeDW) => el1.cost - el2.cost,
@@ -103,12 +88,12 @@ const dijsktras: SearchAlgorithmFunHere = function (
   const visitedNodes = getEmptyVisitedNodes(graphData);
   const costs = getEmptyCostsArr(graphData);
 
-  while (!pq.isEmpty() && !algorithmData.isEndNodeReached) {
+  while (!pq.isEmpty()) {
     const { node: currNode, cost: currCost } = pq.poll() as ToNodeDW;
     if (costs[currNode] > currCost) {
       continue;
     }
-    algorithmData.listOfSteps.push({
+    listOfSteps.push({
       to: currNode,
       from: visitedNodes.get(currNode) as NodeHere,
     });
@@ -125,18 +110,31 @@ const dijsktras: SearchAlgorithmFunHere = function (
         costs[neighborNode] = newCost;
       }
       if (neighborNode === endNode.current) {
-        algorithmData.listOfSteps.push({ to: neighborNode, from: currNode });
-        algorithmData.isEndNodeReached = true;
-        break;
+        listOfSteps.push({ to: neighborNode, from: currNode });
+        return { listOfSteps, costs, visitedNodes };
       }
     }
   }
+  return { listOfSteps, costs, visitedNodes };
+}
 
-  if (algorithmData.isEndNodeReached) {
-    backtrackToStartNode(graphData, algorithmData, visitedNodes);
-  }
+const dijkstars: SearchAlgorithmFunHere = function (
+  graphData: GraphDataHere
+): SearchExecutionDataHere {
+  const { listOfSteps, costs, visitedNodes } = dijkstrasAlgorithm(graphData);
+  const algorithmData = getEmptySearchData(
+    SearchAlgorithmsTypes.Dijkstras
+  ) as SearchExecutionDataHere;
+
+  algorithmData.listOfSteps = listOfSteps;
+  algorithmData.isEndNodeReached =
+    costs[graphData.endNode.current] !== Infinity;
+  algorithmData.pathCost = costs[graphData.endNode.current];
+  algorithmData.pathToEndNode = algorithmData.isEndNodeReached
+    ? backtrackToStartNode(graphData, visitedNodes)
+    : null;
 
   return algorithmData;
 };
 
-export { dijsktras };
+export { dijkstars };

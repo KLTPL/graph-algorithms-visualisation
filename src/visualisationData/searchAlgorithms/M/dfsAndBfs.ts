@@ -163,4 +163,4 @@ const bfs: SearchAlgorithmFunHere = function (
   return dfsOrBfs(graphData, false);
 };
 
-export default { dfs, bfs };
+export { dfs, bfs };

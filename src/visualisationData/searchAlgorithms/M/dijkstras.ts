@@ -6,7 +6,7 @@ import {
 } from "../../typesAlgorithmData";
 import { GraphDataM as GraphDataHere } from "../../typesGraphData";
 
-const dijsktras: SearchAlgorithmFunHere = function (
+const dijkstras: SearchAlgorithmFunHere = function (
   graphData: GraphDataHere
 ): SearchExecutionDataHere {
   return getEmptySearchData(
@@ -14,4 +14,4 @@ const dijsktras: SearchAlgorithmFunHere = function (
   ) as SearchExecutionDataHere;
 };
 
-export { dijsktras };
+export { dijkstras };

@@ -4,6 +4,7 @@ import graphDataM from "./graphDataSets/M";
 import graphDataU from "./graphDataSets/U";
 import graphDataUW from "./graphDataSets/UW";
 import {
+  AnyGraph,
   AnyGraphData,
   GraphDataDW,
   GraphDataM,
@@ -17,12 +18,14 @@ import {
   SearchExecutionDataDW,
   SearchExecutionDataM,
 } from "./typesAlgorithmData";
-import GraphAlgorithmsMatrix from "./searchAlgorithms/M/dfsAndBfs";
+import { dfs as dfsM, bfs as bfsM } from "./searchAlgorithms/M/dfsAndBfs";
+import { dfs as dfsDW, bfs as bfsDW } from "./searchAlgorithms/DW/dfsAndBfs";
+import { dijkstras as dijkstrasM } from "./searchAlgorithms/M/dijkstras";
+import { dijkstras as dijkstrasDW } from "./searchAlgorithms/DW/dijkstras";
 import {
   AnyVisualisationData,
   VisualisationDataM,
 } from "./typesVisualisationData";
-import searchAlgorithmsFunsDW from "./searchAlgorithms/DW/dfsAndBfs";
 
 export function getConverted(arr: NodeE[]): ToNodeDW[] {
   return arr.map(node => {
@@ -63,17 +66,30 @@ function getProperAlgorithmData(
 ): AnySearchExecutionData {
   if (graphData.graphType === UserGraphTypes.M) {
     const graphDataTmp = graphData as GraphDataM;
-    const { dfs, bfs } = GraphAlgorithmsMatrix;
-    const fun = algorithmType === SearchAlgorithmsTypes.Dfs ? dfs : bfs;
-    const data = fun(graphDataTmp);
-    return data;
-  } else {
-    const graphDataTmp = graphData as GraphDataDW;
-    const { dfs, bfs } = searchAlgorithmsFunsDW;
-    const fun = algorithmType === SearchAlgorithmsTypes.Dfs ? dfs : bfs;
-    const data = fun(graphDataTmp);
-    return data;
+    const fun = (function () {
+      switch (algorithmType) {
+        case SearchAlgorithmsTypes.Dfs:
+          return dfsM;
+        case SearchAlgorithmsTypes.Bfs:
+          return bfsM;
+        case SearchAlgorithmsTypes.Dijkstras:
+          return dijkstrasM;
+      }
+    })();
+    return fun(graphDataTmp);
   }
+  const graphDataTmp = graphData as GraphDataDW;
+  const fun = (function () {
+    switch (algorithmType) {
+      case SearchAlgorithmsTypes.Dfs:
+        return dfsDW;
+      case SearchAlgorithmsTypes.Bfs:
+        return bfsDW;
+      case SearchAlgorithmsTypes.Dijkstras:
+        return dijkstrasDW;
+    }
+  })();
+  return fun(graphDataTmp);
 }
 
 export function getDefaultVisualisationData(): VisualisationDataM {

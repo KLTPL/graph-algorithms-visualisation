@@ -12,7 +12,6 @@ import {
 import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
 import { AnyVisualisationData } from "../visualisationData/typesVisualisationData";
 import { VisualisationPointerTools } from "../components/visualisation-tools/VisualisationTools";
-import { dijkstars } from "../visualisationData/searchAlgorithms/DW/dijkstras";
 
 const DEFAULT_CURR_STEP_IDX = -1;
 
@@ -68,10 +67,6 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [pointerTool, setPointerTool] = useState<VisualisationPointerTools>(
     VisualisationPointerTools.NoTool
   );
-
-  if (visualisationData.graphType !== UserGraphTypes.M) {
-    console.log(dijkstars(visualisationData as GraphDataDW));
-  }
 
   function switchVisualisationData(
     graphType: UserGraphTypes,

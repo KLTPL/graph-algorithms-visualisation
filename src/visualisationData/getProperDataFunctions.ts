@@ -17,12 +17,12 @@ import {
   SearchExecutionDataDW,
   SearchExecutionDataM,
 } from "./typesAlgorithmData";
-import GraphAlgorithmsMatrix from "./searchAlgorithms/M";
-import GraphAlgorithmsDirectedWeighted from "./searchAlgorithms/DW";
+import GraphAlgorithmsMatrix from "./searchAlgorithms/M/dfsAndBfs";
 import {
   AnyVisualisationData,
   VisualisationDataM,
 } from "./typesVisualisationData";
+import searchAlgorithmsFunsDW from "./searchAlgorithms/DW/dfsAndBfs";
 
 export function getConverted(arr: NodeE[]): ToNodeDW[] {
   return arr.map(node => {
@@ -69,7 +69,7 @@ function getProperAlgorithmData(
     return data;
   } else {
     const graphDataTmp = graphData as GraphDataDW;
-    const { dfs, bfs } = GraphAlgorithmsDirectedWeighted;
+    const { dfs, bfs } = searchAlgorithmsFunsDW;
     const fun = algorithmType === SearchAlgorithmsTypes.Dfs ? dfs : bfs;
     const data = fun(graphDataTmp);
     return data;

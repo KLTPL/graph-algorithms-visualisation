@@ -4,9 +4,6 @@ import {
   getProperVisualisationData,
 } from "../visualisationData/getProperDataFunctions";
 import {
-  GraphDW,
-  GraphDataDW,
-  NodeEStartOrEnd,
   UserGraphTypes,
 } from "../visualisationData/typesGraphData";
 import { SearchAlgorithmsTypes } from "../visualisationData/typesAlgorithmData";
@@ -28,6 +25,8 @@ export interface UserInputContextProps {
   currStepIdx: number;
   updateCurrStepIdx: (newIdx: number) => void;
   resetCurrStepIdx: () => void;
+  isNodeDistsShow: boolean;
+  toggleIsNodeDistsShow: () => void;
 }
 
 export interface VisualisationPointerToolsContextProps {
@@ -67,6 +66,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [pointerTool, setPointerTool] = useState<VisualisationPointerTools>(
     VisualisationPointerTools.NoTool
   );
+  const [isNodeDistsShow, setIsNodeDistsShow] = useState(false);
 
   function switchVisualisationData(
     graphType: UserGraphTypes,
@@ -103,6 +103,9 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   function setPointerToolToDefault(): void {
     updatePointerTool(VisualisationPointerTools.NoTool);
   }
+  function toggleIsNodeDistsShow(): void {
+    setIsNodeDistsShow(prev => !prev);
+  }
 
   return (
     <VisualisationDataContext.Provider
@@ -113,7 +116,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       <UserInputContext.Provider
-        value={{ currStepIdx, updateCurrStepIdx, resetCurrStepIdx }}
+        value={{ currStepIdx, updateCurrStepIdx, resetCurrStepIdx, isNodeDistsShow, toggleIsNodeDistsShow }}
       >
         <VisualisationPointerToolsContext.Provider
           value={{ pointerTool, updatePointerTool, setPointerToolToDefault }}

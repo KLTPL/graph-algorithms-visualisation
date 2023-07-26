@@ -13,7 +13,7 @@ import {
 } from "../../typesAlgorithmData";
 
 // true - startNode null - not visited or startNode; FieldMatrixGraph - field was visited from
-export type VisitedNodesHere = (VisitedNodesStartNode | null | FieldM)[][];
+type VisitedNodesHere = (VisitedNodesStartNode | null | FieldM)[][];
 const START_NODE_SIGN: VisitedNodesStartNode = true;
 
 function isNodeVisited(node: FieldM, visitedNodes: VisitedNodesHere): boolean {

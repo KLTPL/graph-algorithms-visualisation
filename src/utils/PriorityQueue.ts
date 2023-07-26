@@ -22,13 +22,14 @@ class PriorityQueue<Element> {
     if (this.heap.length <= 1) {
       return;
     }
-    const parentIdx = PriorityQueue.parentIdx(currIdx); // is null if currIdx is the idx of the root element
+    let parentIdx = PriorityQueue.parentIdx(currIdx); // is null if currIdx is the idx of the root element
     while (parentIdx !== null) {
       if (this.isElementsInOrder(currIdx, parentIdx)) {
         break;
       }
       this.swap(currIdx, parentIdx);
       currIdx = parentIdx;
+      parentIdx = PriorityQueue.parentIdx(currIdx);
     }
   }
   private boubleDown(currIdx: number): void {
@@ -87,15 +88,14 @@ class PriorityQueue<Element> {
         `Provided index (param 'idx') is not a valid index. idx = ${idx} is < 0 or >= heap.length`
       );
     }
-
     const lastElIdx = this.length - 1;
     if (idx === lastElIdx) {
       return this.pop();
     }
     this.swap(idx, lastElIdx);
-    const rootEl = this.pop();
+    const removedEl = this.pop();
     this.boubleDown(idx);
-    return rootEl;
+    return removedEl;
   }
   public at(idx: number): Element {
     /**
@@ -137,6 +137,20 @@ class PriorityQueue<Element> {
     }
     return false;
   }
+  // public displayInConsole() {
+  //   let str = "";
+  //   let howMany = 1;
+  //   for (let i=0 ; i<this.heap.length ; i++) {
+  //     for (let j=0 ; j<howMany ; j++) {
+  //       str += JSON.stringify(this.heap[i]);
+  //       i++;
+  //     }
+  //     str += ";\n";
+  //     i--;
+  //     howMany *= 2;
+  //   }
+  //   console.log(str);
+  // }
   public isEmpty(): boolean {
     return this.length === 0;
   }

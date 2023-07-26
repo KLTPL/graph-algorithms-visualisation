@@ -12,7 +12,7 @@ import {
   VisitedNodesStartNode,
 } from "../../typesAlgorithmData";
 // from node to: null - not visited or NodeEdgeGraph - node was visited from
-export type VisitedNodesHere = Map<
+type VisitedNodesHere = Map<
   NodeHere,
   VisitedNodesStartNode | null | NodeHere
 >;

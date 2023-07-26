@@ -3,7 +3,11 @@ import {
   useVisualisationData,
   useVisualisationPointerTools,
 } from "../../../../context/Context";
-import { NodeTypesM } from "../../../../visualisationData/typesGraphData";
+import { getFieldDistFromEndNode } from "../../../../visualisationData/searchAlgorithms/M/dijkstras";
+import {
+  FieldM,
+  NodeTypesM,
+} from "../../../../visualisationData/typesGraphData";
 import { VisualisationDataM } from "../../../../visualisationData/typesVisualisationData";
 import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
 import { getClassNamesForNodeM } from "./getClassNamesForNodeM";
@@ -60,7 +64,11 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
     }
   }
 
-  return <div className={className} onPointerDown={handleOnPointerDown} />;
+  return (
+    <div className={className} onPointerDown={handleOnPointerDown}>
+      {/* {getFieldDistFromEndNode({ x: c, y: r }, visualisationData)} */}
+    </div>
+  );
 }
 
 export default NodeMatrix;

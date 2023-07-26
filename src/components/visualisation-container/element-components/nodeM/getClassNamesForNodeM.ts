@@ -47,7 +47,7 @@ export function getClassNamesForNodeM({
   );
 
   const conditionAndValuePairs = [
-    [true, "aspect-square grid place-content-center"],
+    [true, "aspect-square flex flex-col items-center justify-center"],
     [isEmpty && !isStartOrEnd && !isOnBacktrack, "bg-nodeEmpty"],
     [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
     [isRock, "bg-nodeRock"],

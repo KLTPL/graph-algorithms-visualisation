@@ -4,13 +4,15 @@ import {
   useVisualisationPointerTools,
 } from "../../../../context/Context";
 import { getFieldDistFromEndNode } from "../../../../visualisationData/searchAlgorithms/M/dijkstras";
-import {
-  FieldM,
-  NodeTypesM,
-} from "../../../../visualisationData/typesGraphData";
+import { SearchAlgorithmsTypes } from "../../../../visualisationData/typesAlgorithmData";
+import { NodeTypesM } from "../../../../visualisationData/typesGraphData";
 import { VisualisationDataM } from "../../../../visualisationData/typesVisualisationData";
 import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
 import { getClassNamesForNodeM } from "./getClassNamesForNodeM";
+import tailwindConfig from "tailwind-config";
+import resolveConfig from "tailwindcss/resolveConfig";
+
+const twConfig = resolveConfig(tailwindConfig);
 
 type NodeMatrixProps = {
   backtrackCount: number;
@@ -24,7 +26,7 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
   const visualisationData = AnyVisualisationData as VisualisationDataM;
   const pointerTool = useVisualisationPointerTools()
     .pointerTool as VisualisationPointerTools;
-  const { currStepIdx } = useUserInput();
+  const { currStepIdx, isNodeDistsShow } = useUserInput();
   const className = getClassNamesForNodeM({
     visualisationData,
     currStepIdx,
@@ -66,7 +68,19 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
 
   return (
     <div className={className} onPointerDown={handleOnPointerDown}>
-      {/* {getFieldDistFromEndNode({ x: c, y: r }, visualisationData)} */}
+      {visualisationData.algorithmType === SearchAlgorithmsTypes.Dijkstras &&
+        isNodeDistsShow && (
+          <div
+            style={{
+              color:
+                visualisationData.graph[r][c] === NodeTypesM.rock
+                  ? twConfig.theme.colors.white
+                  : twConfig.theme.colors.black,
+            }}
+          >
+            {getFieldDistFromEndNode({ x: c, y: r }, visualisationData)}
+          </div>
+        )}
     </div>
   );
 }

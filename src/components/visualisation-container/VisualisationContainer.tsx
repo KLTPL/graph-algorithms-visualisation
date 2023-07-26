@@ -13,6 +13,11 @@ import {
   stoDisplayingSummaryIfShould,
 } from "./graph-components/displaySummaryLogic";
 import Summary from "./Summary";
+import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
+import tailwindConfig from "tailwind-config";
+import resolveConfig from "tailwindcss/resolveConfig";
+
+const twConfig = resolveConfig(tailwindConfig);
 
 const svgs = {
   decrement: (
@@ -59,7 +64,12 @@ function getProperGraphElement(
 
 export default function GraphContainer() {
   const { visualisationData } = useVisualisationData();
-  const { currStepIdx, updateCurrStepIdx } = useUserInput();
+  const {
+    currStepIdx,
+    updateCurrStepIdx,
+    isNodeDistsShow,
+    toggleIsNodeDistsShow,
+  } = useUserInput();
   const [isSummaryDisplayed, setIsSummaryDisplayed] = useState<boolean>(false);
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
@@ -116,6 +126,20 @@ export default function GraphContainer() {
         <button onClick={decrementCurrStepIdx}>{svgs.decrement}</button>
         <button onClick={incrementCurrStepIdx}>{svgs.increment}</button>
       </div>
+      {visualisationData.algorithmType === SearchAlgorithmsTypes.Dijkstras &&
+        visualisationData.graphType === UserGraphTypes.M && (
+          <div
+            onClick={toggleIsNodeDistsShow}
+            className="cursor-pointer ps-3 pe-3 pt-1 pb-1 bg-nodeBorder rounded-lg text-white font-semibold border-2"
+            style={{
+              borderColor: isNodeDistsShow
+                ? twConfig.theme.colors.primary
+                : twConfig.theme.colors.nodeBorder,
+            }}
+          >
+            show node distances
+          </div>
+        )}
       {isSummaryDisplayed && (
         <Summary setIsSummaryDisplayed={setIsSummaryDisplayed} />
       )}

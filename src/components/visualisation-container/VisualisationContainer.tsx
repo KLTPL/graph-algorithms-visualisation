@@ -137,7 +137,7 @@ export default function GraphContainer() {
                 : twConfig.theme.colors.nodeBorder,
             }}
           >
-            show node distances
+            show distances
           </div>
         )}
       {isSummaryDisplayed && (

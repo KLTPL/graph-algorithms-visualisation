@@ -60,9 +60,9 @@ function getAdjacentNodes(currNode: FieldM, graph: GraphM) {
 function isNodeInBounds(node: FieldM, graph: GraphM): boolean {
   return (
     node.x >= 0 &&
-    node.x < graph.length &&
+    node.x < graph[0].length &&
     node.y >= 0 &&
-    node.y < graph[0].length
+    node.y < graph.length
   );
 }
 
@@ -102,8 +102,8 @@ function dfsOrBfsAlgorithm(
         return { listOfSteps, visitedNodes };
       }
       if (
-        !isNodeVisited(neighborNode, visitedNodes) &&
-        isFieldEmpty(neighborNode, graph)
+        isFieldEmpty(neighborNode, graph) &&
+        !isNodeVisited(neighborNode, visitedNodes)
       ) {
         stack.push(neighborNode);
         markNodeAsVisited(neighborNode, currNode, visitedNodes);

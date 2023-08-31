@@ -30,7 +30,7 @@ export default function SelectAlgorithmType() {
 
   return (
     <div className="flex flex-col items-center">
-      <h3 className="text-h3">Search algorithm type:</h3>
+      <h3 className="text-h3 text-center">Search algorithm type:</h3>
       <div className="flex flex-wrap justify-center gap-1">
         <SelectButton
           optionName={searchAlgorithmTypeToName(SearchAlgorithmsTypes.Dfs)}

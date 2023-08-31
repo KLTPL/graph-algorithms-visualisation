@@ -7,10 +7,11 @@ import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import { nodeSizePx } from "../visualisation-container/element-components/nodeE/NodeE";
 import { VisualisationPointerTools as Tools } from "./VisualisationTools";
 
+const DEFAULT_CLASS_NAME = "aspect-square border-solid border-4 border-nodeBorder text-black aspect-square border-solid border-4 border-nodeBorder text-black";
 const DEFAULT_CLASS_NAME_M =
-  "w-[50px] aspect-square border-solid border-4 border-nodeBorder text-black rounded-xl grid place-content-center font-semibold";
+  "rounded-xl grid place-content-center font-semibold";
 const DEFAULT_CLASS_NAME_E =
-  "aspect-square border-solid border-4 border-nodeBorder text-black rounded-full font-semibold flex items-center justify-center relative";
+  "rounded-full font-semibold flex items-center justify-center relative";
 const CURRENT_CLASS_NAME = "border-primary";
 
 interface ToolBoxProps {
@@ -34,7 +35,7 @@ export default function ToolRadioInput({
     visualisationData.graphType === UserGraphTypes.M
       ? DEFAULT_CLASS_NAME_M
       : DEFAULT_CLASS_NAME_E;
-  const classNames = [defaultClassName, customClassName];
+  const classNames = [DEFAULT_CLASS_NAME, defaultClassName, customClassName];
   if (pointerTool === newPointerTool) {
     classNames.push(CURRENT_CLASS_NAME);
   }
@@ -47,7 +48,7 @@ export default function ToolRadioInput({
   }
   return (
     <button
-      style={{ width: nodeSizePx }}
+      style={{ width: nodeSizePx < 40 ? 40 : nodeSizePx, fontSize: nodeSizePx / 2.25 }}
       className={classNames.join(" ")}
       title={title}
       onClick={() => {

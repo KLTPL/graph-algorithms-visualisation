@@ -30,7 +30,7 @@ export default function SelectGraphType() {
   }
   return (
     <div className="flex flex-col items-center">
-      <h3 className="text-h3">Graph type:</h3>
+      <h3 className="text-h3 text-center">Graph type:</h3>
       <div className="flex flex-wrap justify-center gap-1">
         <SelectButton
           optionName={userGraphTypeToName(UserGraphTypes.M)}

@@ -13,7 +13,6 @@ const CONTENT_NEW_NODE = (
     width="26"
     height="26"
     fill={twConfig.theme.colors.black}
-    className="bi bi-plus-lg"
     viewBox="0 0 16 16"
   >
     <path
@@ -38,7 +37,7 @@ const CONTENT_NEW_EDGE = (
   <div
     key={"edge"}
     style={{ width: nodeSizePx * 0.6, height: EDGE_HEIGHT_PX }}
-    className="bg-black w-full"
+    className="bg-black"
   ></div>
 );
 
@@ -52,13 +51,13 @@ export default function SelectToolsE() {
         content={CONTENT_NEW_NODE}
       />
       <ToolRadioInput
-        customClassName="bg-inherit"
+        customClassName="bg-nodeEmpty"
         title="new edge"
         newPointerTool={Tools.NewEdge}
         content={CONTENT_NEW_EDGE}
       />
       <ToolRadioInput
-        customClassName="bg-white"
+        customClassName="bg-nodeEmpty"
         title="remove node or edge"
         newPointerTool={Tools.RemoveEdgeOrNode}
         content={CONTENT_REMOVE}

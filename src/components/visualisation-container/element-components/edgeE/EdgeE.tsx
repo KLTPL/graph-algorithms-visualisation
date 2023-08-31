@@ -125,11 +125,12 @@ function EdgeEdge({
           key={JSON.stringify(edgeData)} // key is necesary when removing en edge
           type="number"
           defaultValue={edgeData.cost}
-          className="absolute left-1/2 top-1/2 max-w-[4ch] bg-nodeEmpty text-center border-2 border-nodeBorder rounded-full"
+          className="absolute left-1/2 top-1/2 max-w-[4ch] w-fit bg-nodeEmpty text-center border-2 border-nodeBorder rounded-full flex justify-center items-center"
           style={{
             transform: `translate(-50%, ${
               visualisationData.isDOrDW ? "-125" : "-50"
             }%) rotate(${-angle}deg)`,
+            fontSize: nodeSizePx / 2,
           }}
           onChange={handleInputOnChange}
         />

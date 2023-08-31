@@ -16,8 +16,8 @@ const graphDataDW: GraphDataDW = {
       { node: 6, cost: 11 },
     ],
     [
-      { node: 2, cost: -2 },
-      { node: 4, cost: -4 },
+      { node: 2, cost: 2 },
+      { node: 4, cost: 4 },
       { node: 5, cost: 5 },
       { node: 6, cost: 2 },
     ],

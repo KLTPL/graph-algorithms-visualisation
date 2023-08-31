@@ -3,6 +3,7 @@ import {
   NodeTypesM,
 } from "../../../../visualisationData/typesGraphData";
 import { VisualisationDataM } from "../../../../visualisationData/typesVisualisationData";
+import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
 
 interface NodeDataM {
   visualisationData: VisualisationDataM;
@@ -10,6 +11,7 @@ interface NodeDataM {
   backtrackCount: number;
   r: number;
   c: number;
+  pointerTool: VisualisationPointerTools;
 }
 
 export function getClassNamesForNodeM({
@@ -18,6 +20,7 @@ export function getClassNamesForNodeM({
   backtrackCount,
   r,
   c,
+  pointerTool
 }: NodeDataM): string {
   const listOfSteps = visualisationData.listOfSteps;
   const fieldType = visualisationData.graph[r][c];
@@ -48,6 +51,7 @@ export function getClassNamesForNodeM({
 
   const conditionAndValuePairs = [
     [true, "aspect-square flex flex-col items-center justify-center border-nodeBorder border-solid border-e-[1px] border-t-[1px]"],
+    [pointerTool !== VisualisationPointerTools.NoTool, "cursor-pointer"],
     [isEmpty && !isStartOrEnd && !isOnBacktrack, "bg-nodeEmpty"],
     [isStartOrEnd && !isReachedStartOrEndNode, "bg-nodeStartOrEnd"],
     [isRock, "bg-nodeRock"],

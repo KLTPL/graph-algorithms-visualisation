@@ -43,6 +43,7 @@ function NodeEdge({
     backtrackCount,
     node,
     isNode1InNewEdge,
+    pointerTool
   });
 
   useEffect(() => {
@@ -88,6 +89,14 @@ function NodeEdge({
           newEdgeNode1Ref.current = null;
           refreshVisualisationData();
         }
+        break;
+      case VisualisationPointerTools.StartField:
+        visualisationData.startNode.current = node;
+        refreshVisualisationData();
+        break;
+      case VisualisationPointerTools.EndField:
+        visualisationData.endNode.current = node;
+        refreshVisualisationData();
         break;
     }
   }

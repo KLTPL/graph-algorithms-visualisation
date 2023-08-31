@@ -62,6 +62,18 @@ export default function SelectToolsE() {
         newPointerTool={Tools.RemoveEdgeOrNode}
         content={CONTENT_REMOVE}
       />
+      <ToolRadioInput
+        customClassName="bg-nodeStartOrEnd"
+        title="start node"
+        newPointerTool={Tools.StartField}
+        content="S"
+      />
+      <ToolRadioInput
+        customClassName="bg-nodeStartOrEnd"
+        title="end node"
+        newPointerTool={Tools.EndField}
+        content="E"
+      />
     </>
   );
 }

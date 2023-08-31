@@ -1,6 +1,7 @@
 import { StepDW } from "../../../../visualisationData/typesAlgorithmData";
 import { NodeE } from "../../../../visualisationData/typesGraphData";
 import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
+import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
 
 interface NodeDataE {
   visualisationData: VisualisationDataDW;
@@ -8,6 +9,7 @@ interface NodeDataE {
   backtrackCount: number;
   node: NodeE;
   isNode1InNewEdge: boolean;
+  pointerTool: VisualisationPointerTools;
 }
 
 export function getClassNamesForNodeE({
@@ -16,6 +18,7 @@ export function getClassNamesForNodeE({
   backtrackCount,
   node,
   isNode1InNewEdge,
+  pointerTool
 }: NodeDataE): string {
   const listOfSteps = visualisationData.listOfSteps;
   const isStartNode = node === visualisationData.startNode.current;
@@ -40,8 +43,10 @@ export function getClassNamesForNodeE({
   const conditionAndValuePairs = [
     [
       true,
-      "absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeBorder select-none hover:cursor-grab",
+      "absolute rounded-[100%] grid place-content-center border-solid border-2 z-50 border-nodeBorder select-none cursor-grab",
     ],
+    [pointerTool !== VisualisationPointerTools.NoTool && pointerTool !== VisualisationPointerTools.NewNode, "cursor-pointer"],
+    [pointerTool === VisualisationPointerTools.NewNode, "cursor-default"],
     [!isStartOrEnd && !isOnBacktrack && !isNode1InNewEdge, "bg-nodeEmpty"],
     [
       isStartOrEnd && !isReachedStartOrEndNode && !isNode1InNewEdge,

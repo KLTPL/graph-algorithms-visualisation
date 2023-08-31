@@ -33,6 +33,7 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
     backtrackCount,
     r,
     c,
+    pointerTool
   });
   function handleOnPointerDown(): void {
     const { graph, startNode, endNode } = visualisationData;

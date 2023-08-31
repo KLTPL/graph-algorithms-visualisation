@@ -21,7 +21,7 @@ export enum VisualisationPointerTools {
 export default function GraphTools() {
   const { visualisationData } = useVisualisationData();
   return (
-    <div className="flex flex-row md:flex-col gap-3 flex-wrap">
+    <div className="flex flex-row md:flex-col gap-3 flex-wrap mb-3">
       {getProperSelectElement(visualisationData)}
     </div>
   );

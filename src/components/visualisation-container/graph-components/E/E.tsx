@@ -5,7 +5,7 @@ import {
   useVisualisationPointerTools,
 } from "../../../../context/Context";
 import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
-import NodeEdge from "../../element-components/nodeE/NodeE";
+import NodeEdge, { nodeSizePx } from "../../element-components/nodeE/NodeE";
 import { NodeE } from "../../../../visualisationData/typesGraphData";
 import getProperNodesPosition, { NodePosition } from "./getProperNodesPostions";
 import EdgeEdge from "../../element-components/edgeE/EdgeE";
@@ -67,7 +67,7 @@ export default function Edge({ backtrackCount }: { backtrackCount: number }) {
     <div
       ref={containerRef}
       id="edge-container"
-      className="w-[95%] md:w-[60%] aspect-square relative"
+      className="w-full xl:w-[70%] aspect-square relative"
       onPointerDown={handleOnPointerDown}
     >
       {[...visualisationData.graph.keys()].map((node, i) =>

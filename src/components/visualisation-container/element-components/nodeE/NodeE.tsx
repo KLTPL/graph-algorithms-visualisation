@@ -11,7 +11,7 @@ import { NodePosition } from "../../graph-components/E/getProperNodesPostions";
 import { getClassNamesForNodeE } from "./getClassNamesForNodeE";
 import removeNode from "./removeNode";
 
-export const nodeSizePx = window.innerWidth < 500 ? window.innerWidth / 12 : 40;
+export const nodeSizePx = window.innerWidth < 500 ? window.innerWidth / 10 : 40;
 export const nodeNumToChar = (node: NodeE) =>
   String.fromCharCode(node + "a".charCodeAt(0));
 

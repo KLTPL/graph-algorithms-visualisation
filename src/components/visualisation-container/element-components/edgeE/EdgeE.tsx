@@ -132,6 +132,8 @@ function EdgeEdge({
             }%) rotate(${-angle}deg)`,
             fontSize: nodeSizePx / 2,
           }}
+          min={0}
+          max={100}
           onChange={handleInputOnChange}
         />
       )}

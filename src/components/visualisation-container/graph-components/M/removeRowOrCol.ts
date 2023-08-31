@@ -108,8 +108,6 @@ export function removeColEnd({
   if (endNode.x === graph[0].length - 1) {
     endNode.x--;
   }
-  console.log(startNode, graph.length - 1);
-  console.log(endNode);
   for (const row of graph) {
     row.pop();
   }

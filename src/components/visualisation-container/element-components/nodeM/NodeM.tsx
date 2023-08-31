@@ -78,6 +78,7 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
                   ? twConfig.theme.colors.white
                   : twConfig.theme.colors.black,
             }}
+            className="text-[9px] min-[300px]:text-[12px] md:text-[1rem]"
           >
             {getFieldDistFromEndNode({ x: c, y: r }, visualisationData)}
           </div>

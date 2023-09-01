@@ -50,6 +50,28 @@ const svgs = {
       />
     </svg>
   ),
+  play: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+    >
+      <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+    </svg>
+  ),
+  pouse: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+    >
+      <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
+    </svg>
+  ),
 };
 
 function getProperGraphElement(
@@ -73,6 +95,9 @@ export default function GraphContainer() {
   const [isSummaryDisplayed, setIsSummaryDisplayed] = useState<boolean>(false);
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
+  const [isAnimationPlaying, setIsAnimationPlaying] = useState<boolean>(false);
+  const isAnimationPoused = useRef<boolean>(false);
+
   // after finding the end node algorithm backtracks to show visualisationData.pathToEndNode
   // backtrackCount is the count of how many nodes did the visualisation go back
   function incrementCurrStepIdx() {
@@ -85,6 +110,35 @@ export default function GraphContainer() {
     if (currStepIdx >= 0) {
       updateCurrStepIdx(currStepIdx - 1);
     }
+  }
+  async function playVisualisation() {
+    const isAtEnd = currStepIdx === visualisationData.listOfSteps.length - 1;
+    const currStepObj = { current: currStepIdx };
+    if (isAtEnd) {
+      updateCurrStepIdx(0);
+      currStepObj.current = 0;
+    }
+    setIsAnimationPlaying(true);
+    const oneStepDurationMs =
+      visualisationData.listOfSteps.length - currStepObj.current < 20
+        ? 200
+        : 100;
+
+    while (currStepObj.current < visualisationData.listOfSteps.length) {
+      if (isAnimationPoused.current) {
+        isAnimationPoused.current = false;
+        return;
+      }
+      updateCurrStepIdx(currStepObj.current);
+      currStepObj.current++;
+      await new Promise(res => setTimeout(res, oneStepDurationMs));
+    }
+
+    setIsAnimationPlaying(false);
+  }
+  function pouseVisualisation() {
+    isAnimationPoused.current = true;
+    setIsAnimationPlaying(false);
   }
   useEffect(
     () => resetBacktracking(isBacktracking, setBacktrackCount),
@@ -124,6 +178,11 @@ export default function GraphContainer() {
       {getProperGraphElement(visualisationData, backtrackCount)}
       <div>
         <button onClick={decrementCurrStepIdx}>{svgs.decrement}</button>
+        {isAnimationPlaying ? (
+          <button onClick={pouseVisualisation}>{svgs.pouse}</button>
+        ) : (
+          <button onClick={playVisualisation}>{svgs.play}</button>
+        )}
         <button onClick={incrementCurrStepIdx}>{svgs.increment}</button>
       </div>
       {visualisationData.algorithmType === SearchAlgorithmsTypes.Dijkstras &&

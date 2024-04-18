@@ -155,15 +155,15 @@ export default function GraphContainer() {
       setBacktrackCount
     );
   }, [currStepIdx]);
-  useEffect(() => {
-    displaySummaryIfShould(
-      visualisationData,
-      currStepIdx,
-      backtrackCount,
-      isSummaryDisplayed,
-      setIsSummaryDisplayed
-    );
-  }, [backtrackCount]);
+  // useEffect(() => {
+  // displaySummaryIfShould(
+  //   visualisationData,
+  //   currStepIdx,
+  //   backtrackCount,
+  //   isSummaryDisplayed,
+  //   setIsSummaryDisplayed
+  // );
+  // }, [backtrackCount]);
 
   return (
     <div className="mb-8 md:m-0 relative">
@@ -175,6 +175,7 @@ export default function GraphContainer() {
           +
         </button>
       )}
+      <div className="h-[30px]"></div>
       {getProperGraphElement(visualisationData, backtrackCount)}
       <div>
         <button onClick={decrementCurrStepIdx}>{svgs.decrement}</button>

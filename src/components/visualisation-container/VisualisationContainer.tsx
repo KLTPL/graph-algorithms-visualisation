@@ -1,7 +1,11 @@
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
 import Matrix from "./graph-components/M/M";
 import Edge from "./graph-components/E/E";
-import { useUserInput, useVisualisationData } from "../../context/Context";
+import {
+  useUserInput,
+  useVisualisationData,
+  useVisualisationPointerTools,
+} from "../../context/Context";
 import { AnyVisualisationData } from "../../visualisationData/typesVisualisationData";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -91,7 +95,9 @@ export default function GraphContainer() {
     updateCurrStepIdx,
     isNodeDistsShow,
     toggleIsNodeDistsShow,
+    resetCurrStepIdx,
   } = useUserInput();
+  const { setPointerToolToDefault } = useVisualisationPointerTools();
   const [isSummaryDisplayed, setIsSummaryDisplayed] = useState<boolean>(false);
   const isBacktracking = useRef<boolean>(false);
   const [backtrackCount, setBacktrackCount] = useState<number>(0);
@@ -112,11 +118,12 @@ export default function GraphContainer() {
     }
   }
   async function playVisualisation() {
+    setPointerToolToDefault();
     const isAtEnd = currStepIdx === visualisationData.listOfSteps.length - 1;
     const currStepObj = { current: currStepIdx };
     if (isAtEnd) {
-      updateCurrStepIdx(0);
-      currStepObj.current = 0;
+      resetCurrStepIdx();
+      return;
     }
     setIsAnimationPlaying(true);
     const oneStepDurationMs =

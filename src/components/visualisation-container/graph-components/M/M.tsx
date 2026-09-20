@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { useVisualisationData } from "../../../../context/Context";
 import { VisualisationDataM } from "../../../../visualisationData/typesVisualisationData";
 import NodeMatrix from "../../element-components/nodeM/NodeM";

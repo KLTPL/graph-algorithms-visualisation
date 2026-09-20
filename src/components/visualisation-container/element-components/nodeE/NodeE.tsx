@@ -19,7 +19,7 @@ interface NodeEdgeProps {
   backtrackCount: number;
   node: NodeE;
   pos: NodePosition;
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   newEdgeNode1Ref: React.MutableRefObject<number | null>;
 }
 

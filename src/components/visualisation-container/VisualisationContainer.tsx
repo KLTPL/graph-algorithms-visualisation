@@ -7,7 +7,7 @@ import {
   useVisualisationPointerTools,
 } from "../../context/Context";
 import { AnyVisualisationData } from "../../visualisationData/typesVisualisationData";
-import { useEffect, useRef, useState } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
 import {
   backtrackIfShould,
   resetBacktracking,

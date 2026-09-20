@@ -1,6 +1,6 @@
 # Project Name
 
-For visualisation of how it all works see the theory.png file in images directory
+For visualization of how it all works see the theory.png file in images directory
 
 ## Technologies Used
 
@@ -29,8 +29,8 @@ When files in the public directory
   firebase deploy
 ```
 
-## Naming comvetion:
-Theres several graph types with shorter and longer names, so to keep them rather shorter each has a shortcut name:
+## Naming convetion:
+There are several graph types with shorter and longer names, so to keep them rather shorter each has a shortcut name:
  - M - matrix graph
  - D - directed graph
  - DW - directed weighted graph

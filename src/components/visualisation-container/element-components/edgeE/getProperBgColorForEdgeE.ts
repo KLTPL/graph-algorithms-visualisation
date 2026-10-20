@@ -1,10 +1,6 @@
 import { VisualisationDataDW } from "../../../../visualisationData/typesVisualisationData";
 import { EdgeData } from "../../graph-components/E/getEdges";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "tailwind-config";
 import { NodeE } from "../../../../visualisationData/typesGraphData";
-
-const twConfig = resolveConfig(tailwindConfig);
 
 export function getProperBgColorForEdgeE(
   edge: EdgeData,
@@ -19,12 +15,12 @@ export function getProperBgColorForEdgeE(
     backtrackCount
   );
   if (isOnBacktrack) {
-    return twConfig.theme.colors.nodeBacktrack;
+    return "var(--color-nodeBacktrack)";
   }
   if (isVisited) {
-    return twConfig.theme.colors.primary;
+    return "var(--color-primary)";
   }
-  return twConfig.theme.colors.black;
+  return "var(--color-black)";
 }
 
 function isEdgeVisited(

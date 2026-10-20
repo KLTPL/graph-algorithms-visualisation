@@ -1,9 +1,5 @@
 import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
 import { UserGraphTypes } from "../../visualisationData/typesGraphData";
-import tailwindConfig from "tailwind-config";
-import resolveConfig from "tailwindcss/resolveConfig";
-
-const twConfig = resolveConfig(tailwindConfig);
 
 interface SelectButtonProps {
   optionName: string;
@@ -24,8 +20,8 @@ export default function SelectButton({
       style={{
         borderColor:
           optionType === currOptionType
-            ? twConfig.theme.colors.primary
-            : twConfig.theme.colors.nodeBorder,
+            ? "var(--color-primary)"
+            : "var(--color-nodeBorder)",
       }}
       onClick={() => {
         switchFun(optionType);

@@ -9,10 +9,6 @@ import { NodeTypesM } from "../../../../visualisationData/typesGraphData";
 import { VisualisationDataM } from "../../../../visualisationData/typesVisualisationData";
 import { VisualisationPointerTools } from "../../../visualisation-tools/VisualisationTools";
 import { getClassNamesForNodeM } from "./getClassNamesForNodeM";
-import tailwindConfig from "tailwind-config";
-import resolveConfig from "tailwindcss/resolveConfig";
-
-const twConfig = resolveConfig(tailwindConfig);
 
 type NodeMatrixProps = {
   backtrackCount: number;
@@ -75,8 +71,8 @@ function NodeMatrix({ backtrackCount, r, c }: NodeMatrixProps) {
             style={{
               color:
                 visualisationData.graph[r][c] === NodeTypesM.rock
-                  ? twConfig.theme.colors.white
-                  : twConfig.theme.colors.black,
+                  ? "var(--color-white)"
+                  : "var(--color-black)",
             }}
             className="text-[9px] min-[300px]:text-[12px] md:text-[1rem]"
           >

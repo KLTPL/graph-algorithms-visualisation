@@ -1,18 +1,14 @@
 import { VisualisationPointerTools as Tools } from "./VisualisationTools";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "tailwind-config";
 import { nodeSizePx } from "../visualisation-container/element-components/nodeE/NodeE";
 import ToolRadioInput from "./ToolRadioInput";
 import { EDGE_HEIGHT_PX } from "../visualisation-container/element-components/edgeE/EdgeE";
-
-const twConfig = resolveConfig(tailwindConfig);
 
 const CONTENT_NEW_NODE = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="26"
     height="26"
-    fill={twConfig.theme.colors.black}
+    style={{ fill: "var(--color-black)" }}
     viewBox="0 0 16 16"
   >
     <path

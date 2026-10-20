@@ -18,10 +18,6 @@ import {
 } from "./graph-components/displaySummaryLogic";
 import Summary from "./Summary";
 import { SearchAlgorithmsTypes } from "../../visualisationData/typesAlgorithmData";
-import tailwindConfig from "tailwind-config";
-import resolveConfig from "tailwindcss/resolveConfig";
-
-const twConfig = resolveConfig(tailwindConfig);
 
 const svgs = {
   decrement: (
@@ -200,8 +196,8 @@ export default function GraphContainer() {
             className="cursor-pointer ps-3 pe-3 pt-1 pb-1 bg-nodeBorder rounded-lg text-white font-semibold border-2"
             style={{
               borderColor: isNodeDistsShow
-                ? twConfig.theme.colors.primary
-                : twConfig.theme.colors.nodeBorder,
+                ? "var(--color-primary)"
+                : "var(--color-nodeBorder)",
             }}
           >
             show distances
